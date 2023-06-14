@@ -1,0 +1,164 @@
+.header {
+  background: #272727;
+  width: 94%;
+  height: 70px;
+
+  padding: 0 3%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header * {
+  transition: all 200ms;
+  -moz-transition: all 200ms;
+  -webkit-transition: all 200ms;
+}
+
+.menuBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+
+  cursor: pointer;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuBtn:hover {
+  background: #505050;
+}
+
+.menuBtnLine {
+  width: 20px;
+  height: 2px;
+  background: #fff;
+  border-radius: 50%;
+
+  margin: 3px;
+
+  display: block;
+}
+
+.logo {
+  width: 240px;
+  height: 50px;
+  background: #8C52FF;
+}
+
+.headerLabel {
+  color: #fff;
+}
+
+.catalogueBtn {
+  width: 100px;
+  height: 40px;
+  background: #4c4c4c;
+  border-radius: 10px;
+
+  padding: 5px 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+
+  cursor: pointer;
+}
+
+.catalogueBtn:hover {
+  background: #707070;
+}
+
+.searchBar {
+  width: 500px;
+  height: 30px;
+  border: 0;
+  padding-left: 5px;
+  border: 0;
+
+  outline: 0;
+  outline-offset: 0;
+}
+
+.searchBarContainer {
+  background: #fff;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+
+  padding: 5px 10px;
+
+  display: flex;
+  align-items: center;
+}
+
+.searchBtn {
+  height: 45px;
+  border: 0;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background: #FF66C4;
+  color: #fff;
+  font-size: 15px;
+
+  padding: 5px 10px;
+}
+
+.searchBtn:hover {
+  background: #ff7ccd;
+}
+
+.searchForm {
+  display: flex;
+}
+
+.microphoneIcon { 
+  color: #4c4c4c;
+
+  cursor: pointer;
+}
+
+.microphoneIcon:hover { 
+  color: #8C52FF;
+}
+
+.activeMicrophoneIcon {
+  width: 23px;
+  height: 23px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background: #8C52FF;
+  border-radius: 30%;
+
+  display: block;
+}
+
+.dot1 {
+  animation: speech 0.5s 1.3s infinite alternate;
+}
+.dot2 {
+  animation: speech 0.5s infinite alternate;
+}
+.dot3 {
+  animation: speech 0.5s 0.3s infinite alternate;
+}
+
+@keyframes speech {
+  0% {
+    height: 4px;
+  }
+  100% {
+    height: 10px;
+  }
+}
