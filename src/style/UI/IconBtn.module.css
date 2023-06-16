@@ -1,0 +1,19 @@
+.iconBtn  {
+  width: max-content;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 5px;
+
+  padding: 2px;
+
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconBtn:hover {
+  background: #505050;
+}

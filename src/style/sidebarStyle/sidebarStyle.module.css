@@ -33,3 +33,7 @@
 .sidebarWrapper.activeMenu .sidebar {
   transform: translateX(0%);
 }
+
+.header {
+  background: #2c2c2c;
+}

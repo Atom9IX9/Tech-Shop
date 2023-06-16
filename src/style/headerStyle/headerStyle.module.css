@@ -24,23 +24,6 @@
   -webkit-transition: all 200ms;
 }
 
-.headerBtn {
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-
-  cursor: pointer;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.headerBtn:hover {
-  background: #505050;
-}
-
 .menuBtnLine {
   width: 20px;
   height: 2px;

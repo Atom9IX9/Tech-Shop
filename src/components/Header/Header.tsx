@@ -6,6 +6,7 @@ import MenuBtn from "./MenuBtn";
 import SearchBar from "./SearchBar";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
+import IconBtn from "../UI/IconBtn";
 
 const Header = () => {
   return (
@@ -16,12 +17,14 @@ const Header = () => {
         <CatalogBtn />
         <SearchBar />
         <Languages />
-        <div className={ cn(style.headerBtn, style.loginBtn)}>
-          <AiOutlineUser size={30} color="#fff" />
+        <div className={style.loginBtn}>
+          <IconBtn>
+            <AiOutlineUser size={30} color="#fff" />
+          </IconBtn>
         </div>
-        <div className={style.headerBtn}>
+        <IconBtn>
           <BsCart4 size={30} color="#fff" />
-        </div>
+        </IconBtn>
       </div>
     </header>
   );

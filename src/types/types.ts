@@ -1,0 +1,1 @@
+export type TChildren = string | JSX.Element 
