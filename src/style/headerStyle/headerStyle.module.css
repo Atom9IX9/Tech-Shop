@@ -1,5 +1,5 @@
 .header {
-  background: #272727;
+  background: var(--dark-bg-color);
   width: 100%;
 
   display: flex;
@@ -48,7 +48,7 @@
 .catalogueBtn {
   width: 100px;
   height: 40px;
-  background: #4c4c4c;
+  background: var(--dark-active-bg-color);
   border-radius: 10px;
 
   padding: 5px 17px;
@@ -93,7 +93,7 @@
   border: 0;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  background: #ff66c4;
+  background: var(--pink-bg-color);
   color: #fff;
   font-size: 15px;
 
@@ -101,7 +101,7 @@
 }
 
 .searchBtn:hover {
-  background: #ff7ccd;
+  background: var(--pink-active-bg-color);
 }
 
 .searchForm {
@@ -110,13 +110,13 @@
 }
 
 .microphoneIcon {
-  color: #4c4c4c;
+  color: var(--dark-active-bg-color);
 
   cursor: pointer;
 }
 
 .microphoneIcon:hover {
-  color: #8c52ff;
+  color: var(--violet-bg-color);
 }
 
 .activeMicrophoneIcon {
@@ -131,7 +131,7 @@
 .dot {
   width: 4px;
   height: 4px;
-  background: #8c52ff;
+  background: var(--violet-bg-color);
   border-radius: 30%;
 
   display: block;
@@ -158,8 +158,7 @@
 
 .lngSelect {
   list-style: none;
-
-  padding: 0;
+  padding: 0 20px 0 13px;
 }
 
 .lngSelect li {
@@ -177,7 +176,7 @@
 }
 
 .lngSelect .selected .lngName {
-  color: #8c52ff;
+  color: var(--violet-bg-color);
 }
 
 .lngIcon {
