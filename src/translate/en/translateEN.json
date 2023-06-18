@@ -7,6 +7,10 @@
   "sidebar": {
     "Sign in": "Sign in",
     "Sign up": "Sign up",
-    "auth text": "Sign in to get more features"
+    "auth text": "Sign in to get more features",
+    "Product catalogue": "Product catalogue",
+    "Help center": "Help center",
+    "Telegram": "Chat with Tech Shop",
+    "Basket": "Basket"
   }
 }

@@ -101,3 +101,13 @@
 .signUp {
   padding-left: 15px;
 }
+
+.sidebarMain {
+  background: #fff;
+
+  padding: 5px;
+}
+
+.btns {
+  padding: 2px 5px;
+}

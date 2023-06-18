@@ -1,4 +1,6 @@
 .header {
+  position: fixed;
+
   background: var(--dark-bg-color);
   width: 100%;
 
@@ -36,7 +38,6 @@
 }
 
 .logo {
-  width: 40px;
   height: 40px;
   background: #8c52ff;
 }
@@ -213,7 +214,13 @@
     padding: 0 9%;
     gap: 10px;
   }
+  .searchBarContainer {
+    border-radius: 5px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
   .logo {
-    width: 40px;
+    display: none;
   }
 }

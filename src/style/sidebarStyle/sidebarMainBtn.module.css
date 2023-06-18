@@ -1,0 +1,28 @@
+.btn {
+  width: 100%;
+  height: 50px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  padding: 10px;
+
+  cursor: pointer;
+
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+}
+
+.btn:hover {
+  background: #ffd3fd
+}
+
+.title {
+  font-size: 16px;
+  height: 25px;
+}

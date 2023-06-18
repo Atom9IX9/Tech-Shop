@@ -1,0 +1,16 @@
+.app {
+  position: relative;
+}
+
+.app.activeMenu {
+  position: fixed;
+  
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+hr {
+  margin: 2px;
+  opacity: 0.5;
+}
