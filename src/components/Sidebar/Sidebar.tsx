@@ -9,7 +9,9 @@ const Sidebar = () => {
   const isActiveMenu = useSelector(getActiveMenu);
 
   return (
-    <div className={cn(style.sidebarWrapper, {[style.activeMenu]: isActiveMenu})}>
+    <div
+      className={cn(style.sidebarWrapper, { [style.activeMenu]: isActiveMenu })}
+    >
       <div className={style.sidebarBlur}></div>
       <aside className={style.sidebar}>
         <div className={style.sidebarContent}>

@@ -8,7 +8,8 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./reducers/store";
 // ? localization
-import initLocalization from "./translate/localization";
+import "./i18n"
+import Preloader from "./components/UI/Preloader";
 
 // ? react init
 const root = ReactDOM.createRoot(
@@ -17,12 +18,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <React.Suspense fallback={<Preloader />}>
+        <App />
+      </React.Suspense>
     </Provider>
   </React.StrictMode>
 );
 
 reportWebVitals();
-
-// ? localization init
-initLocalization();
