@@ -113,3 +113,52 @@
 .btns {
   padding: 2px 5px;
 }
+
+.lngBtn {
+  width: 70px;
+  border-radius: 3px;
+  border: 2px solid #bbbbbb;
+  background: #2c2c2c1e;
+
+  padding: 0 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  cursor: pointer;
+}
+
+.lngSelect {
+  width: 230px;
+  list-style: none;
+
+  padding: 0;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.languages {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.location {
+  padding: 5px;
+}
+
+.lngBtn:hover {
+  border-color: var(--violet-bg-color);
+}
+
+.lngBtn.selected {
+  border-color: var(--violet-bg-color);
+  background: #ffcbf9;
+}
+
+.lngSectionTitle {
+  color: var(--dark-active-bg-color);
+  font-size: 14px;
+}

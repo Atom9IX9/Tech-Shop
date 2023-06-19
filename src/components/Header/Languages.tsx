@@ -5,16 +5,16 @@ import Flag from "react-world-flags";
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
 import IconBtn from "../UI/IconBtn";
+import { TLng } from "../../types/types";
 
 const Languages = () => {
   const [isActive, setIsActive] = useState(false);
   const { i18n } = useTranslation();
-  const [selectedLng, setSelectedLng] = useState<lng>(i18n.language as lng);
+  const selectedLng = i18n.language.slice(0, 2) as TLng; // slice delete dialect prefixes (-US, -BR, etc.)
 
-  const changeLng = (lng: lng) => {
+  const changeLng = (lng: TLng) => {
     i18n.changeLanguage(lng);
     setIsActive(false);
-    setSelectedLng(lng);
   };
 
   return (
@@ -25,18 +25,17 @@ const Languages = () => {
             <div style={{display: "flex", alignItems: "center"}}>
               <MdLanguage size={30} color="#fff" />
               <span className={style.lngName}>
-                {selectedLng.slice(0, 2)}
+                {selectedLng}
               </span>
-              {/* slice(0, 2) ("en-US" ==> "en") */}
             </div>
           </IconBtn>
         </div>
       ) : (
         <ul className={style.lngSelect}>
           <li
-            onClick={() => changeLng("en-US")}
+            onClick={() => changeLng("en")}
             className={cn({
-              [style.selected]: selectedLng === "en-US",
+              [style.selected]: selectedLng === "en",
             })}
           >
             <Flag code="gb" size={18} />
@@ -67,4 +66,3 @@ const Languages = () => {
 };
 
 export default Languages;
-export type lng = "ua" | "ru" | "en-US";
