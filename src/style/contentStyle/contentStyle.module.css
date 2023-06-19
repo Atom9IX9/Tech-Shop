@@ -1,0 +1,9 @@
+.contentWrapper {
+  height: 1000px;
+}
+
+.contentWrapper.activeMenu {
+  position: fixed;
+
+  overflow: hidden;
+}

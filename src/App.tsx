@@ -1,17 +1,14 @@
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
+import Content from "./components/Content/Content";
 import "./style/app.css";
-import { useSelector } from "react-redux";
-import { getActiveMenu } from "./selectors/appGlobalSelectors";
-import cn from "classnames";
 
 const App = () => {
-  const isActiveMenu = useSelector(getActiveMenu);
-
   return (
-    <div className={cn("app", { activeMenu: isActiveMenu })}>
+    <div className="app">
       <Header />
       <Sidebar />
+      <Content />
     </div>
   );
 };

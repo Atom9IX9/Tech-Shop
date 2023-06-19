@@ -9,9 +9,11 @@ const options = {
     order: ["cookie", "localStorage", "sessionStorage", "navigator"],
     caches: ["localStorage", "cookie"],
   },
-  react: {
-    useSuspense: true
+  interpolation: {
+    escapeValue: false,
   },
 };
 
 i18n.use(initReactI18next).use(LanguageDetector).use(HttpBackend).init(options);
+
+export default i18n
