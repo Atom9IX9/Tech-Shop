@@ -1,4 +1,4 @@
-.app {
+.layout {
   position: relative;
   width: 100%;
   height: 100%;
@@ -7,4 +7,8 @@
 hr {
   margin: 2px;
   opacity: 0.5;
+}
+
+a {
+  text-decoration: none;
 }

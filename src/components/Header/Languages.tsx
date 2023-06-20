@@ -10,7 +10,7 @@ import { TLng } from "../../types/types";
 const Languages = () => {
   const [isActive, setIsActive] = useState(false);
   const { i18n } = useTranslation();
-  const selectedLng = i18n.language.slice(0, 2) as TLng; // slice delete dialect prefixes (-US, -BR, etc.)
+  const selectedLng = i18n.language as TLng; 
 
   const changeLng = (lng: TLng) => {
     i18n.changeLanguage(lng);

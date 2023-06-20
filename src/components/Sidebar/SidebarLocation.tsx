@@ -6,7 +6,7 @@ import Flag from "react-world-flags";
 
 const SidebarLocation = () => {
   const { t, i18n } = useTranslation("sidebar");
-  const selectedLng = i18n.language.slice(0, 2);
+  const selectedLng = i18n.language;
 
   const changeLng = (lng: TLng) => {
     i18n.changeLanguage(lng);

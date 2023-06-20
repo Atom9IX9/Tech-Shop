@@ -6,10 +6,11 @@ import { useDispatch } from "react-redux";
 import { setActiveMenu } from "../../reducers/appReducer";
 import { AiOutlineUser } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
 
 const SidebarHeader = () => {
   const dispatch = useDispatch();
-  const { t } = useTranslation("sidebar")
+  const { t } = useTranslation("sidebar");
 
   const closeMenu: MouseEventHandler = (e) => {
     dispatch(setActiveMenu(false));
@@ -18,7 +19,9 @@ const SidebarHeader = () => {
   return (
     <header className={style.header}>
       <div className={style.close}>
-        <div className={style.logo}></div>
+        <NavLink to="/">
+          <div className={style.logo}></div>
+        </NavLink>
         <IconBtn onClick={closeMenu}>
           <AiOutlineClose color="#fff" size={15} />
         </IconBtn>
@@ -29,10 +32,14 @@ const SidebarHeader = () => {
         </div>
         <div className={style.authContent}>
           <div className={style.login}>
-            <span className={style.signIn}>{ t("signIn") }</span>
-            <span className={style.signUp}>{ t("signUp") }</span>
+            <NavLink to="sign-in" onClick={closeMenu}>
+              <span className={style.signIn}>{t("signIn")}</span>
+            </NavLink>
+            <NavLink to="sign-up" onClick={closeMenu}>
+              <span className={style.signUp}>{t("signUp")}</span>
+            </NavLink>
           </div>
-          <p className={style.authText}>{ t("authText") }</p>
+          <p className={style.authText}>{t("authText")}</p>
         </div>
       </div>
     </header>

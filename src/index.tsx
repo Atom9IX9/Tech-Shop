@@ -8,8 +8,9 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./reducers/store";
 // ? localization
-import "./i18n"
+import "./i18n";
 import Preloader from "./components/UI/Preloader";
+import { BrowserRouter } from "react-router-dom";
 
 // ? react init
 const root = ReactDOM.createRoot(
@@ -18,9 +19,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <React.Suspense fallback={<Preloader />}>
-        <App />
-      </React.Suspense>
+      <BrowserRouter>
+        <React.Suspense fallback={<Preloader />}>
+          <App />
+        </React.Suspense>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

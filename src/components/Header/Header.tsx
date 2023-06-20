@@ -1,4 +1,3 @@
-import cn from "classnames";
 import style from "../../style/headerStyle/headerStyle.module.css";
 import CatalogBtn from "./CatalogBtn";
 import Languages from "./Languages";
@@ -7,13 +6,16 @@ import SearchBar from "./SearchBar";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import IconBtn from "../UI/IconBtn";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
     <header className={style.header}>
       <div className={style.layout}>
         <MenuBtn />
-        <div className={style.logo}></div>
+        <NavLink to="/">
+          <div className={style.logo}></div>
+        </NavLink>
         <CatalogBtn />
         <SearchBar />
         <Languages />
