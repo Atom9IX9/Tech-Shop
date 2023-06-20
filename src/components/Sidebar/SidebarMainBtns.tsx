@@ -10,27 +10,27 @@ import style from "../../style/sidebarStyle/sidebarStyle.module.css";
 
 
 const SidebarMainBtns = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("sidebar");
 
   return (
     <div className={style.btns}>
       <SbBtn
         icon={<TbCategory2 color="var(--dark-bg-color)" size={27} />}
-        title={t("sidebar.Product catalogue")}
+        title={t("productCatalogue")}
       />
       <hr />
       <SbBtn 
         icon={<BsQuestionCircle color="var(--dark-bg-color)" size={27} />}
-        title={t("sidebar.Help center")}
+        title={t("helpCenter")}
       />
       <SbBtn 
         icon={<FaTelegramPlane color="var(--dark-bg-color)" size={27} />}
-        title={t("sidebar.Telegram")}
+        title={t("telegram")}
       />
       <hr />
       <SbBtn 
         icon={<BsCart4 color="var(--dark-bg-color)" size={27} />}
-        title={t("sidebar.Basket")}
+        title={t("basket")}
       />
     </div>
   );

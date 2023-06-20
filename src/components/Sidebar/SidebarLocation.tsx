@@ -5,7 +5,7 @@ import cn from "classnames";
 import Flag from "react-world-flags";
 
 const SidebarLocation = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation("sidebar");
   const selectedLng = i18n.language.slice(0, 2);
 
   const changeLng = (lng: TLng) => {
@@ -15,7 +15,7 @@ const SidebarLocation = () => {
   return (
     <div className={style.location}>
       <div className={style.languages}>
-        <span className={style.lngSectionTitle}>{ t("sidebar.Language") }:</span>
+        <span className={style.lngSectionTitle}>{ t("language") }:</span>
         <ul className={style.lngSelect}>
           <li
             onClick={() => changeLng("en")}

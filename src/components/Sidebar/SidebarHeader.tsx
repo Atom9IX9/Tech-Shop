@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 const SidebarHeader = () => {
   const dispatch = useDispatch();
-  const { t } = useTranslation()
+  const { t } = useTranslation("sidebar")
 
   const closeMenu: MouseEventHandler = (e) => {
     dispatch(setActiveMenu(false));
@@ -29,10 +29,10 @@ const SidebarHeader = () => {
         </div>
         <div className={style.authContent}>
           <div className={style.login}>
-            <span className={style.signIn}>{ t("sidebar.Sign in") }</span>
-            <span className={style.signUp}>{ t("sidebar.Sign up") }</span>
+            <span className={style.signIn}>{ t("signIn") }</span>
+            <span className={style.signUp}>{ t("signUp") }</span>
           </div>
-          <p className={style.authText}>{ t("sidebar.auth text") }</p>
+          <p className={style.authText}>{ t("authText") }</p>
         </div>
       </div>
     </header>

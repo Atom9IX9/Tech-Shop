@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 
 const SearchBar = () => {
   const [value, setValue] = useState("");
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation("header");
 
   const { transcript, listening, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
@@ -30,7 +30,7 @@ const SearchBar = () => {
         <AiOutlineSearch size={23} color="#4c4c4c" />
         <input
           className={style.searchBar}
-          placeholder={t("header.I want to find...") as string}
+          placeholder={t("searchPlaceholder") as string}
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
@@ -56,7 +56,7 @@ const SearchBar = () => {
           ))}
       </div>
       <button type="submit" className={style.searchBtn}>
-        {t("header.search")}
+        {t("search")}
       </button>
     </form>
   );
