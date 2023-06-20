@@ -1,6 +1,6 @@
 import style from "../../style/headerStyle/headerStyle.module.css";
 import { useDispatch } from "react-redux";
-import { actions } from "../../reducers/appReducer";
+import { setActiveMenu } from "../../reducers/appReducer";
 import { MouseEventHandler } from "react";
 import IconBtn from "../UI/IconBtn";
 
@@ -8,7 +8,7 @@ const MenuBtn = () => {
   const dispatch = useDispatch();
 
   const openMenu: MouseEventHandler = (e) => {
-    dispatch(actions.setActiveMenu(true));
+    dispatch(setActiveMenu(true));
   };
 
   return (

@@ -1,25 +1,19 @@
-import { InferActionTypes } from "./store"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
-  isActiveMenu: false
-} 
+  isActiveMenu: false,
+};
 
-const appReducer = (state: TInitialState = initialState, action: TActions): TInitialState => {
-  switch (action.type) {
-    case "appReducer/setActiveMenu":
-      return { ...state, isActiveMenu: action.active }
-    default:
-      return state
-  }
-}
+const appSlice = createSlice({
+  name: "app",
+  initialState,
+  reducers: {
+    setActiveMenu: (state, action: PayloadAction<boolean>) => {
+      state.isActiveMenu = action.payload;
+    },
+  },
+});
 
-export const actions = {
-  setActiveMenu: (active: boolean) => ({
-    type: "appReducer/setActiveMenu",
-    active
-  }) as const,
-}
-
-export default appReducer
-type TInitialState = typeof initialState
-type TActions = InferActionTypes<typeof actions>
+export default appSlice.reducer;
+export const { setActiveMenu } = appSlice.actions;
+export type TInitialState = typeof initialState;

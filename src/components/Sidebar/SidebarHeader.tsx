@@ -3,7 +3,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import IconBtn from "../UI/IconBtn";
 import { MouseEventHandler } from "react";
 import { useDispatch } from "react-redux";
-import { actions } from "../../reducers/appReducer";
+import { setActiveMenu } from "../../reducers/appReducer";
 import { AiOutlineUser } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
 
@@ -12,7 +12,7 @@ const SidebarHeader = () => {
   const { t } = useTranslation()
 
   const closeMenu: MouseEventHandler = (e) => {
-    dispatch(actions.setActiveMenu(false));
+    dispatch(setActiveMenu(false));
   };
 
   return (
