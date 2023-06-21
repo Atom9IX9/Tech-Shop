@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 
 const SidebarHeader = () => {
   const dispatch = useDispatch();
-  const { t } = useTranslation("sidebar");
+  const { t } = useTranslation(["common", "sidebar"]);
 
   const closeMenu: MouseEventHandler = (e) => {
     dispatch(setActiveMenu(false));
@@ -33,13 +33,13 @@ const SidebarHeader = () => {
         <div className={style.authContent}>
           <div className={style.login}>
             <NavLink to="sign-in" onClick={closeMenu}>
-              <span className={style.signIn}>{t("signIn")}</span>
+              <span className={style.signIn}>{t("common:signIn")}</span>
             </NavLink>
             <NavLink to="sign-up" onClick={closeMenu}>
-              <span className={style.signUp}>{t("signUp")}</span>
+              <span className={style.signUp}>{t("common:signUp")}</span>
             </NavLink>
           </div>
-          <p className={style.authText}>{t("authText")}</p>
+          <p className={style.authText}>{t("sidebar:authText")}</p>
         </div>
       </div>
     </header>
