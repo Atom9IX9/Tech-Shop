@@ -1,18 +1,22 @@
-import { FC } from "react";
 import style from "../../style/UI/signUpInp.module.css";
-import { UseFormRegister } from "react-hook-form/dist/types";
+import {
+  FieldErrors,
+  FieldValues,
+  Path,
+  UseFormRegister,
+} from "react-hook-form/dist/types";
 import { TValidationFn } from "../../utils/validation/login";
 import { useTranslation } from "react-i18next";
 
-const Input: FC<TProps> = ({
+function Input<F extends FieldValues>({
   type,
   name,
   register,
   required = false,
   validate,
   errors,
-}) => {
-  const { t } = useTranslation("auth");  
+}: TProps<F>) {
+  const { t } = useTranslation("auth");
 
   return (
     <div>
@@ -24,19 +28,21 @@ const Input: FC<TProps> = ({
           className={style.signUpInp}
         />
         <span>
-          {validate && <div>{errors[name] && t(errors[name].message)}</div>}
+          {validate && errors && errors[name] && (
+            <div>{t(errors[name]?.message as string)}</div>
+          )}
         </span>
       </label>
     </div>
   );
-};
+}
 
 export default Input;
-type TProps = {
+type TProps<T extends FieldValues> = {
   type?: "text" | "password" | "number";
-  name: "email" | "password" | "name" | "surname" | "number";
-  register: UseFormRegister<any>;
+  name: Path<T>;
+  register: UseFormRegister<T>;
   required?: boolean;
   validate?: { [key: string]: TValidationFn };
-  errors?: any;
+  errors?: FieldErrors<T>;
 };

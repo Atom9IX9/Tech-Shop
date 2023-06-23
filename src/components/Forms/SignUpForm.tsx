@@ -1,11 +1,15 @@
 import Input from "../UI/Input";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+} from "firebase/auth";
 import { isValidEmail } from "../../utils/validation/login";
 import { useTranslation } from "react-i18next";
 
 const SignUpForm = () => {
-  const { t } = useTranslation("common")
+  const { t } = useTranslation("common");
   const {
     register,
     handleSubmit,
@@ -13,11 +17,11 @@ const SignUpForm = () => {
     formState: { errors },
   } = useForm<TFormValues>();
 
-  const signUp: SubmitHandler<TFormValues> = ({ email, password }) => {
+  const signUp: SubmitHandler<TFormValues> = ({ email, password, name }) => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
-        console.log(user);
+        updateProfile(user, { displayName: name })
       })
       .catch((err) => {
         setError("email", { message: err.code });
@@ -26,9 +30,14 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit(signUp)}>
-      <Input name="name" register={register} required />
-      <Input name="surname" register={register} required />
-      <Input name="number" register={register} required type="number" />
+      <Input<TFormValues> name="name" register={register} required />
+      <Input<TFormValues> name="surname" register={register} required />
+      <Input<TFormValues>
+        name="number"
+        register={register}
+        required
+        type="number"
+      />
       <Input
         name="email"
         register={register}
@@ -50,4 +59,6 @@ type TFormValues = {
   email: string;
   password: string;
   name: string;
+  surname: string;
+  number: string;
 };
