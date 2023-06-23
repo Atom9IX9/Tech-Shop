@@ -1,13 +1,15 @@
 import {
   getAuth,
   signInWithEmailAndPassword,
-  updateProfile,
 } from "firebase/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Input from "../UI/Input";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../reducers/userReducer";
 
 const SignInForm = () => {
+  const dispatch = useDispatch()
   const { t } = useTranslation("common");
   const {
     register,
@@ -20,10 +22,18 @@ const SignInForm = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
-        console.log(user.displayName);
+        dispatch(setUser({
+          displayName: user.displayName,
+          email,
+          isAuth: true,
+          phoneNumber: user.phoneNumber,
+          uid: user.uid
+        }))
+        console.log(user);
+        
       })
       .catch((err) => {
-        setError("root", { message: err.code });
+        setError("root", { message: err.code });        
       });
   };
 
