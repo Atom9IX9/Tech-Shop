@@ -12,7 +12,7 @@ import "./i18n";
 import Preloader from "./components/UI/Preloader";
 import { BrowserRouter } from "react-router-dom";
 
-import "./firebase"
+import "./firebase";
 
 // ? react init
 const root = ReactDOM.createRoot(

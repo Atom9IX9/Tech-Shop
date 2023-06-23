@@ -7,8 +7,13 @@ import {
 } from "firebase/auth";
 import { isValidEmail } from "../../utils/validation/login";
 import { useTranslation } from "react-i18next";
+import { setUser } from "../../reducers/userReducer";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom"
 
 const SignUpForm = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { t } = useTranslation("common");
   const {
     register,
@@ -17,11 +22,26 @@ const SignUpForm = () => {
     formState: { errors },
   } = useForm<TFormValues>();
 
-  const signUp: SubmitHandler<TFormValues> = ({ email, password, name }) => {
+  const signUp: SubmitHandler<TFormValues> = ({
+    email,
+    password,
+    name,
+    surname,
+    number,
+  }) => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
-        updateProfile(user, { displayName: name })
+        updateProfile(user, { displayName: `${name} ${surname}` }).then(() => {
+          dispatch(setUser({
+            displayName: `${name} ${surname}`,
+            email,
+            isAuth: true,
+            phoneNumber: number,
+            uid: user.uid,
+          }));
+          navigate("/")
+        });
       })
       .catch((err) => {
         setError("email", { message: err.code });
@@ -38,7 +58,7 @@ const SignUpForm = () => {
         required
         type="number"
       />
-      <Input
+      <Input<TFormValues>
         name="email"
         register={register}
         type="text"
@@ -48,7 +68,12 @@ const SignUpForm = () => {
         }}
         errors={errors}
       />
-      <Input name="password" register={register} type="password" required />
+      <Input<TFormValues>
+        name="password"
+        register={register}
+        type="password"
+        required
+      />
       <button type="submit">{t("signUp")}</button>
     </form>
   );

@@ -7,9 +7,11 @@ import Input from "../UI/Input";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../reducers/userReducer";
+import { useNavigate } from "react-router-dom";
 
 const SignInForm = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { t } = useTranslation("common");
   const {
     register,
@@ -29,8 +31,7 @@ const SignInForm = () => {
           phoneNumber: user.phoneNumber,
           uid: user.uid
         }))
-        console.log(user);
-        
+        navigate("/")
       })
       .catch((err) => {
         setError("root", { message: err.code });        

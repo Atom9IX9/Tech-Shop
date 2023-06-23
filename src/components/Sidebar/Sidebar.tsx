@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import style from "../../style/sidebarStyle/sidebarStyle.module.css";
-import { getActiveMenu } from "../../selectors/appGlobalSelectors";
+import { getActiveMenu } from "../../utils/selectors/appGlobalSelectors";
 import cn from "classnames";
 import SidebarHeader from "./SidebarHeader";
 import SidebarMain from "./SidebarMain";

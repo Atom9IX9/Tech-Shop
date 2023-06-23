@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import style from "../../style/contentStyle/contentStyle.module.css";
-import { getActiveMenu } from "../../selectors/appGlobalSelectors";
+import { getActiveMenu } from "../../utils/selectors/appGlobalSelectors";
 import cn from "classnames";
 import { FC } from "react";
 import { TChildren } from "../../types/types";
