@@ -1,0 +1,50 @@
+.inputWrapper {
+  margin-top: 20px;
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 5px;
+  outline: none;
+  background: 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.message {
+  font-size: 13px;
+}
+.inputErr .message {
+  color: red;
+}
+
+.inputBody {
+  width: 40%;
+  height: 35px;
+  border: 1px solid #cacaca;
+  border-radius: 5px;
+
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  -ms-transition: all 200ms;
+  -o-transition: all 200ms;
+}
+
+.inputBody:hover {
+  border-color: #999999;
+}
+
+.inputErr .inputBody {
+  border-color: red;
+}
+
+@media screen and (max-width: 768px) {
+  .inputBody {
+    width: 100%;
+  }
+}

@@ -1,4 +1,4 @@
-import style from "../../style/UI/signUpInp.module.css";
+import style from "../../style/UI/Input.module.css";
 import {
   FieldErrors,
   FieldValues,
@@ -7,6 +7,7 @@ import {
 } from "react-hook-form/dist/types";
 import { TValidationFn } from "../../utils/validation/login";
 import { useTranslation } from "react-i18next";
+import cn from "classnames";
 
 function Input<F extends FieldValues>({
   type,
@@ -15,23 +16,34 @@ function Input<F extends FieldValues>({
   required = false,
   validate,
   errors,
+  touched = false,
 }: TProps<F>) {
   const { t } = useTranslation("auth");
 
   return (
-    <div>
-      <label>
-        <span>{t(`fields/${name}`)}</span>
-        <input
-          type={type}
-          {...register(name, { required, validate })}
-          className={style.signUpInp}
-        />
-        <span>
-          {validate && errors && errors[name] && (
-            <div>{t(errors[name]?.message as string)}</div>
-          )}
-        </span>
+    <div
+      className={cn(style.inputWrapper, {
+        [style.inputErr]: errors && errors[name],
+      })}
+    >
+      <label className={style.fieldLabel}>
+        <div>{t(`fields/${name}`)}</div>
+        <div className={style.inputBody}>
+          <input
+            type={type}
+            {...register(name, { required, validate })}
+            className={style.input}
+          />
+        </div>
+        <div className={style.message}>
+          {validate &&
+            errors &&
+            errors[name] &&
+            t(errors[name]?.message as string)}
+          {((touched && required && !errors[name]?.message) ||
+            errors[name]?.type === "required") &&
+            t(`touched/${name}`)}
+        </div>
       </label>
     </div>
   );
@@ -44,5 +56,6 @@ type TProps<T extends FieldValues> = {
   register: UseFormRegister<T>;
   required?: boolean;
   validate?: { [key: string]: TValidationFn };
-  errors?: FieldErrors<T>;
+  errors: FieldErrors<T>;
+  touched?: boolean;
 };

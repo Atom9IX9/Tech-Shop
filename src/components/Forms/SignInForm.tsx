@@ -17,7 +17,7 @@ const SignInForm = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
+    formState: { errors, touchedFields },
   } = useForm<TFormValues>();
 
   const signIn: SubmitHandler<TFormValues> = ({ email, password }) => {
@@ -45,12 +45,15 @@ const SignInForm = () => {
         register={register}
         required
         errors={errors}
+        touched={touchedFields.email}
       />
       <Input<TFormValues>
         name="password"
         register={register}
         required
         errors={errors}
+        type="password"
+        touched={touchedFields.password}
       />
       <button type="submit">{t("signIn")}</button>
     </form>

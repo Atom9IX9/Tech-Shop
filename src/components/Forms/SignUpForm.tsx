@@ -9,38 +9,41 @@ import { isValidEmail } from "../../utils/validation/login";
 import { useTranslation } from "react-i18next";
 import { setUser } from "../../reducers/userReducer";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { t } = useTranslation("common");
   const {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
+    formState: { errors, touchedFields },
+    reset
   } = useForm<TFormValues>();
 
   const signUp: SubmitHandler<TFormValues> = ({
     email,
-    password,
+    passwordReg,
     name,
     surname,
     number,
   }) => {
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, passwordReg)
       .then(({ user }) => {
         updateProfile(user, { displayName: `${name} ${surname}` }).then(() => {
-          dispatch(setUser({
-            displayName: `${name} ${surname}`,
-            email,
-            isAuth: true,
-            phoneNumber: number,
-            uid: user.uid,
-          }));
-          navigate("/")
+          dispatch(
+            setUser({
+              displayName: `${name} ${surname}`,
+              email,
+              isAuth: true,
+              phoneNumber: number,
+              uid: user.uid,
+            })
+          );
+          navigate("/");
         });
       })
       .catch((err) => {
@@ -50,15 +53,30 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit(signUp)}>
-      <Input<TFormValues> name="name" register={register} required />
-      <Input<TFormValues> name="surname" register={register} required />
       <Input<TFormValues>
+        errors={errors}
+        touched={touchedFields.name}
+        name="name"
+        register={register}
+        required
+      />
+      <Input<TFormValues>
+        errors={errors}
+        touched={touchedFields.surname}
+        name="surname"
+        register={register}
+        required
+      />
+      <Input<TFormValues>
+        errors={errors}
+        touched={touchedFields.number}
         name="number"
         register={register}
         required
         type="number"
       />
       <Input<TFormValues>
+        touched={touchedFields.email}
         name="email"
         register={register}
         type="text"
@@ -69,7 +87,8 @@ const SignUpForm = () => {
         errors={errors}
       />
       <Input<TFormValues>
-        name="password"
+        errors={errors}
+        name="passwordReg"
         register={register}
         type="password"
         required
@@ -82,7 +101,7 @@ const SignUpForm = () => {
 export default SignUpForm;
 type TFormValues = {
   email: string;
-  password: string;
+  passwordReg: string;
   name: string;
   surname: string;
   number: string;
