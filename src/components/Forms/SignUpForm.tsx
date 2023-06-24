@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { setUser } from "../../reducers/userReducer";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import SubmitBtn from "../UI/SubmitBtn"
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -19,8 +20,7 @@ const SignUpForm = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors, touchedFields },
-    reset
+    formState: { errors, touchedFields, dirtyFields },
   } = useForm<TFormValues>();
 
   const signUp: SubmitHandler<TFormValues> = ({
@@ -59,6 +59,7 @@ const SignUpForm = () => {
         name="name"
         register={register}
         required
+        isDirty={dirtyFields.name}
       />
       <Input<TFormValues>
         errors={errors}
@@ -66,6 +67,7 @@ const SignUpForm = () => {
         name="surname"
         register={register}
         required
+        isDirty={dirtyFields.surname}
       />
       <Input<TFormValues>
         errors={errors}
@@ -74,6 +76,8 @@ const SignUpForm = () => {
         register={register}
         required
         type="number"
+        isDirty={dirtyFields.number}
+
       />
       <Input<TFormValues>
         touched={touchedFields.email}
@@ -85,6 +89,8 @@ const SignUpForm = () => {
           isValidEmail,
         }}
         errors={errors}
+        isDirty={dirtyFields.email}
+
       />
       <Input<TFormValues>
         errors={errors}
@@ -93,7 +99,7 @@ const SignUpForm = () => {
         type="password"
         required
       />
-      <button type="submit">{t("signUp")}</button>
+      <SubmitBtn>{t("signUp") as string}</SubmitBtn>
     </form>
   );
 };

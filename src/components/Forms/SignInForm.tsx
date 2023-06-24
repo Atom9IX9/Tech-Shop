@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../reducers/userReducer";
 import { useNavigate } from "react-router-dom";
+import SubmitBtn from "../UI/SubmitBtn"
 
 const SignInForm = () => {
   const dispatch = useDispatch()
@@ -55,7 +56,7 @@ const SignInForm = () => {
         type="password"
         touched={touchedFields.password}
       />
-      <button type="submit">{t("signIn")}</button>
+      <SubmitBtn>{t("signIn") as string}</SubmitBtn>
     </form>
   );
 };

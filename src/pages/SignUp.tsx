@@ -6,14 +6,16 @@ const SignUp = () => {
   const { t } = useTranslation("common");
 
   return (
-    <div className={style.formWrapper}>
-      <header>
-        <h2 className={style.pageTitle}>{t("signUp")}</h2>
-        <hr />
-      </header>
-      <main className={style.formMain}>
-        <SignUpForm />
-      </main>
+    <div className={style.formWrap}>
+      <div className={style.form}>
+        <header>
+          <h2 className={style.pageTitle}>{t("signUp")}</h2>
+          <hr />
+        </header>
+        <main className={style.formMain}>
+          <SignUpForm />
+        </main>
+      </div>
     </div>
   );
 };

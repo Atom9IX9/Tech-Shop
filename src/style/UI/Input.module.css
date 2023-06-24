@@ -28,6 +28,11 @@
   border: 1px solid #cacaca;
   border-radius: 5px;
 
+  padding-right: 10px;
+
+  display: flex;
+  align-items: center;
+
   transition: all 200ms;
   -webkit-transition: all 200ms;
   -moz-transition: all 200ms;

@@ -8,6 +8,7 @@ import {
 import { TValidationFn } from "../../utils/validation/login";
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
+import { CgDanger } from "react-icons/cg"
 
 function Input<F extends FieldValues>({
   type,
@@ -17,6 +18,7 @@ function Input<F extends FieldValues>({
   validate,
   errors,
   touched = false,
+  isDirty = false
 }: TProps<F>) {
   const { t } = useTranslation("auth");
 
@@ -34,6 +36,7 @@ function Input<F extends FieldValues>({
             {...register(name, { required, validate })}
             className={style.input}
           />
+          { errors[name] && <CgDanger color="red" size={20} /> }
         </div>
         <div className={style.message}>
           {validate &&
@@ -41,7 +44,7 @@ function Input<F extends FieldValues>({
             errors[name] &&
             t(errors[name]?.message as string)}
           {((touched && required && !errors[name]?.message) ||
-            errors[name]?.type === "required") &&
+            errors[name]?.type === "required") && (!isDirty) &&
             t(`touched/${name}`)}
         </div>
       </label>
@@ -58,4 +61,5 @@ type TProps<T extends FieldValues> = {
   validate?: { [key: string]: TValidationFn };
   errors: FieldErrors<T>;
   touched?: boolean;
+  isDirty?: boolean;
 };

@@ -1,13 +1,21 @@
-.formWrapper {
+.formWrap {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+} 
+
+.form {
   width: 60%;
   height: min-content;
   box-shadow: 0px 0px 20px 5px #0000007c;
   border-radius: 5px;
 
-  margin: auto;
+  left: auto;
 }
 
-.formWrapper * {
+.form * {
   box-sizing: border-box;
 }
 
@@ -21,9 +29,17 @@
 }
 
 @media screen and (max-width: 768px) {
-  .formMain {
+  .formWrap {
+    display: block;
+  }
+
+  .form {
     width: 100%;
     height: 100%;
+  }
+
+  .formMain {
+    width: 100%;
     box-shadow: 0;
     border-radius: 0;
   }

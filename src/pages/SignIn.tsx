@@ -6,14 +6,16 @@ const SignIn = () => {
   const { t } = useTranslation("common")
 
   return (
-    <div className={style.formWrapper}>
-      <header>
-        <h2 className={style.pageTitle}>{t("signIn")}</h2>
-        <hr />
-      </header>
-      <main className={style.formMain}>
-        <SignInForm />
-      </main>
+    <div className={style.formWrap}>
+      <div className={style.form}>
+        <header>
+          <h2 className={style.pageTitle}>{t("signIn")}</h2>
+          <hr />
+        </header>
+        <main className={style.formMain}>
+          <SignInForm />
+        </main>
+      </div>
     </div>
   );
 };
