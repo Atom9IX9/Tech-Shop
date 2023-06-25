@@ -1,5 +1,6 @@
 import {
   browserLocalPersistence,
+  browserSessionPersistence,
   getAuth,
   setPersistence,
   signInWithEmailAndPassword,
@@ -10,11 +11,11 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../reducers/userReducer";
 import { useNavigate } from "react-router-dom";
-import SubmitBtn from "../UI/SubmitBtn"
+import SubmitBtn from "../UI/SubmitBtn";
 
 const SignInForm = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation("common");
   const {
     register,
@@ -23,24 +24,32 @@ const SignInForm = () => {
     formState: { errors, touchedFields, dirtyFields },
   } = useForm<TFormValues>();
 
-  const signIn: SubmitHandler<TFormValues> = ({ email, password, rememberMe }) => {
+  const signIn: SubmitHandler<TFormValues> = ({
+    email,
+    password,
+    rememberMe,
+  }) => {
     const auth = getAuth();
     if (rememberMe) {
-      setPersistence(auth, browserLocalPersistence)
+      setPersistence(auth, browserLocalPersistence);
+    } else {
+      setPersistence(auth, browserSessionPersistence);
     }
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
-        dispatch(setUser({
-          displayName: user.displayName,
-          email,
-          isAuth: true,
-          phoneNumber: user.phoneNumber,
-          uid: user.uid
-        }))
-        navigate("/")
+        dispatch(
+          setUser({
+            displayName: user.displayName,
+            email,
+            isAuth: true,
+            phoneNumber: user.phoneNumber,
+            uid: user.uid,
+          })
+        );
+        navigate("/");
       })
       .catch((err) => {
-        setError("root", { message: err.code });        
+        setError("root", { message: err.code });
       });
   };
 
