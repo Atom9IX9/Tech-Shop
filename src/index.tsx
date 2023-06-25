@@ -13,6 +13,7 @@ import Preloader from "./components/UI/Preloader";
 import { BrowserRouter } from "react-router-dom";
 
 import "./firebase";
+import UserContext from "./components/contexts/UserContext";
 
 // ? react init
 const root = ReactDOM.createRoot(
@@ -23,7 +24,9 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <React.Suspense fallback={<Preloader />}>
-          <App />
+          <UserContext>
+            <App />
+          </UserContext>
         </React.Suspense>
       </BrowserRouter>
     </Provider>
