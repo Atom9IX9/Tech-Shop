@@ -1,5 +1,7 @@
 import {
+  browserLocalPersistence,
   getAuth,
+  setPersistence,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -18,11 +20,14 @@ const SignInForm = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors, touchedFields },
+    formState: { errors, touchedFields, dirtyFields },
   } = useForm<TFormValues>();
 
-  const signIn: SubmitHandler<TFormValues> = ({ email, password }) => {
+  const signIn: SubmitHandler<TFormValues> = ({ email, password, rememberMe }) => {
     const auth = getAuth();
+    if (rememberMe) {
+      setPersistence(auth, browserLocalPersistence)
+    }
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
         dispatch(setUser({
@@ -47,6 +52,7 @@ const SignInForm = () => {
         required
         errors={errors}
         touched={touchedFields.email}
+        isDirty={dirtyFields.email}
       />
       <Input<TFormValues>
         name="password"
@@ -55,6 +61,13 @@ const SignInForm = () => {
         errors={errors}
         type="password"
         touched={touchedFields.password}
+        isDirty={dirtyFields.password}
+      />
+      <Input<TFormValues>
+        name="rememberMe"
+        register={register}
+        errors={errors}
+        type="checkbox"
       />
       <SubmitBtn>{t("signIn") as string}</SubmitBtn>
     </form>
@@ -65,4 +78,5 @@ export default SignInForm;
 type TFormValues = {
   email: string;
   password: string;
+  rememberMe: boolean;
 };

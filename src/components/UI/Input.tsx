@@ -8,7 +8,7 @@ import {
 import { TValidationFn } from "../../utils/validation/login";
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
-import { CgDanger } from "react-icons/cg"
+import { CgDanger } from "react-icons/cg";
 
 function Input<F extends FieldValues>({
   type,
@@ -18,7 +18,7 @@ function Input<F extends FieldValues>({
   validate,
   errors,
   touched = false,
-  isDirty = false
+  isDirty = false,
 }: TProps<F>) {
   const { t } = useTranslation("auth");
 
@@ -29,22 +29,39 @@ function Input<F extends FieldValues>({
       })}
     >
       <label className={style.fieldLabel}>
-        <div>{t(`fields/${name}`)}</div>
-        <div className={style.inputBody}>
-          <input
-            type={type}
-            {...register(name, { required, validate })}
-            className={style.input}
-          />
-          { errors[name] && <CgDanger color="red" size={20} /> }
-        </div>
+        {type !== "checkbox" && (
+          <>
+            <div className={style.label}>{t(`fields/${name}`)}</div>
+            <div className={style.inputBody}>
+              <input
+                type={type}
+                {...register(name, { required, validate })}
+                className={style.input}
+              />
+              {errors[name] && <CgDanger color="red" size={20} />}
+            </div>
+          </>
+        )}
+        {type === "checkbox" && (
+          <>
+            <div className={style.checkboxWrap}>
+              <div className={style.label}>{t(`fields/${name}`)}</div>
+              <input
+                className={style.checkbox}
+                type={type}
+                {...register(name, { required, validate })}
+              />
+            </div>
+          </>
+        )}
         <div className={style.message}>
           {validate &&
             errors &&
             errors[name] &&
             t(errors[name]?.message as string)}
           {((touched && required && !errors[name]?.message) ||
-            errors[name]?.type === "required") && (!isDirty) &&
+            errors[name]?.type === "required") &&
+            !isDirty &&
             t(`touched/${name}`)}
         </div>
       </label>
@@ -54,7 +71,7 @@ function Input<F extends FieldValues>({
 
 export default Input;
 type TProps<T extends FieldValues> = {
-  type?: "text" | "password" | "number";
+  type?: "text" | "password" | "number" | "checkbox";
   name: Path<T>;
   register: UseFormRegister<T>;
   required?: boolean;
