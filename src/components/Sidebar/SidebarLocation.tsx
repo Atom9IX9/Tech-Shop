@@ -3,10 +3,21 @@ import style from "../../style/sidebarStyle/sidebarStyle.module.css";
 import { TLng } from "../../types/types";
 import cn from "classnames";
 import Flag from "react-world-flags";
+import { useEffect } from "react";
+import { getUserCoords } from "../../utils/getUserCoords";
+import { fetchUserCity } from "../../reducers/userReducer";
+import { useAppDispatch } from "../../reducers/store";
 
 const SidebarLocation = () => {
   const { t, i18n } = useTranslation("sidebar");
+  const dispatch = useAppDispatch()
   const selectedLng = i18n.language;
+
+  useEffect(() => {
+    getUserCoords((coords) => {
+      dispatch(fetchUserCity(coords))
+    })
+  }, [])
 
   const changeLng = (lng: TLng) => {
     i18n.changeLanguage(lng);

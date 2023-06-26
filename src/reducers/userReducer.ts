@@ -1,26 +1,42 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { TCoords } from "../utils/getUserCoords";
+import userAPI from "../api/userAPI";
 
 export const initialState: TUserAuth = {
   uid: null,
   displayName: null,
   email: null,
   isAuth: false,
-  phoneNumber: null
-}
+  phoneNumber: null,
+  city: undefined,
+};
+
+export const fetchUserCity = createAsyncThunk(
+  "fetchUserAddress",
+  async ({ latitude, longitude }: TCoords) => {
+    const address = await userAPI.getAddress(latitude, longitude);
+    return address.city;
+  }
+);
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<TUserAuth>) => {
-      state.displayName = action.payload.displayName
-      state.email = action.payload.email
-      state.isAuth = action.payload.isAuth
-      state.phoneNumber = action.payload.phoneNumber
-      state.uid = action.payload.uid
-    }
-  }
-})
+      state.displayName = action.payload.displayName;
+      state.email = action.payload.email;
+      state.isAuth = action.payload.isAuth;
+      state.phoneNumber = action.payload.phoneNumber;
+      state.uid = action.payload.uid;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchUserCity.fulfilled, (state, action) => {
+      state.city = action.payload;
+    });
+  },
+});
 
 export default userSlice.reducer;
 export const { setUser } = userSlice.actions;
@@ -30,4 +46,5 @@ export type TUserAuth = {
   email: string | null;
   isAuth: boolean;
   phoneNumber: string | null;
-}
+  city?: string;
+};
