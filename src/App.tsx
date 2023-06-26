@@ -31,7 +31,7 @@ const App = () => {
   })
 
   useEffect(() => {
-    i18n.changeLanguage(i18n.language.slice(0, 2)) // del full locales ("en-US" => "en")
+    i18n.changeLanguage(i18n.language.slice(0, 2)) // deleting full locales ("en-US" => "en")
   }, [i18n]);
 
   return (

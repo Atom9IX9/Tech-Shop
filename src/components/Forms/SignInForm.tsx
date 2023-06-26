@@ -1,10 +1,3 @@
-import {
-  browserLocalPersistence,
-  browserSessionPersistence,
-  getAuth,
-  setPersistence,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Input from "../UI/Input";
 import { useTranslation } from "react-i18next";
@@ -12,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../reducers/userReducer";
 import { useNavigate } from "react-router-dom";
 import SubmitBtn from "../UI/SubmitBtn";
+import { TSignInValues, signIn } from "../../firebase";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -22,25 +16,15 @@ const SignInForm = () => {
     handleSubmit,
     setError,
     formState: { errors, touchedFields, dirtyFields },
-  } = useForm<TFormValues>();
+  } = useForm<TSignInValues>();
 
-  const signIn: SubmitHandler<TFormValues> = ({
-    email,
-    password,
-    rememberMe,
-  }) => {
-    const auth = getAuth();
-    if (rememberMe) {
-      setPersistence(auth, browserLocalPersistence);
-    } else {
-      setPersistence(auth, browserSessionPersistence);
-    }
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
+  const submit: SubmitHandler<TSignInValues> = (formData) => {
+    signIn(formData)
+      .then((user) => {
         dispatch(
           setUser({
             displayName: user.displayName,
-            email,
+            email: user.email,
             isAuth: true,
             phoneNumber: user.phoneNumber,
             uid: user.uid,
@@ -54,8 +38,8 @@ const SignInForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(signIn)}>
-      <Input<TFormValues>
+    <form onSubmit={handleSubmit(submit)}>
+      <Input<TSignInValues>
         name="email"
         register={register}
         required
@@ -63,7 +47,7 @@ const SignInForm = () => {
         touched={touchedFields.email}
         isDirty={dirtyFields.email}
       />
-      <Input<TFormValues>
+      <Input<TSignInValues>
         name="password"
         register={register}
         required
@@ -72,7 +56,8 @@ const SignInForm = () => {
         touched={touchedFields.password}
         isDirty={dirtyFields.password}
       />
-      <Input<TFormValues>
+      {errors.root?.message}
+      <Input<TSignInValues>
         name="rememberMe"
         register={register}
         errors={errors}
@@ -84,8 +69,3 @@ const SignInForm = () => {
 };
 
 export default SignInForm;
-type TFormValues = {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-};
