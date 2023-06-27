@@ -25,7 +25,7 @@ function Input<F extends FieldValues>({
   return (
     <div
       className={cn(style.inputWrapper, {
-        [style.inputErr]: errors && errors[name],
+        [style.inputErr]: errors[name] || errors.root,
       })}
     >
       <label className={style.fieldLabel}>
@@ -38,7 +38,7 @@ function Input<F extends FieldValues>({
                 {...register(name, { required, validate })}
                 className={style.input}
               />
-              {errors[name] && <CgDanger color="red" size={20} />}
+              {(errors[name] || errors.root) && <CgDanger color="red" size={20} />}
             </div>
           </>
         )}

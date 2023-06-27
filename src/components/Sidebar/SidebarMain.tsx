@@ -7,6 +7,7 @@ const SidebarMain = () => {
     <main className={style.sidebarMain}>
       <SidebarMainBtns />
       <SidebarLocation />
+      <hr />
     </main>
   );
 };

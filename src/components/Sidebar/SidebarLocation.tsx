@@ -3,21 +3,23 @@ import style from "../../style/sidebarStyle/sidebarStyle.module.css";
 import { TLng } from "../../types/types";
 import cn from "classnames";
 import Flag from "react-world-flags";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { getUserCoords } from "../../utils/getUserCoords";
-import { fetchUserCity } from "../../reducers/userReducer";
+import { fetchUserCityByCoords } from "../../reducers/userReducer";
 import { useAppDispatch } from "../../reducers/store";
+import { User } from "../contexts/UserContext";
 
 const SidebarLocation = () => {
   const { t, i18n } = useTranslation("sidebar");
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const selectedLng = i18n.language;
+  const { city } = useContext(User)
 
   useEffect(() => {
     getUserCoords((coords) => {
-      dispatch(fetchUserCity(coords))
-    })
-  }, [dispatch])
+      dispatch(fetchUserCityByCoords(coords));
+    });
+  }, [dispatch]);
 
   const changeLng = (lng: TLng) => {
     i18n.changeLanguage(lng);
@@ -25,8 +27,8 @@ const SidebarLocation = () => {
 
   return (
     <div className={style.location}>
-      <div className={style.languages}>
-        <span className={style.lngSectionTitle}>{ t("language") }:</span>
+      <div className={style.locationBlock}>
+        <span className={style.locationTitle}>{t("language")}:</span>
         <ul className={style.lngSelect}>
           <li
             onClick={() => changeLng("en")}
@@ -65,6 +67,10 @@ const SidebarLocation = () => {
             <span className={style.lngName}>RU</span>
           </li>
         </ul>
+      </div>
+      <div className={style.locationBlock}>
+        <span className={style.locationTitle}>{t("city")}:</span>
+        <span>{ city }</span>
       </div>
     </div>
   );

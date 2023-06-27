@@ -6,11 +6,12 @@ import { setUser } from "../../reducers/userReducer";
 import { useNavigate } from "react-router-dom";
 import SubmitBtn from "../UI/SubmitBtn";
 import { TSignInValues, signIn } from "../../firebase";
+import style from "../../style/loginStyle/login.module.css"
 
 const SignInForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t } = useTranslation("common");
+  const { t } = useTranslation(["common", "auth"]);
   const {
     register,
     handleSubmit,
@@ -56,14 +57,16 @@ const SignInForm = () => {
         touched={touchedFields.password}
         isDirty={dirtyFields.password}
       />
-      {errors.root?.message}
+      <div className={style.rootErr}>
+        {t(`auth:${errors.root?.message || ""}`)}
+      </div>
       <Input<TSignInValues>
         name="rememberMe"
         register={register}
         errors={errors}
         type="checkbox"
       />
-      <SubmitBtn>{t("signIn") as string}</SubmitBtn>
+      <SubmitBtn>{t("common:signIn") as string}</SubmitBtn>
     </form>
   );
 };

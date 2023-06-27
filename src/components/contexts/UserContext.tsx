@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import {
   getDisplayName,
   getIsAuth,
+  getUserCity,
   getUserEmail,
   getUserId,
   getUserPhoneNumber,
@@ -19,6 +20,7 @@ const UserContext: React.FC<TProps> = ({ children }) => {
     isAuth: useSelector(getIsAuth),
     phoneNumber: useSelector(getUserPhoneNumber),
     uid: useSelector(getUserId),
+    city: useSelector(getUserCity),
   };
 
   return <User.Provider value={user}>{children}</User.Provider>;

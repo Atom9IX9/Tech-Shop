@@ -11,7 +11,7 @@ export const initialState: TUserAuth = {
   city: undefined,
 };
 
-export const fetchUserCity = createAsyncThunk(
+export const fetchUserCityByCoords = createAsyncThunk(
   "fetchUserAddress",
   async ({ latitude, longitude }: TCoords) => {
     const address = await userAPI.getAddress(latitude, longitude);
@@ -32,7 +32,7 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUserCity.fulfilled, (state, action) => {
+    builder.addCase(fetchUserCityByCoords.fulfilled, (state, action) => {
       state.city = action.payload;
     });
   },

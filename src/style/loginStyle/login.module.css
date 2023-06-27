@@ -23,6 +23,10 @@
   margin: 0;
   padding: 20px;
 }
+.rootErr {
+  color: red;
+  margin-top: 20px;
+}
 
 .formMain {
   padding: 20px;
