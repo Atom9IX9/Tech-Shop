@@ -6,6 +6,7 @@ import {
   getAuth,
   setPersistence,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -38,11 +39,17 @@ export const signIn = async ({
 export const signUp = async ({
   email,
   passwordReg,
-}: TSignUpValues) => {
+  name,
+  surname,
+}: TSignUpValues) => {  
   const auth = getAuth();
+  const authData = await createUserWithEmailAndPassword(auth, email, passwordReg);
+  const setDisplayName = await updateProfile(authData.user, {
+    displayName: `${name} ${surname}`,
+  });
+  const [data] = await Promise.all([authData, setDisplayName])
 
-  const data = await createUserWithEmailAndPassword(auth, email, passwordReg)
-  return data.user
+  return data.user;
 };
 
 export type TSignInValues = {

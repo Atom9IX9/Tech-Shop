@@ -1,6 +1,5 @@
 import Input from "../UI/Input";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { updateProfile } from "firebase/auth";
 import { isValidEmail } from "../../utils/validation/login";
 import { useTranslation } from "react-i18next";
 import { setUser } from "../../reducers/userReducer";
@@ -23,21 +22,18 @@ const SignUpForm = () => {
   const submit: SubmitHandler<TSignUpValues> = (formData) => {
     signUp(formData)
       .then((user) => {
-        updateProfile(user, {
-          displayName: `${formData.name} ${formData.surname}`,
-        }).then(() => {
-          dispatch(
-            setUser({
-              displayName: `${formData.name} ${formData.surname}`,
-              email: formData.email,
-              isAuth: true,
-              phoneNumber: formData.number,
-              uid: user.uid,
-            })
-          );
-          navigate("/");
-        });
+        dispatch(
+          setUser({
+            displayName: `${formData.name} ${formData.surname}`,
+            email: formData.email,
+            isAuth: true,
+            phoneNumber: formData.number,
+            uid: user.uid,
+          })
+        );
+        navigate("/");
       })
+
       .catch((err) => {
         setError("email", { message: err.code });
       });

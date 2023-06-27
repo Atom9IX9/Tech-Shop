@@ -5,11 +5,14 @@ import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom"
 // ? pages
 import Home from "./pages/Home";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "./reducers/userReducer";
+import React from 'react';
+import withSuspense from "./utils/hoc/withSuspence";
+
+const SignIn = withSuspense(React.lazy(() => import("./pages/SignIn")))
+const SignUp = withSuspense(React.lazy(() => import("./pages/SignUp")))
 
 const App = () => {
   const { i18n } = useTranslation();

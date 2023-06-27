@@ -17,7 +17,7 @@ const SidebarLocation = () => {
     getUserCoords((coords) => {
       dispatch(fetchUserCity(coords))
     })
-  }, [])
+  }, [dispatch])
 
   const changeLng = (lng: TLng) => {
     i18n.changeLanguage(lng);
