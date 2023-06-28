@@ -9,11 +9,11 @@ import { Provider } from "react-redux";
 import store from "./reducers/store";
 // ? localization
 import "./i18n";
-import Preloader from "./components/UI/Preloader";
 import { BrowserRouter } from "react-router-dom";
 
 import "./firebase";
 import UserContext from "./components/contexts/UserContext";
+import Loader from "./components/Loader/Loader";
 
 // ? react init
 const root = ReactDOM.createRoot(
@@ -23,7 +23,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <React.Suspense fallback={<Preloader />}>
+        <React.Suspense fallback={<Loader />}>
           <UserContext>
             <App />
           </UserContext>

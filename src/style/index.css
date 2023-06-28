@@ -18,7 +18,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -30,3 +30,7 @@ code {
   --dark-active-bg-color: #4c4c4c;
 }
 
+#root {
+  height: 100%;
+  width: 100%;
+}

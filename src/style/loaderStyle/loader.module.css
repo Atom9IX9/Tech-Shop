@@ -1,0 +1,54 @@
+.loaderContainer {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  height: 50px;
+  width: 50px;
+  border: 4px solid;
+  border-radius: 40%;
+  -webkit-border-radius: 40%;
+  -moz-border-radius: 40%;
+  -ms-border-radius: 40%;
+  -o-border-radius: 40%;
+  animation: spinning 1.5s infinite;
+  -webkit-animation: spinning 1.5s infinite;
+}
+
+@keyframes spinning {
+  0% {
+    border-bottom-color: var(--pink-bg-color);
+    border-left-color: var(--violet-bg-color);
+    border-right-color: transparent;
+    border-top-color: transparent;
+  }
+  25% {
+    border-left-color: var(--violet-bg-color);
+    border-top-color: var(--pink-bg-color);
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+  }
+  50% {
+    border-top-color: var(--pink-bg-color);
+    border-right-color: var(--violet-bg-color);
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+  }
+  75% {
+    border-right-color: var(--violet-bg-color);
+    border-bottom-color: var(--pink-bg-color);
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
+  100% {
+    border-bottom-color: var(--pink-bg-color);
+    border-left-color: var(--violet-bg-color);
+    border-right-color: transparent;
+    border-top-color: transparent;
+  }
+}

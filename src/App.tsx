@@ -9,7 +9,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "./reducers/userReducer";
 import React from 'react';
-import withSuspense from "./utils/hoc/withSuspence";
+import withSuspense from "./utils/hoc/withSuspense";
 
 const SignIn = withSuspense(React.lazy(() => import("./pages/SignIn")))
 const SignUp = withSuspense(React.lazy(() => import("./pages/SignUp")))
