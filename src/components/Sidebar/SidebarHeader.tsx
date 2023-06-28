@@ -19,7 +19,7 @@ const SidebarHeader = () => {
   return (
     <header className={style.header}>
       <div className={style.close}>
-        <NavLink to="/">
+        <NavLink to="/" onClick={closeMenu}>
           <div className={style.logo}></div>
         </NavLink>
         <IconBtn onClick={closeMenu}>

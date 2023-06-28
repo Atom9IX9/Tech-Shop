@@ -1,6 +1,6 @@
 import Input from "../UI/Input";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { isValidEmail } from "../../utils/validation/login";
+import { isValidEmail,noWhitespace } from "../../utils/validation/login";
 import { useTranslation } from "react-i18next";
 import { setUser } from "../../reducers/userReducer";
 import { useDispatch } from "react-redux";
@@ -48,6 +48,7 @@ const SignUpForm = () => {
         register={register}
         required
         isDirty={dirtyFields.name}
+        validate={{ noWhitespace }}
       />
       <Input<TSignUpValues>
         errors={errors}
@@ -56,6 +57,7 @@ const SignUpForm = () => {
         register={register}
         required
         isDirty={dirtyFields.surname}
+        validate={{ noWhitespace }}
       />
       <Input<TSignUpValues>
         errors={errors}
@@ -72,9 +74,7 @@ const SignUpForm = () => {
         register={register}
         type="text"
         required
-        validate={{
-          isValidEmail,
-        }}
+        validate={{ isValidEmail }}
         errors={errors}
         isDirty={dirtyFields.email}
       />

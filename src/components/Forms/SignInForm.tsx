@@ -6,7 +6,8 @@ import { setUser } from "../../reducers/userReducer";
 import { useNavigate } from "react-router-dom";
 import SubmitBtn from "../UI/SubmitBtn";
 import { TSignInValues, signIn } from "../../firebase";
-import style from "../../style/loginStyle/login.module.css"
+import { isValidEmail } from "../../utils/validation/login";
+import style from "../../style/loginStyle/login.module.css";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const SignInForm = () => {
         errors={errors}
         touched={touchedFields.email}
         isDirty={dirtyFields.email}
+        validate={{ isValidEmail }}
       />
       <Input<TSignInValues>
         name="password"

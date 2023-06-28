@@ -14,7 +14,7 @@ const SidebarLocation = () => {
   const dispatch = useAppDispatch();
   const selectedLng = i18n.language;
   const { city } = useContext(User)
-
+  
   useEffect(() => {
     getUserCoords((coords) => {
       dispatch(fetchUserCityByCoords(coords));

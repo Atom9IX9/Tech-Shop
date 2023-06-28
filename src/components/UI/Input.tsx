@@ -50,6 +50,7 @@ function Input<F extends FieldValues>({
                 className={style.checkbox}
                 type={type}
                 {...register(name, { required, validate })}
+                onChange={(e) => e.target.value = e.target.value.trim()}
               />
             </div>
           </>
