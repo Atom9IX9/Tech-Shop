@@ -1,0 +1,14 @@
+.infoSection {
+  padding-bottom: 30px;
+  padding-left: 5px;
+}
+
+.infoTitle {
+  padding: 15px 0;
+
+  font-weight: 600;
+  font-size: 15px;
+  color: #000000a5;
+
+  display: block;
+}

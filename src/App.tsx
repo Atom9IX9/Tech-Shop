@@ -13,6 +13,7 @@ import withSuspense from "./utils/hoc/withSuspense";
 
 const SignIn = withSuspense(React.lazy(() => import("./pages/SignIn")))
 const SignUp = withSuspense(React.lazy(() => import("./pages/SignUp")))
+const About = withSuspense(React.lazy(() => import("./pages/About")))
 
 const App = () => {
   const { i18n } = useTranslation();
@@ -44,6 +45,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="sign-in" element={<SignIn />} />
+          <Route path="about" element={<About />} />
         </Route>
       </Routes>
     </div>

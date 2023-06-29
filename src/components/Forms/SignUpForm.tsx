@@ -33,7 +33,6 @@ const SignUpForm = () => {
         );
         navigate("/");
       })
-
       .catch((err) => {
         setError("email", { message: err.code });
       });

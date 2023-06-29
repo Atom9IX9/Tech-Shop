@@ -5,5 +5,7 @@
   "telegram": "Чат c Tech Shop",
   "basket": "Корзина",
   "language": "Язык",
-  "city": "Город"
+  "city": "Город",  
+  "aboutCompany": "Информация о компании",
+  "about": "О нас"
 }

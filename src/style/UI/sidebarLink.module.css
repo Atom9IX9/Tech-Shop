@@ -1,0 +1,8 @@
+.sbLink {
+  color: var(--dark-bg-color);
+  font-size: 14px;
+}
+
+.sbLink:hover {
+  text-decoration: underline;
+}

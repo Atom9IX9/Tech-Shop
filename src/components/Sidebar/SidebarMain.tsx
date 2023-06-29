@@ -1,4 +1,5 @@
 import style from "../../style/sidebarStyle/sidebarStyle.module.css";
+import SidebarInfo from "./SidebarInfo";
 import SidebarLocation from "./SidebarLocation";
 import SidebarMainBtns from "./SidebarMainBtns";
 
@@ -8,6 +9,7 @@ const SidebarMain = () => {
       <SidebarMainBtns />
       <SidebarLocation />
       <hr />
+      <SidebarInfo />
     </main>
   );
 };
