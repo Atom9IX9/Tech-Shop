@@ -5,7 +5,7 @@ import cn from "classnames";
 import Flag from "react-world-flags";
 import { useEffect, useContext } from "react";
 import { getUserCoords } from "../../utils/getUserCoords";
-import { fetchUserCityByCoords } from "../../reducers/userReducer";
+import { fetchUserLocationByCoords } from "../../reducers/userReducer";
 import { useAppDispatch } from "../../reducers/store";
 import { User } from "../contexts/UserContext";
 
@@ -17,7 +17,7 @@ const SidebarLocation = () => {
   
   useEffect(() => {
     getUserCoords((coords) => {
-      dispatch(fetchUserCityByCoords(coords));
+      dispatch(fetchUserLocationByCoords(coords));
     });
   }, [dispatch]);
 

@@ -14,6 +14,8 @@ import withSuspense from "./utils/hoc/withSuspense";
 const SignIn = withSuspense(React.lazy(() => import("./pages/SignIn")))
 const SignUp = withSuspense(React.lazy(() => import("./pages/SignUp")))
 const About = withSuspense(React.lazy(() => import("./pages/About")))
+const AllCategories = withSuspense(React.lazy(() => import("./pages/AllCategories")))
+const Contacts = withSuspense(React.lazy(() => import("./pages/Contacts")))
 
 const App = () => {
   const { i18n } = useTranslation();
@@ -32,10 +34,11 @@ const App = () => {
         }))
       }
     })
-  })
+  }, [auth, dispatch])
 
   useEffect(() => {
-    i18n.changeLanguage(i18n.language.slice(0, 2)) // deleting full locales ("en-US" => "en")
+    i18n.changeLanguage(i18n.language.slice(0, 2)) 
+    // removes full locales ("en-US" => "en")
   }, [i18n]);
 
   return (
@@ -46,6 +49,8 @@ const App = () => {
           <Route path="sign-up" element={<SignUp />} />
           <Route path="sign-in" element={<SignIn />} />
           <Route path="about" element={<About />} />
+          <Route path="contacts" element={<Contacts />} />
+          <Route path="all-categories" element={<AllCategories />} />
         </Route>
       </Routes>
     </div>

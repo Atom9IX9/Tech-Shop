@@ -12,3 +12,8 @@
 
   display: block;
 }
+
+.socialNetworks {
+  display: flex;
+  gap: 10px;
+}

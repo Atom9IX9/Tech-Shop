@@ -11,6 +11,7 @@ const userAPI = {
 export default userAPI;
 type TAddress = {
   address: {
-    city: string
+    city?: string;
+    town?: string;
   }
 }

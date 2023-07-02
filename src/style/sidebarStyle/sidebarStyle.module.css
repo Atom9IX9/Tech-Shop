@@ -25,15 +25,18 @@
   top: 0;
   left: 0;
 
-  height: max-content;
+  min-height: 100vh;
   width: 300px;
   background: #fff;
-
   transform: translateX(-100%);
-
+  
   transition: all 300ms;
   -webkit-transition: all 300ms;
   -moz-transition: all 300ms;
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
 }
 
 .sidebarWrapper.activeMenu .sidebar {
