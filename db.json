@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Shampoo 1",
+      "price": 200,
+      "sale": 0,
+      "category": "cosmetic",
+      "liked": false,
+      "picture": "https://content.rozetka.com.ua/goods/images/big_tile/330143246.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Shampoo 2",
+      "price": 200,
+      "sale": 0,
+      "category": "cosmetic",
+      "liked": false,
+      "picture": "https://content.rozetka.com.ua/goods/images/big_tile/330143246.jpg"
+    }
+  ]
+}
