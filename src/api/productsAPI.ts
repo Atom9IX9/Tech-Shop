@@ -15,6 +15,6 @@ export type TProductCard = {
   price: number; // integer
   sale: number; // 1% --> 0.01
   category: string;
-  liked: boolean;
+  likes: string[]; // user ids 
   picture: string; // url
 };

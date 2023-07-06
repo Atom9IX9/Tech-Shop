@@ -6,8 +6,8 @@
       "price": 200,
       "sale": 0,
       "category": "cosmetic",
-      "liked": false,
-      "picture": "https://content.rozetka.com.ua/goods/images/big_tile/330143246.jpg"
+      "likes": ["e57WFMMxf7UqA9wrgSV3sotJrS23"],
+      "picture": "https://content.rozetka.com.ua/goods/images/preview/330143246.jpg"
     },
     {
       "id": 2,
@@ -15,8 +15,8 @@
       "price": 200,
       "sale": 0,
       "category": "cosmetic",
-      "liked": false,
-      "picture": "https://content.rozetka.com.ua/goods/images/big_tile/330143246.jpg"
+      "likes": ["vDag8WhDgZTczywEOGwxgImauP52"],
+      "picture": "https://content.rozetka.com.ua/goods/images/preview/330143243.jpg"
     }
   ]
 }
