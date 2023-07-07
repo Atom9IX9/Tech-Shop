@@ -3,7 +3,7 @@ import Input from "../UI/Input";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../reducers/userReducer";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import SubmitBtn from "../UI/SubmitBtn";
 import { TSignInValues, signIn } from "../../firebase";
 import { isValidEmail } from "../../utils/validation/login";
@@ -69,6 +69,9 @@ const SignInForm = () => {
         type="checkbox"
       />
       <SubmitBtn>{t("common:signIn") as string}</SubmitBtn>
+      <div className={style.signUpLink}>
+        <NavLink to="/sign-up">{t("common:signUp")}</NavLink>
+      </div>
     </form>
   );
 };

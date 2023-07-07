@@ -24,12 +24,39 @@
   padding: 20px;
 }
 .rootErr {
-  color: red;
+  color: var(--red-bg-color);
   margin-top: 20px;
 }
 
 .formMain {
   padding: 20px;
+}
+
+.signUpLink {
+  width: 40%;
+
+  text-align: center;
+  color: var(--blue-bg-color);
+
+  margin-top: 20px;
+
+  transition: all 300ms;
+  -webkit-transition: all 300ms;
+  -moz-transition: all 300ms;
+  -ms-transition: all 300ms;
+  -o-transition: all 300ms;
+}
+
+.signUpLink:hover {
+  color: var(--violet-bg-color);
+}
+
+.signUpLink a:visited {
+  color: var(--blue-bg-color);
+}
+
+.signUpLink a:visited:hover {
+  color: var(--violet-bg-color);
 }
 
 @media screen and (max-width: 768px) {
@@ -46,5 +73,8 @@
     width: 100%;
     box-shadow: 0;
     border-radius: 0;
+  }
+  .signUpLink {
+    width: 100%;
   }
 }

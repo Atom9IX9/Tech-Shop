@@ -2,9 +2,9 @@
   "products": [
     {
       "id": 1,
-      "title": "Shampoo 1",
-      "price": 200,
-      "sale": 0,
+      "title": "Shampoo 1 txt text text text text text text text xxxxxxxxxxxxxxx",
+      "price": 213,
+      "sale": 0.11,
       "category": "cosmetic",
       "likes": ["e57WFMMxf7UqA9wrgSV3sotJrS23"],
       "picture": "https://content.rozetka.com.ua/goods/images/preview/330143246.jpg"
@@ -13,7 +13,7 @@
       "id": 2,
       "title": "Shampoo 2",
       "price": 200,
-      "sale": 0,
+      "sale": 0.25,
       "category": "cosmetic",
       "likes": ["vDag8WhDgZTczywEOGwxgImauP52"],
       "picture": "https://content.rozetka.com.ua/goods/images/preview/330143243.jpg"

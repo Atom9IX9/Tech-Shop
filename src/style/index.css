@@ -23,6 +23,8 @@ body {
   --pink-bg-color: #ff66c4;
   --pink-active-bg-color: #ff7ccd;
   --dark-active-bg-color: #4c4c4c;
+  --red-bg-color: #fc004c;
+  --blue-bg-color: #3367f7;
 }
 
 #root {
