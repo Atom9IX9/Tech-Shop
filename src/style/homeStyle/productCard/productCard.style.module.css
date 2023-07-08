@@ -41,6 +41,7 @@
 
 .title:hover {
   color: var(--red-bg-color);
+  text-decoration: underline;
 }
 
 .sale {

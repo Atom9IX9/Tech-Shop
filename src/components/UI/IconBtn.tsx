@@ -5,7 +5,7 @@ import { MouseEventHandler } from "react";
 
 const IconBtn: FC<TProps> = ({ children, onClick }) => {
   return (
-    <div className={style.iconBtn} onClick={onClick}>
+    <div className={style.iconBtn} onClick={onClick} >
       {children}
     </div>
   );

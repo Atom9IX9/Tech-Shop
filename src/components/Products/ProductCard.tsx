@@ -1,23 +1,35 @@
 import { TProductCard } from "../../api/productsAPI";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import style from "../../style/homeStyle/productCard/productCard.style.module.css";
-import { MouseEventHandler, useContext } from "react";
+import { useContext, useState } from "react";
 import { User } from "../contexts/UserContext";
 import { getSale } from "../../utils/getSale";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../reducers/store";
+import { addLike, removeLike } from "../../reducers/productsReducer";
+import { useSelector } from "react-redux";
+import { getFetchings } from "../../utils/selectors/productSelectors";
 
 const ProductCard: React.FC<TProps> = ({ product }) => {
-  const { uid, isAuth } = useContext(User);
-  const navigate = useNavigate()
+  const fetchings = useSelector(getFetchings);
+  const { uid } = useContext(User);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const like: MouseEventHandler<HTMLDivElement> = (e) => {
-    if (!isAuth) navigate("sign-in")
-  } 
+  const like = (product: TProductCard) => {
+    if (!uid) {
+      navigate("sign-in");
+    } else if (product.likes.some((id) => id === uid) && !fetchings.like) {
+      dispatch(removeLike({ product, uid }));
+    } else if (!fetchings.like) {
+      dispatch(addLike({ product, uid }));
+    }
+  };
 
   return (
     <div className={style.productCard}>
       <div className={style.liked}>
-        <div className={style.likeIcon} onClick={like}>
+        <div className={style.likeIcon} onClick={() => like(product)}>
           {product.likes.some((id) => id === uid) ? (
             <AiFillHeart size={25} color="gold" />
           ) : (
@@ -31,7 +43,11 @@ const ProductCard: React.FC<TProps> = ({ product }) => {
       <div className={style.title} title={product.title}>
         {product.title}
       </div>
-      { product.sale ? <span className={style.price}>{product.price} ₴</span> : "" }
+      {product.sale ? (
+        <span className={style.price}>{product.price} ₴</span>
+      ) : (
+        ""
+      )}
       <div className={style.sale}>
         <span className={style.priceNumber}>
           {getSale(product.price, product.sale)}
