@@ -30,6 +30,13 @@ const userSlice = createSlice({
       state.phoneNumber = action.payload.phoneNumber;
       state.uid = action.payload.uid;
     },
+    resetUser: (state) => {
+      state.displayName = null;
+      state.email =  null;
+      state.isAuth = false;
+      state.phoneNumber = null;
+      state.uid = null;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserLocationByCoords.fulfilled, (state, action) => {
@@ -39,7 +46,7 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { setUser } = userSlice.actions;
+export const { setUser, resetUser } = userSlice.actions;
 export type TUserAuth = {
   uid: string | null;
   displayName: string | null;

@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SubmitBtn from "../UI/SubmitBtn";
 import { TSignUpValues, signUp } from "../../firebase";
+import TextButton from "../UI/TextButton";
+import style from "../../style/loginStyle/login.module.css"
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -85,6 +87,9 @@ const SignUpForm = () => {
         required
       />
       <SubmitBtn>{t("signUp") as string}</SubmitBtn>
+      <div className={style.signInLink}>
+        <TextButton to="/sign-in">{t("signIn") as string}</TextButton>
+      </div>
     </form>
   );
 };

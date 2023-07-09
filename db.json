@@ -2,24 +2,24 @@
   "products": [
     {
       "id": 1,
-      "title": "Shampoo 1",
+      "title": "Шампунь обычный",
       "price": 213,
       "sale": 0.11,
       "category": "cosmetic",
       "likes": [
-        "e57WFMMxf7UqA9wrgSV3sotJrS23"
+        "vDag8WhDgZTczywEOGwxgImauP52"
       ],
       "picture": "https://content.rozetka.com.ua/goods/images/preview/330143246.jpg"
     },
     {
       "id": 2,
-      "title": "Shampoo 2",
+      "title": "Шампунь стерильний, призначений для миття голови",
       "price": 110,
       "sale": 0.01,
       "category": "cosmetic",
       "likes": [
-        "e57WFMMxf7UqA9wrgSV3sotJrS23",
-        "vDag8WhDgZTczywEOGwxgImauP52"
+        "vDag8WhDgZTczywEOGwxgImauP52",
+        "6Pg14LTZYqXqg4iwCZMn4S2JtKP2"
       ],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/301292611.png"
     }

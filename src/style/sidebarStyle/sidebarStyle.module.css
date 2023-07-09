@@ -8,11 +8,11 @@
 
   background: #000;
   opacity: 0.5;
-  visibility: hidden;
+  display: none;
 }
 
 .sidebarWrapper.activeMenu .sidebarBlur {
-  visibility: visible;
+  display: block;
 }
 
 .sidebarWrapper * {
@@ -72,13 +72,27 @@
 }
 
 .authIconWrapper {
+  position: absolute;
+
   background: var(--dark-active-bg-color);
   border-radius: 50%;
+
+  width: 45px;
+  height: 45px;
 
   padding: 10px;
 
   display: flex;
   align-items: center;
+}
+
+.userLetter {
+  position: absolute;
+  top: 6px;
+  left: 13px;
+
+  color: #fff;
+  font-size: 25px;
 }
 
 .login {
@@ -166,4 +180,37 @@
 .locationTitle {
   color: var(--dark-active-bg-color);
   font-size: 14px;
+}
+
+.profileLink {  
+  display: flex;
+  align-items: center;
+  width: 108%;
+  
+  padding: 15px 10px;
+  margin-left: -10px;
+
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+.profileLink p {
+  margin: 0;
+}
+.profileLink:hover {
+  background: #3e3e3e72;
+}
+
+.userInfo {
+  margin-left: 55px;
+}
+.userInfoDName {
+  color: #fff;
+  font-size: 13px;
+}
+.userInfoEmail {
+  color: #a7a7a7;
+  font-size: 11px;
 }

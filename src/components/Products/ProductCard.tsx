@@ -1,7 +1,7 @@
 import { TProductCard } from "../../api/productsAPI";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import style from "../../style/homeStyle/productCard/productCard.style.module.css";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { User } from "../contexts/UserContext";
 import { getSale } from "../../utils/getSale";
 import { useNavigate } from "react-router-dom";
@@ -9,8 +9,9 @@ import { useAppDispatch } from "../../reducers/store";
 import { addLike, removeLike } from "../../reducers/productsReducer";
 import { useSelector } from "react-redux";
 import { getFetchings } from "../../utils/selectors/productSelectors";
+import React from "react";
 
-const ProductCard: React.FC<TProps> = ({ product }) => {
+const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   const fetchings = useSelector(getFetchings);
   const { uid } = useContext(User);
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const ProductCard: React.FC<TProps> = ({ product }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ProductCard;
 type TProps = {

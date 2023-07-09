@@ -3,11 +3,12 @@ import Input from "../UI/Input";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../reducers/userReducer";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SubmitBtn from "../UI/SubmitBtn";
 import { TSignInValues, signIn } from "../../firebase";
 import { isValidEmail } from "../../utils/validation/login";
 import style from "../../style/loginStyle/login.module.css";
+import TextButton from "../UI/TextButton";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -70,7 +71,9 @@ const SignInForm = () => {
       />
       <SubmitBtn>{t("common:signIn") as string}</SubmitBtn>
       <div className={style.signUpLink}>
-        <NavLink to="/sign-up">{t("common:signUp")}</NavLink>
+        <TextButton to="/sign-up">
+          {t("common:signUp") as string}
+        </TextButton>
       </div>
     </form>
   );

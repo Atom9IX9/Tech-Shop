@@ -1,20 +1,30 @@
 import style from "../../style/sidebarStyle/sidebarStyle.module.css";
 import { AiOutlineClose } from "react-icons/ai";
 import IconBtn from "../UI/IconBtn";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { setActiveMenu } from "../../reducers/appReducer";
 import { AiOutlineUser } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import { User } from "../contexts/UserContext";
+import { exitProfile } from "../../firebase";
+import { resetUser } from "../../reducers/userReducer";
 
 const SidebarHeader = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation(["common", "sidebar"]);
+  const { displayName, isAuth, email } = useContext(User);
 
   const closeMenu: MouseEventHandler = (e) => {
     dispatch(setActiveMenu(false));
   };
+
+  const signOut: MouseEventHandler = (e) => {
+    exitProfile().then(() => {
+      dispatch(resetUser())
+    })
+  }
 
   return (
     <header className={style.header}>
@@ -27,21 +37,36 @@ const SidebarHeader = () => {
         </IconBtn>
       </div>
       <div className={style.auth}>
-        <div className={style.authIconWrapper}>
-          <AiOutlineUser color="#fff" size={25} />
-        </div>
-        <div className={style.authContent}>
-          <div className={style.login}>
-            <NavLink to="sign-in" onClick={closeMenu}>
-              <span className={style.signIn}>{t("common:signIn")}</span>
-            </NavLink>
-            <NavLink to="sign-up" onClick={closeMenu}>
-              <span className={style.signUp}>{t("common:signUp")}</span>
-            </NavLink>
-          </div>
-          <p className={style.authText}>{t("sidebar:authText")}</p>
-        </div>
+        {!isAuth ? (
+          <>
+            <div className={style.authIconWrapper}>
+              <AiOutlineUser color="#fff" size={25} />
+            </div>
+            <div className={style.userInfo}>
+              <div className={style.login}>
+                <NavLink to="sign-in" onClick={closeMenu}>
+                  <span className={style.signIn}>{t("common:signIn")}</span>
+                </NavLink>
+                <NavLink to="sign-up" onClick={closeMenu}>
+                  <span className={style.signUp}>{t("common:signUp")}</span>
+                </NavLink>
+              </div>
+              <p className={style.authText}>{t("sidebar:authText")}</p>
+            </div>
+          </>
+        ) : (
+          <NavLink to="profile" className={style.profileLink}>
+              <div className={style.authIconWrapper}>
+                <div className={style.userLetter}>{displayName && displayName[0]}</div>
+              </div>
+              <div className={style.userInfo}>
+                <p className={style.userInfoDName}>{displayName}</p>
+                <p className={style.userInfoEmail}>{email}</p>
+              </div>
+          </NavLink>
+        )}
       </div>
+      <button onClick={signOut}>out</button>
     </header>
   );
 };

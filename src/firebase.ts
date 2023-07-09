@@ -7,6 +7,7 @@ import {
   setPersistence,
   signInWithEmailAndPassword,
   updateProfile,
+  signOut
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -50,6 +51,11 @@ export const signUp = async ({
 
   return data.user;
 };
+
+export const exitProfile = async () => {
+  const auth = getAuth()
+  return await signOut(auth)
+}
 
 export type TSignInValues = {
   email: string;
