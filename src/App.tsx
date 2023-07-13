@@ -9,16 +9,14 @@ import { setUser } from "./reducers/userReducer";
 import React from "react";
 import withSuspense from "./utils/hoc/withSuspense";
 
+// ? page imports
 import Home from "./pages/Home";
-import { getProducts_API } from "./api/productsAPI";
 
-// ? lazy
+// ? lazy page imports
 const SignIn = withSuspense(React.lazy(() => import("./pages/SignIn")));
 const SignUp = withSuspense(React.lazy(() => import("./pages/SignUp")));
 const About = withSuspense(React.lazy(() => import("./pages/About")));
-const AllCategories = withSuspense(
-  React.lazy(() => import("./pages/AllCategories"))
-);
+const AllCategories = withSuspense(React.lazy(() => import("./pages/AllCategories")));
 const Contacts = withSuspense(React.lazy(() => import("./pages/Contacts")));
 
 const App = () => {
@@ -27,6 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // auto sign-in
     onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(
@@ -43,8 +42,8 @@ const App = () => {
   }, [auth, dispatch]);
 
   useEffect(() => {
-    i18n.changeLanguage(i18n.language.slice(0, 2));
     // removes full locales ("en-US" => "en")
+    i18n.changeLanguage(i18n.language.slice(0, 2));
   }, [i18n]);
 
   return (

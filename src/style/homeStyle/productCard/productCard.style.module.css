@@ -1,17 +1,28 @@
 .productCard {
   position: relative;
 
+  box-sizing: border-box;
   border-bottom: 1px solid #0000003f;
   border-right: 1px solid #0000003f;
 
-  width: 150px;
+  width: 170px;
+  height: 330px;
 
   padding: 10px;
 }
 
 .productCard .picture img {
   display: block;
-  
+
+  margin: auto;
+}
+.productCard .picture {
+  height: 200px;
+  width: 140px;
+
+  display: flex;
+  align-items: center;
+
   margin: auto;
 }
 
@@ -25,7 +36,7 @@
 }
 
 .title {
-  margin: 20px 0;
+  margin: 20px 5px;
 
   height: 40px;
   width: 100%;
@@ -45,7 +56,14 @@
 }
 
 .sale {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+
   color: var(--red-bg-color);
+}
+.withoutSale {
+  color: var(--dark-bg-color);
 }
 .priceNumber {
   font-size: 22px;
@@ -54,9 +72,24 @@
 
 .price {
   position: absolute;
-  bottom: 40px;
+  bottom: 30px;
 
   color: #00000060;
-  font-size: 13px;
+  font-size: 15px;
   text-decoration: line-through;
+}
+
+@media screen and (max-width: 768px) {
+  .productCard {
+    width: 100%;
+  }
+  .price {
+    left: 15px;
+  }
+  .sale {
+    left: 15px;
+  }
+  .title {
+    width: 90%;
+  }
 }

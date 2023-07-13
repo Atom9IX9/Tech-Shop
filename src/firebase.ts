@@ -52,9 +52,9 @@ export const signUp = async ({
   return data.user;
 };
 
-export const exitProfile = async () => {
+export const exitProfile = () => {
   const auth = getAuth()
-  return await signOut(auth)
+  return signOut(auth)
 }
 
 export type TSignInValues = {

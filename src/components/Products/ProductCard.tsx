@@ -10,6 +10,7 @@ import { addLike, removeLike } from "../../reducers/productsReducer";
 import { useSelector } from "react-redux";
 import { getFetchings } from "../../utils/selectors/productSelectors";
 import React from "react";
+import cn from "classnames";
 
 const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   const fetchings = useSelector(getFetchings);
@@ -49,7 +50,7 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
       ) : (
         ""
       )}
-      <div className={style.sale}>
+      <div className={cn(style.sale, { [style.withoutSale]: !product.sale })}>
         <span className={style.priceNumber}>
           {getSale(product.price, product.sale)}
         </span>

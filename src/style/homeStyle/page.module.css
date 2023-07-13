@@ -1,3 +1,29 @@
+.homePage {
+  display: grid;
+  grid-template-columns: 300px 2fr;
+}
+
 .productCards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 170px);
+  justify-content: center;
+}
+
+.categoriesBar {
+  border: 1px solid black;
+}
+
+@media screen and (max-width: 1024px) {
+  .categoriesBar {
+    display: none;
+  }
+  .homePage {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .productCards {
+    grid-template-columns: 50% 50%;
+  }
 }

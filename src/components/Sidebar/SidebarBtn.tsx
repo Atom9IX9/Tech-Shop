@@ -1,10 +1,10 @@
-import { FC, ReactElement } from "react";
+import { FC, MouseEventHandler, ReactElement } from "react";
 import style from "../../style/sidebarStyle/sidebarMainBtn.module.css"
 
-const SbBtn: FC<TProps> = ({ icon, title }) => {
+const SbBtn: FC<TProps> = ({ icon, title, onClick }) => {
   return (
-    <button className={style.btn}>
-      <div>{icon}</div>
+    <button className={style.btn} onClick={onClick}>
+      <div>{icon || ""}</div>
       <span className={style.title}>{title}</span>
     </button>
   );
@@ -12,6 +12,7 @@ const SbBtn: FC<TProps> = ({ icon, title }) => {
 
 export default SbBtn;
 type TProps = {
-  icon: ReactElement;
+  icon?: ReactElement;
   title: string;
+  onClick?: MouseEventHandler;
 };

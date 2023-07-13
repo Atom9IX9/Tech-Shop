@@ -160,6 +160,7 @@
 }
 
 .lngSelect {
+  width: 50px;
   list-style: none;
   padding: 0 20px 0 13px;
 }

@@ -38,7 +38,7 @@ const Languages = () => {
               [style.selected]: selectedLng === "en",
             })}
           >
-            <Flag code="gb" size={18} />
+            <Flag code="gb" height={20} width={18} />
             <span className={style.lngName}>en</span>
           </li>
           <li
@@ -47,7 +47,7 @@ const Languages = () => {
               [style.selected]: selectedLng === "ua",
             })}
           >
-            <Flag code="ua" size={18} />
+            <Flag code="ua" height={20} width={18} />
             <span className={style.lngName}>ua</span>
           </li>
           <li
@@ -56,7 +56,7 @@ const Languages = () => {
               [style.selected]: selectedLng === "ru",
             })}
           >
-            <Flag code="ru" size={18} />
+            <Flag code="ru" height={20} width={18} />
             <span className={style.lngName}>ru</span>
           </li>
         </ul>

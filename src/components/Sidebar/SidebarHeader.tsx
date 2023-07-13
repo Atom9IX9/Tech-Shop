@@ -20,12 +20,6 @@ const SidebarHeader = () => {
     dispatch(setActiveMenu(false));
   };
 
-  const signOut: MouseEventHandler = (e) => {
-    exitProfile().then(() => {
-      dispatch(resetUser())
-    })
-  }
-
   return (
     <header className={style.header}>
       <div className={style.close}>
@@ -66,7 +60,6 @@ const SidebarHeader = () => {
           </NavLink>
         )}
       </div>
-      <button onClick={signOut}>out</button>
     </header>
   );
 };

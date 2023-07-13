@@ -2,26 +2,132 @@
   "products": [
     {
       "id": 1,
-      "title": "Шампунь обычный",
-      "price": 213,
-      "sale": 0.11,
-      "category": "cosmetic",
+      "title": "Шампунь для росту волосся Hadat Cosmetics Hydro Root Strengthening Shampoo 250 мл",
+      "price": 1305,
+      "sale": 0,
+      "categories": [
+        "cosmetic",
+        "hair",
+        "shampoo"
+      ],
       "likes": [
-        "vDag8WhDgZTczywEOGwxgImauP52"
+        "e57WFMMxf7UqA9wrgSV3sotJrS23"
       ],
       "picture": "https://content.rozetka.com.ua/goods/images/preview/330143246.jpg"
     },
     {
       "id": 2,
-      "title": "Шампунь стерильний, призначений для миття голови",
-      "price": 110,
-      "sale": 0.01,
-      "category": "cosmetic",
-      "likes": [
-        "vDag8WhDgZTczywEOGwxgImauP52",
-        "6Pg14LTZYqXqg4iwCZMn4S2JtKP2"
+      "title": "Шампунь подвійної дії для пошкодженого волосся Angel Professional Dual Repair Shampoo 1000 мл",
+      "price": 784,
+      "sale": 0.17,
+      "categories": [
+        "cosmetic",
+        "hair",
+        "shampoo"
       ],
+      "likes": [],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/301292611.png"
+    },
+    {
+      "id": 3,
+      "title": "Поживна крем-маска Angel Professional для відновлення волосся 1000 мл",
+      "price": 662,
+      "sale": 0,
+      "categories": [
+        "cosmetic",
+        "hair"
+      ],
+      "likes": [],
+      "picture": "https://content1.rozetka.com.ua/goods/images/preview/10679156.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Камера 8 1/2х2 8 дюймів для електросамоката Xiaomi M365 / Kugoo / Like.bike / Crosser",
+      "price": 260,
+      "sale": 0.39,
+      "categories": [
+        "sport",
+        "electric_transport",
+        "electric_transport_accessories"
+      ],
+      "likes": [],
+      "picture": "https://content1.rozetka.com.ua/goods/images/preview/336263857.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Вентилятор RZTK Tower M36",
+      "price": 2399,
+      "sale": 0.17,
+      "categories": [
+        "household_appliances",
+        "ventilators"
+      ],
+      "likes": [],
+      "picture": "https://content1.rozetka.com.ua/goods/images/preview/277518519.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Вентилятор RZTK FN 4555",
+      "price": 1399,
+      "sale": 0.28,
+      "categories": [
+        "household_appliances",
+        "ventilators"
+      ],
+      "likes": [],
+      "picture": "https://content.rozetka.com.ua/goods/images/preview/183037490.jpg"
+    },
+    {
+      "id": 7,
+      "title": "Електрочайник Milano KT-2001",
+      "price": 289,
+      "sale": 0,
+      "categories": [
+        "household_appliances",
+        "kitchen",
+        "electric_kettles"
+      ],
+      "likes": [],
+      "picture": "https://content1.rozetka.com.ua/goods/images/preview/346253581.jpg"
+    },
+    {
+      "id": 8,
+      "title": "Електрочайник Rotex RKT67-G",
+      "price": 349,
+      "sale": 0,
+      "categories": [
+        "household_appliances",
+        "kitchen",
+        "electric_kettles"
+      ],
+      "likes": [
+        "e57WFMMxf7UqA9wrgSV3sotJrS23"
+      ],
+      "picture": "https://content1.rozetka.com.ua/goods/images/preview/178271189.jpg"
+    },
+    {
+      "id": 9,
+      "title": "Навушники Defunc True Music TWS Black (D4271M)",
+      "price": 1199,
+      "sale": 0.25,
+      "categories": [
+        "headphone"
+      ],
+      "likes": [],
+      "picture": "https://content2.rozetka.com.ua/goods/images/preview/188529538.jpg"
+    },
+    {
+      "id": 10,
+      "title": "Навушники RZTK MS300 Black",
+      "price": 1499,
+      "sale": 0.27,
+      "categories": [
+        "headphone"
+      ],
+      "likes": [
+        "e57WFMMxf7UqA9wrgSV3sotJrS23"
+      ],
+      "picture": "https://content1.rozetka.com.ua/goods/images/preview/282300410.jpg"
     }
   ]
 }
