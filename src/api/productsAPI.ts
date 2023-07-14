@@ -1,11 +1,11 @@
-import axios, { AxiosResponse } from "axios";
-
-const products = axios.create({
-  baseURL: "http://localhost:3030/products/",
-});
+import { AxiosResponse } from "axios";
+import instance from "./instance";
+import { TCategoryCode } from "./categoriesAPI";
 
 export const getProducts_API = async () => {
-  const response: AxiosResponse<TProductCard[]> = await products.get("");
+  const response: AxiosResponse<TProductCard[]> = await instance.get(
+    "products"
+  );
   return response.data;
 };
 
@@ -13,8 +13,8 @@ export const updateProduct_API = async (
   productId: number,
   params: TProductCard
 ) => {
-  const response: AxiosResponse<TProductCard> = await products.put(
-    `${productId}`,
+  const response: AxiosResponse<TProductCard> = await instance.put(
+    `products/${productId}`,
     params
   );
   return response.data;
@@ -29,23 +29,3 @@ export type TProductCard = {
   likes: string[]; // ? user ids
   picture: string; // ? url
 };
-// * categories' types
-export type TCategoryCode =
-  | TMainCategoryCode
-  | TSportSubCategoryCode
-  | TCosmeticSubCategoryCode
-  | THouseholdAppliancesSubCategoryCode
-  | TPhonesSubCategoryCode;
-// ** subcategories
-export type TMainCategoryCode =
-  | "all"
-  | "cosmetic"
-  | "sport"
-  | "household_appliances"
-  | "phones";
-export type TSportSubCategoryCode =
-  | "electric_transport"
-  | "electric_transport_accessories";
-export type TCosmeticSubCategoryCode = "hair" | "shampoo";
-export type THouseholdAppliancesSubCategoryCode = "electric_kettles" | "kitchen";
-export type TPhonesSubCategoryCode = "headphone";

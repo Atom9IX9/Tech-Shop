@@ -24,7 +24,7 @@ const Home = () => {
       <aside className={style.categoriesBar}>
           <ul>
             {categories.map((c) => (
-              <li>
+              <li key={c.code}>
                 <Category category={c} />
               </li>
             ))}

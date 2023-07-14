@@ -11,6 +11,7 @@ import withSuspense from "./utils/hoc/withSuspense";
 
 // ? page imports
 import Home from "./pages/Home";
+import Subcategories from "./pages/Subcategories";
 
 // ? lazy page imports
 const SignIn = withSuspense(React.lazy(() => import("./pages/SignIn")));
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="about" element={<About />} />
           <Route path="contacts" element={<Contacts />} />
           <Route path="all-categories" element={<AllCategories />} />
+          <Route path=":category" element={<Subcategories />} />
         </Route>
       </Routes>
     </div>

@@ -1,17 +1,24 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-  TCategoryCode,
   TProductCard,
   getProducts_API,
   updateProduct_API,
 } from "../api/productsAPI";
+import { TCategoryCode, TMainCategoryCode, TSubcategory, getSubCategories_API } from "../api/categoriesAPI";
 
 export const initialState = {
   productCards: [] as TProductCard[],
   fetchings: {
     like: false,
   },
-  categories: [{code: "any", name: "Any"}], // {code: str, name: str}
+  categories: [
+    { code: "all", name: "All" },
+    { code: "cosmetic", name: "Cosmetic" },
+    { code: "sport", name: "Sport" },
+    { code: "household_appliances", name: "Household appliances" },
+    { code: "phones", name: "Phones" },
+  ] as TMainCategory[],
+  currentCategory: {code: "all" as TCategoryCode, subcategories: null as null | TSubcategory[]},
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -19,6 +26,13 @@ export const fetchProducts = createAsyncThunk(
   async () => {
     const products = await getProducts_API();
     return products;
+  }
+);
+export const fetchSubcategories = createAsyncThunk(
+  "products/fetchSubcategories",
+  async (category: TCategoryCode) => {
+    const subcategories = await getSubCategories_API(category);
+    return subcategories;
   }
 );
 
@@ -58,7 +72,11 @@ export const removeLike = createAsyncThunk(
 const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentCategory: (state, action: PayloadAction<TCategoryCode>) => {
+      state.currentCategory.code = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.fulfilled, (state, action) => {
@@ -77,11 +95,15 @@ const productsSlice = createSlice({
       })
       .addCase(removeLike.pending, (state) => {
         state.fetchings.like = true;
-      });
+      })
+      .addCase(fetchSubcategories.fulfilled, (state, action) => {
+        state.currentCategory.subcategories = action.payload
+      })
   },
 });
 
 export default productsSlice.reducer;
+export const { setCurrentCategory } = productsSlice.actions;
 
 export type TInitialState = typeof initialState;
 type TAddLikePayload = {
@@ -91,4 +113,8 @@ type TAddLikePayload = {
 export type TProductCharacteristics = {
   categories: TCategoryCode[];
   characteristics?: { [key: string]: string };
+};
+export type TMainCategory = {
+  code: TMainCategoryCode;
+  name: string;
 };
