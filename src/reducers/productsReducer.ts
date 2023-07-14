@@ -11,22 +11,7 @@ export const initialState = {
   fetchings: {
     like: false,
   },
-  categories: [
-    { code: "all", categoryName: "All" },
-    { code: "cosmetic", categoryName: "Cosmetic" },
-    { code: "hair", categoryName: "Hair" },
-    { code: "shampoo", categoryName: "Shampoo" },
-    { code: "sport", categoryName: "Sport" },
-    { code: "electric_transport", categoryName: "Electric transport" },
-    {
-      code: "electric_transport_accessories",
-      categoryName: "Electric transport accessories",
-    },
-    { code: "household_appliances", categoryName: "Household appliances" },
-    { code: "kitchen", categoryName: "Kitchen" },
-    { code: "electric_kettles", categoryName: "Electric kettles" },
-    { code: "headphone", categoryName: "Headphone" },
-  ] as TCategory[],
+  categories: [{code: "any", name: "Any"}], // {code: str, name: str}
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -107,4 +92,3 @@ export type TProductCharacteristics = {
   categories: TCategoryCode[];
   characteristics?: { [key: string]: string };
 };
-export type TCategory = { code: TCategoryCode; categoryName: string };

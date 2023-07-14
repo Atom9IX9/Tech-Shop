@@ -23,21 +23,29 @@ export const updateProduct_API = async (
 export type TProductCard = {
   id: number;
   title: string;
-  price: number; // integer
-  sale: number; // 0-100% ==> 0.00-1.00
+  price: number; // ? integer
+  sale: number; // ? 0-100% ==> 0.00-1.00
   categories: TCategoryCode[];
-  likes: string[]; // user ids
-  picture: string; // url
+  likes: string[]; // ? user ids
+  picture: string; // ? url
 };
+// * categories' types
 export type TCategoryCode =
+  | TMainCategoryCode
+  | TSportSubCategoryCode
+  | TCosmeticSubCategoryCode
+  | THouseholdAppliancesSubCategoryCode
+  | TPhonesSubCategoryCode;
+// ** subcategories
+export type TMainCategoryCode =
   | "all"
   | "cosmetic"
   | "sport"
-  | "electric_transport"
-  | "electric_transport_accessories"
-  | "hair"
-  | "shampoo"
   | "household_appliances"
-  | "kitchen"
-  | "electric_kettles"
-  | "headphone";
+  | "phones";
+export type TSportSubCategoryCode =
+  | "electric_transport"
+  | "electric_transport_accessories";
+export type TCosmeticSubCategoryCode = "hair" | "shampoo";
+export type THouseholdAppliancesSubCategoryCode = "electric_kettles" | "kitchen";
+export type TPhonesSubCategoryCode = "headphone";

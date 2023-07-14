@@ -8,8 +8,6 @@ import { AiOutlineUser } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import { User } from "../contexts/UserContext";
-import { exitProfile } from "../../firebase";
-import { resetUser } from "../../reducers/userReducer";
 
 const SidebarHeader = () => {
   const dispatch = useDispatch();

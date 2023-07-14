@@ -129,5 +129,21 @@
       ],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/282300410.jpg"
     }
+  ],
+
+  "categories": [
+    {"code": "all", "name": "All"},
+    {"code": "cosmetic", "name": "Cosmetic"},
+    {"code": "sport", "name": "Sport"},
+    {"code": "household_appliances", "name": "Household appliances"},
+    {"code": "phones", "name": "Phones"}
+  ],
+
+  "subCategories": [
+    {"id": "all", "data": null},
+    {"id": "cosmetic", "data": [{"code": "hair", "name": "Hair"}]},
+    {"id": "hair", "data": [{"code": "shampoo", "name": "Shampoo"}]},
+    {"id": "household_appliances", "data": [{"code": "kitchen", "name": "Kitchen"}]},
+    {"id": "kitchen", "data": [{"code": "electric_kettles", "name": "Electric kettles"}]}
   ]
 }
