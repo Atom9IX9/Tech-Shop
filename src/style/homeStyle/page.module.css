@@ -10,7 +10,12 @@
 }
 
 .categoriesBar {
-  
+  border-right: 1px solid #00000030;
+  padding-left: 40px;
+}
+
+.categoriesList {
+  padding-top: 30px;
 }
 
 @media screen and (max-width: 1024px) {

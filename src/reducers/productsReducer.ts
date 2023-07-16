@@ -4,7 +4,12 @@ import {
   getProducts_API,
   updateProduct_API,
 } from "../api/productsAPI";
-import { TCategoryCode, TMainCategoryCode, TSubcategory, getSubCategories_API } from "../api/categoriesAPI";
+import {
+  TCategoryCode,
+  TMainCategoryCode,
+  TSubcategory,
+  getSubCategories_API,
+} from "../api/categoriesAPI";
 
 export const initialState = {
   productCards: [] as TProductCard[],
@@ -12,13 +17,15 @@ export const initialState = {
     like: false,
   },
   categories: [
-    { code: "all", name: "All" },
     { code: "cosmetic", name: "Cosmetic" },
     { code: "sport", name: "Sport" },
     { code: "household_appliances", name: "Household appliances" },
     { code: "phones", name: "Phones" },
   ] as TMainCategory[],
-  currentCategory: {code: "all" as TCategoryCode, subcategories: null as null | TSubcategory[]},
+  currentCategory: {
+    code: "all" as TCategoryCode,
+    subcategories: null as null | TSubcategory[],
+  },
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -97,8 +104,8 @@ const productsSlice = createSlice({
         state.fetchings.like = true;
       })
       .addCase(fetchSubcategories.fulfilled, (state, action) => {
-        state.currentCategory.subcategories = action.payload
-      })
+        state.currentCategory.subcategories = action.payload;
+      });
   },
 });
 

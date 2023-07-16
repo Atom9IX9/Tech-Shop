@@ -22,13 +22,14 @@ const Home = () => {
   return (
     <div className={style.homePage}>
       <aside className={style.categoriesBar}>
-          <ul>
+          <ul className={style.categoriesList}>
             {categories.map((c) => (
               <li key={c.code}>
                 <Category category={c} />
               </li>
             ))}
           </ul>
+          <hr />
       </aside>
       <div className={style.homeContent}>
         <div className={style.productCards}>

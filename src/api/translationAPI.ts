@@ -1,4 +1,4 @@
-import { TLng } from './../types/types';
+import { TLng } from '../types/types';
 import axios, { AxiosResponse } from "axios";
 
 const translate = axios.create({
@@ -10,11 +10,11 @@ const translate = axios.create({
 });
 
 export const translateString = async (to: TLng, q: string) => {
-  if (to === "ua") return q
+  if (to === "en") return q
 
   const options = {
-    from: "uk",
-    to,
+    from: "en",
+    to: to === "ua" ? "uk" : to,
     q,
   };
   const response: AxiosResponse<string> = await translate.post(

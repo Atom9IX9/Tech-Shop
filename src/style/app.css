@@ -5,15 +5,8 @@
 }
 
 hr {
-  margin: 2px;
-  opacity: 0.5;
-}
-
-ul[class],
-ol[class] {
-  padding: 0;
-  margin: 0;
-  list-style: none;
+  margin: 2px 0;
+  opacity: 0.3;
 }
 
 a[class] {

@@ -47,14 +47,20 @@ const SidebarHeader = () => {
             </div>
           </>
         ) : (
-          <NavLink to="profile" className={style.profileLink}>
-              <div className={style.authIconWrapper}>
-                <div className={style.userLetter}>{displayName && displayName[0]}</div>
+          <NavLink
+            to="profile"
+            className={style.profileLink}
+            onClick={closeMenu}
+          >
+            <div className={style.authIconWrapper}>
+              <div className={style.userLetter}>
+                {displayName && displayName[0]}
               </div>
-              <div className={style.userInfo}>
-                <p className={style.userInfoDName}>{displayName}</p>
-                <p className={style.userInfoEmail}>{email}</p>
-              </div>
+            </div>
+            <div className={style.userInfo}>
+              <p className={style.userInfoDName}>{displayName}</p>
+              <p className={style.userInfoEmail}>{email}</p>
+            </div>
           </NavLink>
         )}
       </div>

@@ -74,7 +74,9 @@
         "household_appliances",
         "ventilators"
       ],
-      "likes": [],
+      "likes": [
+        "6Pg14LTZYqXqg4iwCZMn4S2JtKP2"
+      ],
       "picture": "https://content.rozetka.com.ua/goods/images/preview/183037490.jpg"
     },
     {
@@ -113,7 +115,9 @@
       "categories": [
         "headphone"
       ],
-      "likes": [],
+      "likes": [
+        "e57WFMMxf7UqA9wrgSV3sotJrS23"
+      ],
       "picture": "https://content2.rozetka.com.ua/goods/images/preview/188529538.jpg"
     },
     {
@@ -130,14 +134,60 @@
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/282300410.jpg"
     }
   ],
-
   "subCategories": [
-    {"id": "all", "data": null},
-    {"id": "cosmetic", "data": [{"code": "hair", "name": "Hair"}]},
-    {"id": "hair", "data": [{"code": "shampoo", "name": "Shampoo"}]},
-    {"id": "household_appliances", "data": [{"code": "kitchen", "name": "Kitchen"}]},
-    {"id": "kitchen", "data": [{"code": "electric_kettles", "name": "Electric kettles"}]},
-    {"id": "phones", "data": [{"code": "headphone", "name": "Headphone"}]},
-    {"id": "sport", "data": [{"code": "electric_transport", "name": "Electric transport"}]}
+    {
+      "id": "cosmetic",
+      "data": [
+        {
+          "code": "hair",
+          "name": "Hair"
+        }
+      ]
+    },
+    {
+      "id": "hair",
+      "data": [
+        {
+          "code": "shampoo",
+          "name": "Shampoo"
+        }
+      ]
+    },
+    {
+      "id": "household_appliances",
+      "data": [
+        {
+          "code": "kitchen",
+          "name": "Kitchen"
+        }
+      ]
+    },
+    {
+      "id": "kitchen",
+      "data": [
+        {
+          "code": "electric_kettles",
+          "name": "Electric kettles"
+        }
+      ]
+    },
+    {
+      "id": "phones",
+      "data": [
+        {
+          "code": "headphones",
+          "name": "Headphones"
+        }
+      ]
+    },
+    {
+      "id": "sport",
+      "data": [
+        {
+          "code": "electric_transport",
+          "name": "Electric transport"
+        }
+      ]
+    }
   ]
 }

@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TCoords } from "../utils/getUserCoords";
 import userAPI from "../api/userAPI";
+import { TLng } from "../types/types";
 
 export const initialState: TUserAuth = {
   uid: null,
@@ -13,8 +14,11 @@ export const initialState: TUserAuth = {
 
 export const fetchUserLocationByCoords = createAsyncThunk(
   "fetchUserAddress",
-  async ({ latitude, longitude }: TCoords) => {
-    const address = await userAPI.getAddress(latitude, longitude);
+  async ({
+    coords: { latitude, longitude },
+    lng,
+  }: TFetchUserLocationByCoordsPayload) => {
+    const address = await userAPI.getAddress(latitude, longitude, lng);
     return address.city || address.town;
   }
 );
@@ -32,11 +36,11 @@ const userSlice = createSlice({
     },
     resetUser: (state) => {
       state.displayName = null;
-      state.email =  null;
+      state.email = null;
       state.isAuth = false;
       state.phoneNumber = null;
       state.uid = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserLocationByCoords.fulfilled, (state, action) => {
@@ -54,4 +58,8 @@ export type TUserAuth = {
   isAuth: boolean;
   phoneNumber: string | null;
   city?: string;
+};
+type TFetchUserLocationByCoordsPayload = {
+  coords: TCoords;
+  lng: TLng;
 };

@@ -1,4 +1,3 @@
-import "./style/app.css";
 import Layout from "./components/Layout";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";

@@ -17,9 +17,9 @@ const SidebarLocation = () => {
   
   useEffect(() => {
     getUserCoords((coords) => {
-      dispatch(fetchUserLocationByCoords(coords));
+      dispatch(fetchUserLocationByCoords({coords, lng: i18n.language as TLng}));
     });
-  }, [dispatch]);
+  }, [dispatch, i18n.language]);
 
   const changeLng = (lng: TLng) => {
     i18n.changeLanguage(lng);

@@ -21,5 +21,5 @@ const Subcategories = () => {
     {currentCategory.subcategories?.map(sc => sc?.name)}
   </div> );
 }
- 
+
 export default Subcategories;
