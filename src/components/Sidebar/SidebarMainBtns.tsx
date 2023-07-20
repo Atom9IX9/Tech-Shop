@@ -1,12 +1,12 @@
-import { useTranslation } from "react-i18next";
 import SbBtn from "./SidebarBtn";
+
+import { useTranslation } from "react-i18next";
 // ? icons
 import { TbCategory2 } from "react-icons/tb";
 import { BsQuestionCircle } from "react-icons/bs"
 import { FaTelegramPlane } from "react-icons/fa"
 import { BsCart4 } from "react-icons/bs";
-
-import style from "../../style/sidebarStyle/sidebarStyle.module.css";
+import style from "style/sidebarStyle/sidebarStyle.module.css";
 
 
 const SidebarMainBtns = () => {

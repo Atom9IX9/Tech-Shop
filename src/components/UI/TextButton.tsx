@@ -1,4 +1,4 @@
-import style from "../../style/UI/textButton.module.css";
+import style from "style/UI/textButton.module.css";
 import { NavLink } from "react-router-dom";
 import { MouseEventHandler } from "react";
 

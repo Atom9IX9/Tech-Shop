@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
-import SignInForm from "../components/Forms/SignInForm";
-import style from "../style/loginStyle/login.module.css"
+import SignInForm from "components/Forms/SignInForm";
+import style from "style/loginStyle/login.module.css";
 
 const SignIn = () => {
-  const { t } = useTranslation("common")
+  const { t } = useTranslation("common");
 
   return (
     <div className={style.formWrap}>

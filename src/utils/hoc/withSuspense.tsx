@@ -1,5 +1,5 @@
+import Loader from "components/Loader/Loader";
 import React from "react";
-import Loader from "../../components/Loader/Loader";
 
 export default function withSuspense<P>(Component: React.ComponentType & any) {
   return function WithSuspense(props: P) {

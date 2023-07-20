@@ -1,5 +1,5 @@
-import { TChildren } from "../../types/types";
-import style from "../../style/UI/SubmitBtn.module.css";
+import { TChildren } from "types/types";
+import style from "style/UI/SubmitBtn.module.css";
 
 const submitBtn: React.FC<TProps> = ({ children }) => {
   return (

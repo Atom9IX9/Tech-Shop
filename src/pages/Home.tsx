@@ -1,13 +1,13 @@
-import { fetchProducts } from "../reducers/productsReducer";
-import { useAppDispatch } from "../reducers/store";
+import { fetchProducts } from "reducers/productsReducer";
+import { useAppDispatch } from "reducers/store";
 import {
   getCategories,
   getProducts,
-} from "../utils/selectors/productSelectors";
-import ProductCard from "../components/Products/ProductCard";
-import style from "../style/homeStyle/page.module.css";
-import CategoryLink from "../components/Products/CategoryLink";
-import RedLink from "../components/UI/RedLink";
+} from "utils/selectors/productSelectors";
+import ProductCard from "components/Products/ProductCard";
+import style from "style/homeStyle/page.module.css";
+import CategoryLink from "components/Products/CategoryLink";
+import RedLink from "components/UI/RedLink";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { BsQuestionCircle } from "react-icons/bs";

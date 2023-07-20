@@ -6,6 +6,7 @@
     "import/order": [
       "error",
       {
+        "newlines-between": "always",
         "groups": [
           "index",
           "sibling",

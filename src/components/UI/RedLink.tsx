@@ -1,4 +1,4 @@
-import style from "../../style/UI/redLink.module.css";
+import style from "style/UI/redLink.module.css";
 import { MouseEventHandler } from "react"
 
 const RedLink: React.FC<TProps> = ({ icon, children, textStyle }) => {

@@ -1,4 +1,4 @@
-import { RootState } from "../../reducers/store";
+import { RootState } from "reducers/store";
 
 export const getIsAuth = (state: RootState) => state.user.isAuth;
 export const getDisplayName = (state: RootState) => state.user.displayName;

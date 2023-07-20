@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
-import style from "../../style/contentStyle/contentStyle.module.css";
-import { getActiveMenu } from "../../utils/selectors/appGlobalSelectors";
+import style from "style/contentStyle/contentStyle.module.css";
+import { getActiveMenu } from "utils/selectors/appGlobalSelectors";
+import { TChildren } from "types/types";
 import cn from "classnames";
 import { FC } from "react";
-import { TChildren } from "../../types/types";
+import { useSelector } from "react-redux";
 
 const Content: FC<TProps> = ({ children }) => {
   const isActiveMenu = useSelector(getActiveMenu);

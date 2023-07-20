@@ -1,5 +1,5 @@
-import style from "../../style/UI/IconBtn.module.css";
-import { TChildren } from "../../types/types";
+import style from "style/UI/IconBtn.module.css";
+import { TChildren } from "types/types";
 import { MouseEventHandler, FC } from "react";
 
 const IconBtn: FC<TProps> = ({ children, onClick }) => {

@@ -1,16 +1,15 @@
-import Layout from "./components/Layout";
+import Layout from "components/Layout";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { setUser } from "./reducers/userReducer";
+import { setUser } from "reducers/userReducer";
 import React from "react";
-import withSuspense from "./utils/hoc/withSuspense";
-
+import withSuspense from "utils/hoc/withSuspense";
 // ? page imports
-import Home from "./pages/Home";
-import Subcategories from "./pages/Subcategories";
+import Home from "pages/Home";
+import Subcategories from "pages/Subcategories";
 
 // ? lazy page imports
 const SignIn = withSuspense(React.lazy(() => import("./pages/SignIn")));

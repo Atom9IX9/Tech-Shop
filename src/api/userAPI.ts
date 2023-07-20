@@ -1,5 +1,5 @@
-import axios, { AxiosResponse} from "axios";
 import { TLng } from "../types/types";
+import axios, { AxiosResponse } from "axios";
 
 const userAPI = {
   getAddress: async (lat: number, lon: number, lng: TLng) => {
@@ -15,5 +15,5 @@ type TAddress = {
   address: {
     city?: string;
     town?: string;
-  }
-}
+  };
+};

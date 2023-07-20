@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import style from "../style/loginStyle/login.module.css"
-import SignUpForm from "../components/Forms/SignUpForm";
+import style from "style/loginStyle/login.module.css"
+import SignUpForm from "components/Forms/SignUpForm";
 
 const SignUp = () => {
   const { t } = useTranslation("common");

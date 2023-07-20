@@ -1,5 +1,5 @@
-import style from "../../style/UI/Input.module.css";
-import { TValidationFn } from "../../utils/validation/login";
+import style from "style/UI/Input.module.css";
+import { TValidationFn } from "utils/validation/login";
 import {
   FieldErrors,
   FieldValues,

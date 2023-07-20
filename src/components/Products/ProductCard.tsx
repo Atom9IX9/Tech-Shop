@@ -1,14 +1,14 @@
-import { TProductCard } from "../../api/productsAPI";
+import { TProductCard } from "api/productsAPI";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import style from "../../style/homeStyle/productCard/productCard.style.module.css";
+import style from "style/homeStyle/productCard/productCard.style.module.css";
 import { useContext } from "react";
-import { User } from "../contexts/UserContext";
-import { getSale } from "../../utils/getSale";
+import { User } from "components/contexts/UserContext";
+import { getSale } from "utils/getSale";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../reducers/store";
-import { addLike, removeLike } from "../../reducers/productsReducer";
+import { useAppDispatch } from "reducers/store";
+import { addLike, removeLike } from "reducers/productsReducer";
 import { useSelector } from "react-redux";
-import { getFetchings } from "../../utils/selectors/productSelectors";
+import { getFetchings } from "utils/selectors/productSelectors";
 import React from "react";
 import cn from "classnames";
 

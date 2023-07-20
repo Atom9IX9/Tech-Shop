@@ -1,15 +1,15 @@
-import { createContext } from "react";
-import { TChildren } from "../../types/types";
-import { TUserAuth, initialState } from "../../reducers/userReducer";
-import { useSelector } from "react-redux";
+import { TChildren } from "types/types";
+import { TUserAuth, initialState } from "reducers/userReducer";
 import {
   getDisplayName,
   getIsAuth,
   getUserCity,
-  getUserEmail,
   getUserId,
+  getUserEmail,
   getUserPhoneNumber,
-} from "../../utils/selectors/userSelectors";
+} from "utils/selectors/userSelectors";
+import { createContext } from "react";
+import { useSelector } from "react-redux";
 
 export const User = createContext(initialState);
 
