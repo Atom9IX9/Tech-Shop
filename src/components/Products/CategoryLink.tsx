@@ -20,7 +20,11 @@ const Category: React.FC<TProps> = ({ category }) => {
   return (
     <div onClick={selectCategory} className={style.category}>
       <RedLink
-        icon={<CategoryIcon code={category.code} size={25} color="#00000050" />}
+        icon={
+          <div className={style.iconWrapper}>
+            <CategoryIcon code={category.code} size={25} color="#00000050" />
+          </div>
+        }
         textStyle="underline"
       >
         {category.name}

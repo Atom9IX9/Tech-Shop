@@ -43,7 +43,7 @@
     border: 1px solid var(--line-color);
     border-right: 0;
 
-    padding: 0;
+    padding: 15px 0;
 
     display: grid;
     grid-template-columns: repeat(3, 33.33%);
@@ -62,11 +62,16 @@
 
     min-height: 0;
   }
-  .category {
+  .categoryWrapper {
     display: flex;
-    justify-content: space-around;
+    justify-content: left;
 
+    width: 100%;
     border-right: 1px solid var(--line-color);
+  }
+  .category {
+    width: 50%;
+    margin: auto;
   }
 }
 

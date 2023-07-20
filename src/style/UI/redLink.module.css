@@ -14,10 +14,6 @@
   cursor: pointer;
 }
 
-.text {
-  font-size: 14px;
-}
-
 .link:hover {
   color: var(--red-bg-color);
 }

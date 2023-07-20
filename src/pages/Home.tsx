@@ -45,8 +45,10 @@ const Home = () => {
       >
         <ul className={style.categoriesList}>
           {categories.map((c) => (
-            <li key={c.code} className={style.category}>
-              <CategoryLink category={c} />
+            <li key={c.code} className={style.categoryWrapper}>
+              <div className={style.category}>
+                <CategoryLink category={c} />
+              </div>
             </li>
           ))}
         </ul>
