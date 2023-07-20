@@ -7,7 +7,7 @@ import {
 import {
   TCategoryCode,
   TMainCategoryCode,
-  TSubcategory,
+  TSubCategory,
   getSubCategories_API,
 } from "../api/categoriesAPI";
 
@@ -17,14 +17,16 @@ export const initialState = {
     like: false,
   },
   categories: [
-    { code: "cosmetic", name: "Cosmetic" },
-    { code: "sport", name: "Sport" },
-    { code: "household_appliances", name: "Household appliances" },
-    { code: "phones", name: "Phones" },
-  ] as TMainCategory[],
+    "laptops_and_computers",
+    "smartphones_tv_and_electronics",
+    "goods_for_gamers",
+    "household_appliances",
+    "beauty_and_health",
+    "sports_and_hobbies",
+  ] as TMainCategoryCode[],
   currentCategory: {
-    code: "all" as TCategoryCode,
-    subcategories: null as null | TSubcategory[],
+    code: null as TCategoryCode | null,
+    subcategories: null as null | TSubCategory[],
   },
 };
 
@@ -121,7 +123,4 @@ export type TProductCharacteristics = {
   categories: TCategoryCode[];
   characteristics?: { [key: string]: string };
 };
-export type TMainCategory = {
-  code: TMainCategoryCode;
-  name: string;
-};
+

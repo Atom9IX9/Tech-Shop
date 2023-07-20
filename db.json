@@ -5,7 +5,7 @@
       "title": "Шампунь для росту волосся Hadat Cosmetics Hydro Root Strengthening Shampoo 250 мл",
       "price": 1305,
       "sale": 0,
-      "categories": ["cosmetic", "hair", "shampoo"],
+      "categories": ["beauty_and_health", "hair", "shampoo"],
       "likes": ["e57WFMMxf7UqA9wrgSV3sotJrS23", "6Pg14LTZYqXqg4iwCZMn4S2JtKP2"],
       "picture": "https://content.rozetka.com.ua/goods/images/preview/330143246.jpg"
     },
@@ -14,7 +14,7 @@
       "title": "Шампунь подвійної дії для пошкодженого волосся Angel Professional Dual Repair Shampoo 1000 мл",
       "price": 784,
       "sale": 0.17,
-      "categories": ["cosmetic", "hair", "shampoo"],
+      "categories": ["beauty_and_health", "hair", "shampoo"],
       "likes": [],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/301292611.png"
     },
@@ -23,7 +23,7 @@
       "title": "Поживна крем-маска Angel Professional для відновлення волосся 1000 мл",
       "price": 662,
       "sale": 0,
-      "categories": ["cosmetic", "hair"],
+      "categories": ["beauty_and_health", "hair"],
       "likes": [],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/10679156.jpg"
     },
@@ -33,7 +33,7 @@
       "price": 260,
       "sale": 0.39,
       "categories": [
-        "sport",
+        "sports_and_hobbies",
         "electric_transport",
         "electric_transport_accessories"
       ],
@@ -81,7 +81,7 @@
       "title": "Навушники Defunc True Music TWS Black (D4271M)",
       "price": 1199,
       "sale": 0.25,
-      "categories": ["headphone"],
+      "categories": ["smartphones_tv_and_electronics", "headphones"],
       "likes": ["e57WFMMxf7UqA9wrgSV3sotJrS23"],
       "picture": "https://content2.rozetka.com.ua/goods/images/preview/188529538.jpg"
     },
@@ -90,74 +90,39 @@
       "title": "Навушники RZTK MS300 Black",
       "price": 1499,
       "sale": 0.27,
-      "categories": ["headphone"],
+      "categories": ["smartphones_tv_and_electronics", "headphones"],
       "likes": ["e57WFMMxf7UqA9wrgSV3sotJrS23"],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/282300410.jpg"
     }
   ],
   "subCategories": [
     {
-      "id": "cosmetic",
-      "data": [
-        {
-          "code": "hair",
-          "name": "Hair"
-        }
-      ]
+      "id": "beauty_and_health",
+      "data": [{ "code": "hair" }]
     },
     {
       "id": "hair",
-      "data": [
-        {
-          "code": "shampoo",
-          "name": "Shampoo"
-        }
-      ]
+      "data": [{ "code": "shampoo" }]
     },
     {
       "id": "household_appliances",
-      "data": [
-        {
-          "code": "kitchen",
-          "name": "Kitchen"
-        }
-      ]
+      "data": [{ "code": "kitchen" }]
     },
     {
       "id": "kitchen",
-      "data": [
-        {
-          "code": "electric_kettles",
-          "name": "Electric kettles"
-        }
-      ]
+      "data": [{ "code": "electric_kettles" }]
     },
     {
-      "id": "phones",
-      "data": [
-        {
-          "code": "headphones",
-          "name": "Headphones"
-        }
-      ]
+      "id": "smartphones_tv_and_electronics",
+      "data": [{ "code": "headphones" }]
     },
     {
-      "id": "sport",
-      "data": [
-        {
-          "code": "electric_transport",
-          "name": "Electric transport"
-        }
-      ]
+      "id": "sports_and_hobbies",
+      "data": [{ "code": "electric_transport" }]
     },
     {
       "id": "electric_transport",
-      "data": [
-        {
-          "code": "electric_transport_accessories",
-          "name": "Electric transport accessories"
-        }
-      ]
+      "data": [{ "code": "electric_transport_accessories" }]
     }
   ]
 }

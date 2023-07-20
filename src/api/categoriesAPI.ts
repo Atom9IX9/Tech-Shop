@@ -1,32 +1,19 @@
-import { AxiosResponse } from "axios";
 import instance from "./instance";
+import { AxiosResponse } from "axios";
 
 export const getSubCategories_API = async (category: TCategoryCode) => {
-  const response: AxiosResponse<{ id: TCategoryCode; data: TSubcategory[] }> =
+  const response: AxiosResponse<{ id: TCategoryCode; data: TSubCategory[] }> =
     await instance.get(`subCategories/${category}`);
   return response.data.data;
 };
 
 // * categories' types
-export type TCategoryCode = TMainCategoryCode | SubcategoryCode;
-// ** subcategories
-export type TSubcategory = { code: SubcategoryCode; name: string } | null;
-export type SubcategoryCode =
-  | TSportSubcategoryCode
-  | TCosmeticSubcategoryCode
-  | THouseholdAppliancesSubcategoryCode
-  | TPhonesSubcategoryCode;
+export type TCategoryCode = TMainCategoryCode | string;
+export type TSubCategory = { code: string };
 export type TMainCategoryCode =
-  | "all"
-  | "cosmetic"
-  | "sport"
+  | "beauty_and_health"
+  | "sports_and_hobbies"
+  | "goods_for_gamers"
   | "household_appliances"
-  | "phones";
-export type TSportSubcategoryCode =
-  | "electric_transport"
-  | "electric_transport_accessories";
-export type TCosmeticSubcategoryCode = "hair" | "shampoo";
-export type THouseholdAppliancesSubcategoryCode =
-  | "electric_kettles"
-  | "kitchen";
-export type TPhonesSubcategoryCode = "headphone";
+  | "smartphones_tv_and_electronics"
+  | "laptops_and_computers";

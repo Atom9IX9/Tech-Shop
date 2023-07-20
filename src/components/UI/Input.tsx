@@ -1,11 +1,11 @@
 import style from "../../style/UI/Input.module.css";
+import { TValidationFn } from "../../utils/validation/login";
 import {
   FieldErrors,
   FieldValues,
   Path,
   UseFormRegister,
 } from "react-hook-form/dist/types";
-import { TValidationFn } from "../../utils/validation/login";
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
 import { CgDanger } from "react-icons/cg";
@@ -38,7 +38,9 @@ function Input<F extends FieldValues>({
                 {...register(name, { required, validate })}
                 className={style.input}
               />
-              {(errors[name] || errors.root) && <CgDanger color="red" size={20} />}
+              {(errors[name] || errors.root) && (
+                <CgDanger color="red" size={20} />
+              )}
             </div>
           </>
         )}
@@ -50,7 +52,7 @@ function Input<F extends FieldValues>({
                 className={style.checkbox}
                 type={type}
                 {...register(name, { required, validate })}
-                onChange={(e) => e.target.value = e.target.value.trim()}
+                onChange={(e) => (e.target.value = e.target.value.trim())}
               />
             </div>
           </>

@@ -2,7 +2,7 @@ export const getUserCoords = (coordsHandler: TCoordsHandler) => {
   const success = async ({ coords }: TPosition) => {
     coordsHandler(coords);
   };
-  const err = (err: any) => console.log(err);
+  const err = (err: any) => {};
   navigator.geolocation.getCurrentPosition(success, err);
 }
 

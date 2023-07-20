@@ -1,6 +1,6 @@
 .homePage {
   display: grid;
-  grid-template-columns: 300px 2fr;
+  grid-template-columns: 320px 2fr;
 
   padding: 10px 5px;
 
@@ -65,12 +65,14 @@
   .categoryWrapper {
     display: flex;
     justify-content: left;
+    
+    padding: 5px 0;
 
     width: 100%;
     border-right: 1px solid var(--line-color);
   }
   .category {
-    width: 50%;
+    width: 90%;
     margin: auto;
   }
 }

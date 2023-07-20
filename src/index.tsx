@@ -24,7 +24,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <React.Suspense fallback={<Loader />}>
+        <React.Suspense fallback={<div className="suspenseWrapper"><Loader /></div>}>
           <UserContext>
             <App />
           </UserContext>

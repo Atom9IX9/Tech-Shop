@@ -38,13 +38,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server --watch db.json --port 3030"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "server": "json-server --watch db.json --port 3030",
+    "lint": "eslint -c .eslintrc --ext .ts,.tsx",
+    "lint:fix": "npm run lint -- --fix"
   },
   "browserslist": {
     "production": [

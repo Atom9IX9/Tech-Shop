@@ -1,11 +1,10 @@
 import style from "../../style/UI/IconBtn.module.css";
-import { FC } from "react";
 import { TChildren } from "../../types/types";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, FC } from "react";
 
 const IconBtn: FC<TProps> = ({ children, onClick }) => {
   return (
-    <div className={style.iconBtn} onClick={onClick} >
+    <div className={style.iconBtn} onClick={onClick}>
       {children}
     </div>
   );
