@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.suspenseWrapper {
+  height: 90vh;
+}
+
 hr {
   margin: 2px 0;
   opacity: 0.3;
@@ -11,4 +15,8 @@ hr {
 
 a[class] {
   text-decoration: none;
+}
+
+ul[class] {
+  list-style: none;
 }

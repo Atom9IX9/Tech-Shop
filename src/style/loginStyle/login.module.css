@@ -6,6 +6,7 @@
   justify-content: space-around;
 
   padding-bottom: 30px;
+  margin-top: 0;
 } 
 
 .form {
@@ -42,7 +43,7 @@
   margin-top: 20px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .formWrap {
     display: block;
     height: 100%;

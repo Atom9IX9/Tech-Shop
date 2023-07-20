@@ -5,14 +5,8 @@
       "title": "Шампунь для росту волосся Hadat Cosmetics Hydro Root Strengthening Shampoo 250 мл",
       "price": 1305,
       "sale": 0,
-      "categories": [
-        "cosmetic",
-        "hair",
-        "shampoo"
-      ],
-      "likes": [
-        "e57WFMMxf7UqA9wrgSV3sotJrS23"
-      ],
+      "categories": ["cosmetic", "hair", "shampoo"],
+      "likes": ["e57WFMMxf7UqA9wrgSV3sotJrS23", "6Pg14LTZYqXqg4iwCZMn4S2JtKP2"],
       "picture": "https://content.rozetka.com.ua/goods/images/preview/330143246.jpg"
     },
     {
@@ -20,11 +14,7 @@
       "title": "Шампунь подвійної дії для пошкодженого волосся Angel Professional Dual Repair Shampoo 1000 мл",
       "price": 784,
       "sale": 0.17,
-      "categories": [
-        "cosmetic",
-        "hair",
-        "shampoo"
-      ],
+      "categories": ["cosmetic", "hair", "shampoo"],
       "likes": [],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/301292611.png"
     },
@@ -33,10 +23,7 @@
       "title": "Поживна крем-маска Angel Professional для відновлення волосся 1000 мл",
       "price": 662,
       "sale": 0,
-      "categories": [
-        "cosmetic",
-        "hair"
-      ],
+      "categories": ["cosmetic", "hair"],
       "likes": [],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/10679156.jpg"
     },
@@ -58,10 +45,7 @@
       "title": "Вентилятор RZTK Tower M36",
       "price": 2399,
       "sale": 0.17,
-      "categories": [
-        "household_appliances",
-        "ventilators"
-      ],
+      "categories": ["household_appliances", "ventilators"],
       "likes": [],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/277518519.jpg"
     },
@@ -70,13 +54,8 @@
       "title": "Вентилятор RZTK FN 4555",
       "price": 1399,
       "sale": 0.28,
-      "categories": [
-        "household_appliances",
-        "ventilators"
-      ],
-      "likes": [
-        "6Pg14LTZYqXqg4iwCZMn4S2JtKP2"
-      ],
+      "categories": ["household_appliances", "ventilators"],
+      "likes": ["6Pg14LTZYqXqg4iwCZMn4S2JtKP2"],
       "picture": "https://content.rozetka.com.ua/goods/images/preview/183037490.jpg"
     },
     {
@@ -84,11 +63,7 @@
       "title": "Електрочайник Milano KT-2001",
       "price": 289,
       "sale": 0,
-      "categories": [
-        "household_appliances",
-        "kitchen",
-        "electric_kettles"
-      ],
+      "categories": ["household_appliances", "kitchen", "electric_kettles"],
       "likes": [],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/346253581.jpg"
     },
@@ -97,14 +72,8 @@
       "title": "Електрочайник Rotex RKT67-G",
       "price": 349,
       "sale": 0,
-      "categories": [
-        "household_appliances",
-        "kitchen",
-        "electric_kettles"
-      ],
-      "likes": [
-        "e57WFMMxf7UqA9wrgSV3sotJrS23"
-      ],
+      "categories": ["household_appliances", "kitchen", "electric_kettles"],
+      "likes": ["e57WFMMxf7UqA9wrgSV3sotJrS23"],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/178271189.jpg"
     },
     {
@@ -112,12 +81,8 @@
       "title": "Навушники Defunc True Music TWS Black (D4271M)",
       "price": 1199,
       "sale": 0.25,
-      "categories": [
-        "headphone"
-      ],
-      "likes": [
-        "e57WFMMxf7UqA9wrgSV3sotJrS23"
-      ],
+      "categories": ["headphone"],
+      "likes": ["e57WFMMxf7UqA9wrgSV3sotJrS23"],
       "picture": "https://content2.rozetka.com.ua/goods/images/preview/188529538.jpg"
     },
     {
@@ -125,12 +90,8 @@
       "title": "Навушники RZTK MS300 Black",
       "price": 1499,
       "sale": 0.27,
-      "categories": [
-        "headphone"
-      ],
-      "likes": [
-        "e57WFMMxf7UqA9wrgSV3sotJrS23"
-      ],
+      "categories": ["headphone"],
+      "likes": ["e57WFMMxf7UqA9wrgSV3sotJrS23"],
       "picture": "https://content1.rozetka.com.ua/goods/images/preview/282300410.jpg"
     }
   ],
@@ -186,6 +147,15 @@
         {
           "code": "electric_transport",
           "name": "Electric transport"
+        }
+      ]
+    },
+    {
+      "id": "electric_transport",
+      "data": [
+        {
+          "code": "electric_transport_accessories",
+          "name": "Electric transport accessories"
         }
       ]
     }

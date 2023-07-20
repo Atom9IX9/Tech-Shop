@@ -5,7 +5,8 @@ import {
   setCurrentCategory,
 } from "../../reducers/productsReducer";
 import CategoryIcon from "./CategoryIcon";
-import style from "../../style/homeStyle/page.module.css"
+import style from "../../style/homeStyle/productCard/categoryLink.module.css";
+import RedLink from "../UI/RedLink";
 
 const Category: React.FC<TProps> = ({ category }) => {
   const navigate = useNavigate();
@@ -17,9 +18,13 @@ const Category: React.FC<TProps> = ({ category }) => {
   };
 
   return (
-    <div onClick={selectCategory}>
-      <CategoryIcon code={category.code} size={25} color="#00000050" />
-      {category.name}
+    <div onClick={selectCategory} className={style.category}>
+      <RedLink
+        icon={<CategoryIcon code={category.code} size={25} color="#00000050" />}
+        textStyle="underline"
+      >
+        {category.name}
+      </RedLink>
     </div>
   );
 };

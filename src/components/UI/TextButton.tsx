@@ -1,4 +1,3 @@
-import { TChildren } from "../../types/types";
 import style from "../../style/UI/textButton.module.css";
 import { NavLink } from "react-router-dom";
 import { MouseEventHandler } from "react";
@@ -13,7 +12,7 @@ const TextButton: React.FC<TProps> = ({ children, to, onClick }) => {
 
 export default TextButton;
 type TProps = {
-  children: TChildren;
+  children: string;
   to?: string;
   onClick?: MouseEventHandler;
 };

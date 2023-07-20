@@ -2,10 +2,10 @@
   position: relative;
 
   box-sizing: border-box;
-  border-bottom: 1px solid #0000003f;
-  border-right: 1px solid #0000003f;
+  border-bottom: 1px solid var(--line-color);
+  border-right: 1px solid var(--line-color);
 
-  width: 170px;
+  width: 100%;
   height: 330px;
 
   padding: 10px;
@@ -58,7 +58,7 @@
 .sale {
   position: absolute;
   bottom: 5px;
-  left: 10px;
+  left: 15px;
 
   color: var(--red-bg-color);
 }
@@ -74,22 +74,9 @@
   position: absolute;
   bottom: 30px;
 
+  left: 15px;
+
   color: #00000060;
   font-size: 15px;
   text-decoration: line-through;
-}
-
-@media screen and (max-width: 768px) {
-  .productCard {
-    width: 100%;
-  }
-  .price {
-    left: 15px;
-  }
-  .sale {
-    left: 15px;
-  }
-  .title {
-    width: 90%;
-  }
 }
