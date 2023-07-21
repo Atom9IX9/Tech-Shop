@@ -1,18 +1,18 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
-  setCurrentCategory,
-} from "../../reducers/productsReducer";
 import CategoryIcon from "./CategoryIcon";
+
+import { setCurrentCategory } from "../../reducers/productsReducer";
 import style from "../../style/homeStyle/productCard/categoryLink.module.css";
 import RedLink from "../UI/RedLink";
 import { TMainCategoryCode } from "../../api/categoriesAPI";
+
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 const Category: React.FC<TProps> = ({ category }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { t } = useTranslation("categories")
+  const { t } = useTranslation("categories");
 
   const selectCategory = () => {
     dispatch(setCurrentCategory(category));

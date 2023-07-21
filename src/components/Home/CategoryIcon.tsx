@@ -1,4 +1,5 @@
 import { TMainCategoryCode } from "../../api/categoriesAPI";
+
 import { GiWashingMachine } from "react-icons/gi";
 import { BsPhone, BsLaptop } from "react-icons/bs";
 import { TbPerfume } from "react-icons/tb";
