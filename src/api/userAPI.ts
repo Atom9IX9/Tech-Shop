@@ -1,3 +1,5 @@
+import { $user } from "./instance";
+
 import { TLng } from "types/types";
 import axios, { AxiosResponse } from "axios";
 
@@ -8,6 +10,13 @@ const userAPI = {
     const response: AxiosResponse<TAddress> = await axios.get(url);
     return response.data.address;
   },
+  signUp: async (signUpData: TSignUpData) => {
+    const response: AxiosResponse<TUserData> = await $user.post(
+      "sign-up",
+      signUpData
+    );
+    return response.data;
+  },
 };
 
 export default userAPI;
@@ -15,5 +24,22 @@ type TAddress = {
   address: {
     city?: string;
     town?: string;
+  };
+};
+export type TSignUpData = {
+  email: string;
+  password: string;
+  name: string;
+  surname: string;
+  phoneNumber: string;
+};
+export type TUserData = {
+  token: string;
+  user: {
+    id: number;
+    email: string;
+    role: "ADMIN" | "USER";
+    name: string;
+    surname: string;
   };
 };

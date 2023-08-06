@@ -1,5 +1,5 @@
 import { TCoords } from "../utils/getUserCoords";
-import userAPI from "../api/userAPI";
+import userAPI, { TSignUpData } from "../api/userAPI";
 import { TLng } from "../types/types";
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
@@ -10,12 +10,11 @@ export const initialState: TUserAuth = {
   name: null,
   surname: null,
   email: null,
-  phoneNumber: null,
   city: undefined,
 };
 
 export const fetchUserLocationByCoords = createAsyncThunk(
-  "fetchUserAddress",
+  "user/fetchAddress",
   async ({
     coords: { latitude, longitude },
     lng,
@@ -24,6 +23,14 @@ export const fetchUserLocationByCoords = createAsyncThunk(
     return address.city || address.town;
   }
 );
+
+export const signUpUser = createAsyncThunk(
+  "user/sign-up",
+  async (signUpData: TSignUpData) => {
+    const data = await userAPI.signUp(signUpData)
+    return data.user
+  }
+)
 
 const userSlice = createSlice({
   name: "user",
@@ -34,7 +41,6 @@ const userSlice = createSlice({
       state.name = action.payload.name;
       state.surname = action.payload.surname;
       state.email = action.payload.email;
-      state.phoneNumber = action.payload.phoneNumber;
       state.id = action.payload.id;
     },
     resetUser: (state) => {
@@ -42,13 +48,19 @@ const userSlice = createSlice({
       state.name = null;
       state.surname = null;
       state.email = null;
-      state.phoneNumber = null;
       state.id = null;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserLocationByCoords.fulfilled, (state, action) => {
       state.city = action.payload;
+    })
+    .addCase(signUpUser.fulfilled, (state, action) => {
+      state.id = action.payload.id;
+      state.email = action.payload.email;
+      state.role = action.payload.role;
+      state.name = action.payload.name
+      state.surname = action.payload.surname
     });
   },
 });
@@ -61,7 +73,6 @@ export type TUserAuth = {
   name: String | null;
   surname: String | null;
   email: string | null;
-  phoneNumber: string | null;
   city?: string;
 };
 type TFetchUserLocationByCoordsPayload = {

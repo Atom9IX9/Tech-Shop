@@ -28,7 +28,6 @@ const SignInForm = () => {
         surname: "surname", // user api
         role: "USER", // user api
         email: "email", // user api
-        phoneNumber: "phone number", // user api
         id: 1, // user api
       })
     );

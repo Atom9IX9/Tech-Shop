@@ -1,43 +1,35 @@
 import Input from "../UI/Input";
-import { setUser } from "../../reducers/userReducer";
+import { setUser, signUpUser } from "../../reducers/userReducer";
 import SubmitBtn from "../UI/SubmitBtn";
-import { isValidEmail,noWhitespace } from "../../utils/validation/login";
+import { isValidEmail, noWhitespace } from "../../utils/validation/login";
 import TextButton from "../UI/TextButton";
-import style from "../../style/loginStyle/login.module.css"
+import style from "../../style/loginStyle/login.module.css";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { TSignUpData } from "api/userAPI";
+import { useAppDispatch } from "reducers/store";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation("common");
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors, touchedFields, dirtyFields },
-  } = useForm<TSignUpValues>();
+  } = useForm<TSignUpData>();
 
-  const submit: SubmitHandler<TSignUpValues> = (formData) => {
-        dispatch(
-          setUser({
-            name: formData.name,
-            surname: formData.surname,
-            email: formData.email,
-            phoneNumber: formData.number,
-            role: "USER", // from user api
-            id: 1, // form user api
-          })
-        );
-        navigate("/");
+  const submit: SubmitHandler<TSignUpData> = (formData) => {
+    dispatch(signUpUser(formData));
+    navigate("/");
   };
 
   return (
     <form onSubmit={handleSubmit(submit)}>
-      <Input<TSignUpValues>
+      <Input<TSignUpData>
         errors={errors}
         touched={touchedFields.name}
         name="name"
@@ -46,7 +38,7 @@ const SignUpForm = () => {
         isDirty={dirtyFields.name}
         validate={{ noWhitespace }}
       />
-      <Input<TSignUpValues>
+      <Input<TSignUpData>
         errors={errors}
         touched={touchedFields.surname}
         name="surname"
@@ -55,16 +47,16 @@ const SignUpForm = () => {
         isDirty={dirtyFields.surname}
         validate={{ noWhitespace }}
       />
-      <Input<TSignUpValues>
+      <Input<TSignUpData>
         errors={errors}
-        touched={touchedFields.number}
-        name="number"
+        touched={touchedFields.phoneNumber}
+        name="phoneNumber"
         register={register}
         required
         type="number"
-        isDirty={dirtyFields.number}
+        isDirty={dirtyFields.phoneNumber}
       />
-      <Input<TSignUpValues>
+      <Input<TSignUpData>
         touched={touchedFields.email}
         name="email"
         register={register}
@@ -74,9 +66,9 @@ const SignUpForm = () => {
         errors={errors}
         isDirty={dirtyFields.email}
       />
-      <Input<TSignUpValues>
+      <Input<TSignUpData>
         errors={errors}
-        name="passwordReg"
+        name="password"
         register={register}
         type="password"
         required
@@ -90,10 +82,3 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
-type TSignUpValues = {
-  email: string;
-  passwordReg: string;
-  name: string;
-  surname: string;
-  number: string;
-};
