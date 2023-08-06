@@ -1,4 +1,4 @@
-import style from "../../style/headerStyle/headerStyle.module.css";
+import style from "style/headerStyle/headerStyle.module.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiMicrophone } from "react-icons/bi";
 import cn from "classnames";

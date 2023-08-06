@@ -1,11 +1,13 @@
-import style from "../../style/headerStyle/headerStyle.module.css";
 import CatalogBtn from "./CatalogBtn";
 import Languages from "./Languages";
 import MenuBtn from "./MenuBtn";
 import SearchBar from "./SearchBar";
+
+import IconBtn from "../UI/IconBtn";
+
+import style from "style/headerStyle/headerStyle.module.css";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
-import IconBtn from "../UI/IconBtn";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {

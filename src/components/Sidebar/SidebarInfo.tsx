@@ -1,9 +1,10 @@
-import { useTranslation } from "react-i18next";
 import style from "../../style/sidebarStyle/sidebarInfo.module.css";
 import SbLink from "../UI/SidebarLink";
 import instIcon from "../../assets/img/instagram.png"
 import githubIcon from "../../assets/img/github.png"
 import tgIcon from "../../assets/img/telegram.png"
+
+import { useTranslation } from "react-i18next";
 
 const SidebarInfo = () => {
   const { t } = useTranslation("sidebar");

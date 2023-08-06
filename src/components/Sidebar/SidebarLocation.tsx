@@ -1,13 +1,14 @@
-import { useTranslation } from "react-i18next";
 import style from "../../style/sidebarStyle/sidebarStyle.module.css";
 import { TLng } from "../../types/types";
-import cn from "classnames";
-import Flag from "react-world-flags";
-import { useEffect, useContext } from "react";
 import { getUserCoords } from "../../utils/getUserCoords";
 import { fetchUserLocationByCoords } from "../../reducers/userReducer";
 import { useAppDispatch } from "../../reducers/store";
 import { User } from "../contexts/UserContext";
+
+import { useTranslation } from "react-i18next";
+import cn from "classnames";
+import Flag from "react-world-flags";
+import { useEffect, useContext } from "react";
 
 const SidebarLocation = () => {
   const { t, i18n } = useTranslation("sidebar");

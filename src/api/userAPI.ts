@@ -1,4 +1,4 @@
-import { TLng } from "../types/types";
+import { TLng } from "types/types";
 import axios, { AxiosResponse } from "axios";
 
 const userAPI = {

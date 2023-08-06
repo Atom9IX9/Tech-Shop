@@ -1,4 +1,3 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   TProductCard,
   getProducts_API,
@@ -10,6 +9,8 @@ import {
   TSubCategory,
   getSubCategories_API,
 } from "../api/categoriesAPI";
+
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
   productCards: [] as TProductCard[],

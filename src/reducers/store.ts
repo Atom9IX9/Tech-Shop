@@ -1,5 +1,6 @@
-import { AnyAction, configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
+
+import { AnyAction, configureStore } from "@reduxjs/toolkit";
 import thunk, { ThunkDispatch } from "redux-thunk";
 import { useDispatch } from "react-redux";
 

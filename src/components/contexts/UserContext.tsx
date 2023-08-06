@@ -1,12 +1,13 @@
 import { TChildren } from "types/types";
 import { TUserAuth, initialState } from "reducers/userReducer";
 import {
-  getDisplayName,
-  getIsAuth,
   getUserCity,
   getUserId,
   getUserEmail,
   getUserPhoneNumber,
+  getUserName,
+  getUserSurname,
+  getUserRole,
 } from "utils/selectors/userSelectors";
 import { createContext } from "react";
 import { useSelector } from "react-redux";
@@ -15,11 +16,12 @@ export const User = createContext(initialState);
 
 const UserContext: React.FC<TProps> = ({ children }) => {
   const user: TUserAuth = {
-    displayName: useSelector(getDisplayName),
+    name: useSelector(getUserName),
+    surname: useSelector(getUserSurname),
     email: useSelector(getUserEmail),
-    isAuth: useSelector(getIsAuth),
     phoneNumber: useSelector(getUserPhoneNumber),
-    uid: useSelector(getUserId),
+    id: useSelector(getUserId),
+    role: useSelector(getUserRole),
     city: useSelector(getUserCity),
   };
 

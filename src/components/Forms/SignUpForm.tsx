@@ -1,14 +1,14 @@
 import Input from "../UI/Input";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { isValidEmail,noWhitespace } from "../../utils/validation/login";
-import { useTranslation } from "react-i18next";
 import { setUser } from "../../reducers/userReducer";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import SubmitBtn from "../UI/SubmitBtn";
-import { TSignUpValues, signUp } from "../../firebase";
+import { isValidEmail,noWhitespace } from "../../utils/validation/login";
 import TextButton from "../UI/TextButton";
 import style from "../../style/loginStyle/login.module.css"
+
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -22,22 +22,17 @@ const SignUpForm = () => {
   } = useForm<TSignUpValues>();
 
   const submit: SubmitHandler<TSignUpValues> = (formData) => {
-    signUp(formData)
-      .then((user) => {
         dispatch(
           setUser({
-            displayName: `${formData.name} ${formData.surname}`,
+            name: formData.name,
+            surname: formData.surname,
             email: formData.email,
-            isAuth: true,
             phoneNumber: formData.number,
-            uid: user.uid,
+            role: "USER", // from user api
+            id: 1, // form user api
           })
         );
         navigate("/");
-      })
-      .catch((err) => {
-        setError("email", { message: err.code });
-      });
   };
 
   return (
@@ -95,3 +90,10 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
+type TSignUpValues = {
+  email: string;
+  passwordReg: string;
+  name: string;
+  surname: string;
+  number: string;
+};

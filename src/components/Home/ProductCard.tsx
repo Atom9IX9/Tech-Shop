@@ -14,25 +14,17 @@ import cn from "classnames";
 
 const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   const fetchings = useSelector(getFetchings);
-  const { uid } = useContext(User);
+  const { id } = useContext(User);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const like = (product: TProductCard) => {
-    if (!uid) {
-      navigate("sign-in");
-    } else if (product.likes.some((id) => id === uid) && !fetchings.like) {
-      dispatch(removeLike({ product, uid }));
-    } else if (!fetchings.like) {
-      dispatch(addLike({ product, uid }));
-    }
-  };
+  const like = (product: TProductCard) => {};
 
   return (
     <div className={style.productCard}>
       <div className={style.liked}>
         <div className={style.likeIcon} onClick={() => like(product)}>
-          {product.likes.some((id) => id === uid) ? (
+          {true ? ( // t/f
             <AiFillHeart size={25} color="gold" />
           ) : (
             <AiOutlineHeart size={25} color="gold" />

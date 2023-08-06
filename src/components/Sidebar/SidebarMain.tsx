@@ -2,8 +2,6 @@ import SidebarMainBtns from "./SidebarMainBtns";
 import SidebarLocation from "./SidebarLocation";
 import SidebarInfo from "./SidebarInfo";
 
-import { exitProfile } from "../../firebase";
-
 import { MouseEventHandler, useContext } from "react";
 import style from "style/sidebarStyle/sidebarStyle.module.css";
 import { useDispatch } from "react-redux";
@@ -16,13 +14,11 @@ import { setActiveMenu } from "reducers/appReducer";
 const SidebarMain = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation("common");
-  const { isAuth } = useContext(User);
+  const { role } = useContext(User);
 
   const signOut: MouseEventHandler = (e) => {
-    exitProfile().then(() => {
-      dispatch(resetUser());
-      dispatch(setActiveMenu(false));
-    });
+    dispatch(resetUser())
+    dispatch(setActiveMenu(false))
   };
 
   return (
@@ -31,7 +27,7 @@ const SidebarMain = () => {
       <SidebarLocation />
       <hr />
       <SidebarInfo />
-      {isAuth && (
+      {role !== "GUEST" && (
         <TextButton onClick={signOut}>{t("signOut") as string}</TextButton>
       )}
     </main>

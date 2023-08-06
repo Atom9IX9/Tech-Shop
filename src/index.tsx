@@ -1,5 +1,4 @@
 import reportWebVitals from "./reportWebVitals";
-import "./firebase";
 
 // ? react
 import React from "react";

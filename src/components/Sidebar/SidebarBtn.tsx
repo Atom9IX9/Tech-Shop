@@ -1,5 +1,6 @@
-import { FC, MouseEventHandler, ReactElement } from "react";
 import style from "../../style/sidebarStyle/sidebarMainBtn.module.css"
+
+import { FC, MouseEventHandler, ReactElement } from "react";
 
 const SbBtn: FC<TProps> = ({ icon, title, onClick }) => {
   return (

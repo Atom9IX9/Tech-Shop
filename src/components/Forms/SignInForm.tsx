@@ -1,14 +1,14 @@
-import { SubmitHandler, useForm } from "react-hook-form";
 import Input from "../UI/Input";
-import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { setUser } from "../../reducers/userReducer";
-import { useNavigate } from "react-router-dom";
 import SubmitBtn from "../UI/SubmitBtn";
-import { TSignInValues, signIn } from "../../firebase";
 import { isValidEmail } from "../../utils/validation/login";
 import style from "../../style/loginStyle/login.module.css";
 import TextButton from "../UI/TextButton";
+
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -22,22 +22,17 @@ const SignInForm = () => {
   } = useForm<TSignInValues>();
 
   const submit: SubmitHandler<TSignInValues> = (formData) => {
-    signIn(formData)
-      .then((user) => {
-        dispatch(
-          setUser({
-            displayName: user.displayName,
-            email: user.email,
-            isAuth: true,
-            phoneNumber: user.phoneNumber,
-            uid: user.uid,
-          })
-        );
-        navigate("/");
+    dispatch(
+      setUser({
+        name: "name", // user api
+        surname: "surname", // user api
+        role: "USER", // user api
+        email: "email", // user api
+        phoneNumber: "phone number", // user api
+        id: 1, // user api
       })
-      .catch((err) => {
-        setError("root", { message: err.code });
-      });
+    );
+    navigate("/");
   };
 
   return (
@@ -71,12 +66,15 @@ const SignInForm = () => {
       />
       <SubmitBtn>{t("common:signIn") as string}</SubmitBtn>
       <div className={style.signUpLink}>
-        <TextButton to="/sign-up">
-          {t("common:signUp") as string}
-        </TextButton>
+        <TextButton to="/sign-up">{t("common:signUp") as string}</TextButton>
       </div>
     </form>
   );
 };
 
 export default SignInForm;
+type TSignInValues = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+};

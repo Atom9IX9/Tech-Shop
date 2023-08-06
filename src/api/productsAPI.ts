@@ -1,5 +1,6 @@
 import instance from "./instance";
 import { TCategoryCode } from "./categoriesAPI";
+
 import { AxiosResponse } from "axios";
 
 export const getProducts_API = async () => {

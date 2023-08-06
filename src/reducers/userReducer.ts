@@ -1,13 +1,15 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TCoords } from "../utils/getUserCoords";
 import userAPI from "../api/userAPI";
 import { TLng } from "../types/types";
 
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 export const initialState: TUserAuth = {
-  uid: null,
-  displayName: null,
+  id: null,
+  role: "GUEST",
+  name: null,
+  surname: null,
   email: null,
-  isAuth: false,
   phoneNumber: null,
   city: undefined,
 };
@@ -28,18 +30,20 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<TUserAuth>) => {
-      state.displayName = action.payload.displayName;
+      state.role = action.payload.role
+      state.name = action.payload.name;
+      state.surname = action.payload.surname;
       state.email = action.payload.email;
-      state.isAuth = action.payload.isAuth;
       state.phoneNumber = action.payload.phoneNumber;
-      state.uid = action.payload.uid;
+      state.id = action.payload.id;
     },
     resetUser: (state) => {
-      state.displayName = null;
+      state.role = "GUEST"
+      state.name = null;
+      state.surname = null;
       state.email = null;
-      state.isAuth = false;
       state.phoneNumber = null;
-      state.uid = null;
+      state.id = null;
     },
   },
   extraReducers: (builder) => {
@@ -52,10 +56,11 @@ const userSlice = createSlice({
 export default userSlice.reducer;
 export const { setUser, resetUser } = userSlice.actions;
 export type TUserAuth = {
-  uid: string | null;
-  displayName: string | null;
+  id: number | null;
+  role: "USER" | "GUEST" | "ADMIN"
+  name: String | null;
+  surname: String | null;
   email: string | null;
-  isAuth: boolean;
   phoneNumber: string | null;
   city?: string;
 };

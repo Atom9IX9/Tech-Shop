@@ -2,7 +2,6 @@ import Layout from "components/Layout";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "reducers/userReducer";
 import React from "react";
@@ -20,25 +19,12 @@ const Contacts = withSuspense(React.lazy(() => import("./pages/Contacts")));
 
 const App = () => {
   const { i18n } = useTranslation();
-  const auth = getAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
     // auto sign-in
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(
-          setUser({
-            displayName: user.displayName,
-            email: user.email,
-            isAuth: true,
-            phoneNumber: user.phoneNumber,
-            uid: user.uid,
-          })
-        );
-      }
-    });
-  }, [auth, dispatch]);
+    
+  }, []);
 
   useEffect(() => {
     // removes full locales ("en-US" => "en")

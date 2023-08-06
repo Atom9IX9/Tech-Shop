@@ -1,5 +1,5 @@
+import style from "style/headerStyle/headerStyle.module.css";
 import { TbCategory2 } from "react-icons/tb";
-import style from "../../style/headerStyle/headerStyle.module.css";
 import { useTranslation } from "react-i18next";
 
 const CatalogBtn = () => {

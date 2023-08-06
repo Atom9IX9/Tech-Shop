@@ -1,11 +1,12 @@
-import style from "../../style/headerStyle/headerStyle.module.css";
+import IconBtn from "../UI/IconBtn";
+
+import style from "style/headerStyle/headerStyle.module.css";
 import { MdLanguage } from "react-icons/md";
 import { useState } from "react";
 import Flag from "react-world-flags";
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
-import IconBtn from "../UI/IconBtn";
-import { TLng } from "../../types/types";
+import { TLng } from "types/types";
 
 const Languages = () => {
   const [isActive, setIsActive] = useState(false);
