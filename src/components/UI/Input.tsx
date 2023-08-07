@@ -9,6 +9,7 @@ import {
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
 import { CgDanger } from "react-icons/cg";
+import { useEffect } from "react";
 
 function Input<F extends FieldValues>({
   type,
@@ -58,10 +59,7 @@ function Input<F extends FieldValues>({
           </>
         )}
         <div className={style.message}>
-          {validate &&
-            errors &&
-            errors[name] &&
-            t(errors[name]?.message as string)}
+          {errors && errors[name] && t(errors[name]?.message as string)}
           {((touched && required && !errors[name]?.message) ||
             errors[name]?.type === "required") &&
             !isDirty &&

@@ -1,5 +1,5 @@
 import Input from "../UI/Input";
-import { setUser, signUpUser } from "../../reducers/userReducer";
+import { signUpUser } from "../../reducers/userReducer";
 import SubmitBtn from "../UI/SubmitBtn";
 import { isValidEmail, noWhitespace } from "../../utils/validation/login";
 import TextButton from "../UI/TextButton";
@@ -10,6 +10,10 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { TSignUpData } from "api/userAPI";
 import { useAppDispatch } from "reducers/store";
+import { getUserError } from "utils/selectors/userSelectors";
+import { useSelector } from "react-redux";
+import { useEffect, useContext } from "react";
+import { User } from "components/contexts/UserContext";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -21,11 +25,20 @@ const SignUpForm = () => {
     setError,
     formState: { errors, touchedFields, dirtyFields },
   } = useForm<TSignUpData>();
+  const error = useSelector(getUserError);
+  const { role } = useContext(User);
 
   const submit: SubmitHandler<TSignUpData> = (formData) => {
     dispatch(signUpUser(formData));
-    navigate("/");
   };
+
+  useEffect(() => {
+    if (!error && role !== "GUEST") {
+      navigate("/");
+    } else if (error?.message !== "pending" && error && error.message) {
+      setError(error?.info?.field, { message: "err/" + error.message });
+    }
+  }, [error, role, navigate, setError]);
 
   return (
     <form onSubmit={handleSubmit(submit)}>

@@ -11,6 +11,7 @@ export const initialState: TUserAuth = {
   surname: null,
   email: null,
   city: undefined,
+  error: undefined
 };
 
 export const fetchUserLocationByCoords = createAsyncThunk(
@@ -26,9 +27,13 @@ export const fetchUserLocationByCoords = createAsyncThunk(
 
 export const signUpUser = createAsyncThunk(
   "user/sign-up",
-  async (signUpData: TSignUpData) => {
-    const data = await userAPI.signUp(signUpData)
+  async (signUpData: TSignUpData, thunk) => {
+    try {
+      const data = await userAPI.signUp(signUpData)
     return data.user
+    } catch (error: any) {
+      return thunk.rejectWithValue(error)
+    }
   }
 )
 
@@ -37,7 +42,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<TUserAuth>) => {
-      state.role = action.payload.role
+      state.role = action.payload.role;
       state.name = action.payload.name;
       state.surname = action.payload.surname;
       state.email = action.payload.email;
@@ -61,7 +66,16 @@ const userSlice = createSlice({
       state.role = action.payload.role;
       state.name = action.payload.name
       state.surname = action.payload.surname
-    });
+      state.error = undefined
+    })
+    .addCase(signUpUser.rejected, (state, action: PayloadAction<any>) => {
+      state.error = action.payload
+    })
+    .addCase(signUpUser.pending, (state) => {
+      if (state.error) {
+        state.error.message = "pending"
+      }
+    })
   },
 });
 
@@ -74,6 +88,10 @@ export type TUserAuth = {
   surname: String | null;
   email: string | null;
   city?: string;
+  error?: {
+    message: string | "pending",
+    info?: any
+  }
 };
 type TFetchUserLocationByCoordsPayload = {
   coords: TCoords;

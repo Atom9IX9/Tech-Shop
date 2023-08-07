@@ -1,4 +1,4 @@
-import { $user } from "./instance";
+import { $host, $authHost } from "./instance";
 
 import { TLng } from "types/types";
 import axios, { AxiosResponse } from "axios";
@@ -11,12 +11,18 @@ const userAPI = {
     return response.data.address;
   },
   signUp: async (signUpData: TSignUpData) => {
-    const response: AxiosResponse<TUserData> = await $user.post(
-      "sign-up",
-      signUpData
-    );
-    return response.data;
+    try {
+      const response: AxiosResponse<TUserData> = await $host.post(
+        "api/user/sign-up",
+        signUpData
+      );
+      localStorage.setItem("userToken", response.data.token)
+      return response.data;
+    } catch (err: any) {
+      return Promise.reject(err.response.data); 
+    }
   },
+  signIn: async (signInData: unknown) => {}
 };
 
 export default userAPI;
