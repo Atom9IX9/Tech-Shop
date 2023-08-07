@@ -9,7 +9,6 @@ import {
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
 import { CgDanger } from "react-icons/cg";
-import { useEffect } from "react";
 
 function Input<F extends FieldValues>({
   type,

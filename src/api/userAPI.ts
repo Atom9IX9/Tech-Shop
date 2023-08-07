@@ -16,13 +16,32 @@ const userAPI = {
         "api/user/sign-up",
         signUpData
       );
-      localStorage.setItem("userToken", response.data.token)
+      localStorage.setItem("userToken", response.data.token);
       return response.data;
     } catch (err: any) {
-      return Promise.reject(err.response.data); 
+      return Promise.reject(err.response.data);
     }
   },
-  signIn: async (signInData: unknown) => {}
+  signIn: async (signInData: TSignInData) => {
+    try {
+      const response: AxiosResponse<TUserData> = await $host.post(
+        "api/user/sign-in",
+        signInData
+      );
+      localStorage.setItem("userToken", response.data.token);
+      return response.data;
+    } catch (err: any) {
+      return Promise.reject(err.response.data);
+    }
+  },
+  checkAuth: async () => {
+    try {
+      const response: AxiosResponse<TUser> = await $authHost.get("api/user/auth");
+      return response.data;
+    } catch (err: any) {
+      return Promise.reject(err.response.data);
+    }
+  },
 };
 
 export default userAPI;
@@ -39,13 +58,19 @@ export type TSignUpData = {
   surname: string;
   phoneNumber: string;
 };
+export type TSignInData = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+};
 export type TUserData = {
   token: string;
-  user: {
-    id: number;
-    email: string;
-    role: "ADMIN" | "USER";
-    name: string;
-    surname: string;
-  };
+  user: TUser;
 };
+type TUser = {
+  id: number;
+  email: string;
+  role: "ADMIN" | "USER";
+  name: string;
+  surname: string;
+}

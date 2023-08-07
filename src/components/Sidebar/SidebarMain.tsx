@@ -5,7 +5,7 @@ import SidebarInfo from "./SidebarInfo";
 import { MouseEventHandler, useContext } from "react";
 import style from "style/sidebarStyle/sidebarStyle.module.css";
 import { useDispatch } from "react-redux";
-import { resetUser } from "reducers/userReducer";
+import { signOutUser } from "reducers/userReducer";
 import TextButton from "components/UI/TextButton";
 import { useTranslation } from "react-i18next";
 import { User } from "components/contexts/UserContext";
@@ -17,8 +17,8 @@ const SidebarMain = () => {
   const { role } = useContext(User);
 
   const signOut: MouseEventHandler = (e) => {
-    dispatch(resetUser())
-    dispatch(setActiveMenu(false))
+    dispatch(signOutUser());
+    dispatch(setActiveMenu(false));
   };
 
   return (

@@ -1,17 +1,22 @@
 import Input from "../UI/Input";
-import { setUser } from "../../reducers/userReducer";
+import { signInUser } from "../../reducers/userReducer";
 import SubmitBtn from "../UI/SubmitBtn";
 import { isValidEmail } from "../../utils/validation/login";
 import style from "../../style/loginStyle/login.module.css";
 import TextButton from "../UI/TextButton";
 
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { TSignInData } from "api/userAPI";
+import { useAppDispatch } from "reducers/store";
+import { useEffect, useContext } from "react"
+import { useSelector } from "react-redux";
+import { getUserError } from "utils/selectors/userSelectors";
+import { User } from "components/contexts/UserContext";
 
 const SignInForm = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation(["common", "auth"]);
   const {
@@ -19,24 +24,25 @@ const SignInForm = () => {
     handleSubmit,
     setError,
     formState: { errors, touchedFields, dirtyFields },
-  } = useForm<TSignInValues>();
+  } = useForm<TSignInData>();
+  const error = useSelector(getUserError)
+  const { role } = useContext(User)
 
-  const submit: SubmitHandler<TSignInValues> = (formData) => {
-    dispatch(
-      setUser({
-        name: "name", // user api
-        surname: "surname", // user api
-        role: "USER", // user api
-        email: "email", // user api
-        id: 1, // user api
-      })
-    );
-    navigate("/");
+  const submit: SubmitHandler<TSignInData> = (formData) => {
+    dispatch(signInUser(formData));
   };
+
+  useEffect(() => {
+    if (!error && role !== "GUEST") {
+      navigate("/");
+    } else if (error?.message !== "pending" && error && error.message) {
+      setError("root", { message: "err/" + error.message });
+    }
+  }, [error, role, navigate, setError])
 
   return (
     <form onSubmit={handleSubmit(submit)}>
-      <Input<TSignInValues>
+      <Input<TSignInData>
         name="email"
         register={register}
         required
@@ -45,7 +51,7 @@ const SignInForm = () => {
         isDirty={dirtyFields.email}
         validate={{ isValidEmail }}
       />
-      <Input<TSignInValues>
+      <Input<TSignInData>
         name="password"
         register={register}
         required
@@ -57,7 +63,7 @@ const SignInForm = () => {
       <div className={style.rootErr}>
         {t(`auth:${errors.root?.message || ""}`)}
       </div>
-      <Input<TSignInValues>
+      <Input<TSignInData>
         name="rememberMe"
         register={register}
         errors={errors}
@@ -72,8 +78,4 @@ const SignInForm = () => {
 };
 
 export default SignInForm;
-type TSignInValues = {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-};
+

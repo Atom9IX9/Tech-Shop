@@ -2,13 +2,13 @@ import Layout from "components/Layout";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "reducers/userReducer";
 import React from "react";
 import withSuspense from "utils/hoc/withSuspense";
 // ? page imports
 import Home from "pages/Home";
 import Subcategories from "pages/Subcategories";
+import { useAppDispatch } from "reducers/store";
+import { checkUserAuth } from "reducers/userReducer";
 
 // ? lazy page imports
 const SignIn = withSuspense(React.lazy(() => import("./pages/SignIn")));
@@ -19,12 +19,12 @@ const Contacts = withSuspense(React.lazy(() => import("./pages/Contacts")));
 
 const App = () => {
   const { i18n } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     // auto sign-in
-    
-  }, []);
+    dispatch(checkUserAuth())
+  }, [dispatch]);
 
   useEffect(() => {
     // removes full locales ("en-US" => "en")
