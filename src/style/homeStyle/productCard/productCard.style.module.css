@@ -14,6 +14,8 @@
 .productCard .picture img {
   display: block;
 
+  height: 100%;
+
   margin: auto;
 }
 .productCard .picture {

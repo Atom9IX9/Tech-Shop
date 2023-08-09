@@ -3,17 +3,37 @@ import { useAppDispatch } from "reducers/store";
 import { getProducts } from "utils/selectors/productSelectors";
 import ProductCard from "components/Home/ProductCard";
 import style from "style/homeStyle/page.module.css";
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import HomeCategories from "components/Home/HomeCategories";
+import { User } from "components/contexts/UserContext";
+import productsAPI from "api/productsAPI";
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const productCards = useSelector(getProducts);
+  const { role } = useContext(User);
+
+  const [productImg, setImg] = useState<File | null>(null);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts({ category: "all", page: 1 }));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (productImg) {
+      productsAPI.createProduct({img: productImg, price: "2000", title: "Some text 4 alalalalala", category: "beauty_and_health"})
+    }
+  }, [productImg])
+
+  if (role === "ADMIN") {
+    return (
+      <input
+        type="file"
+        onChange={(e) => setImg(e.target.files ? e.target.files[0] : null)}
+      />
+    );
+  }
 
   return (
     <div className={style.homePage}>

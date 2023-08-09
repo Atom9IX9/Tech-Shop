@@ -1,12 +1,9 @@
 import { TProductCard } from "api/productsAPI";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import style from "style/homeStyle/productCard/productCard.style.module.css";
-import { useContext } from "react";
-import { User } from "components/contexts/UserContext";
 import { getSale } from "utils/getSale";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "reducers/store";
-import { addLike, removeLike } from "reducers/productsReducer";
 import { useSelector } from "react-redux";
 import { getFetchings } from "utils/selectors/productSelectors";
 import React from "react";
@@ -14,7 +11,6 @@ import cn from "classnames";
 
 const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   const fetchings = useSelector(getFetchings);
-  const { id } = useContext(User);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -32,7 +28,11 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
         </div>
       </div>
       <div className={style.picture}>
-        <img src={product.picture} alt={product.title} loading="lazy" />
+        <img
+          src={process.env.REACT_APP_SERVER_API_HOST + "/" + product.img}
+          alt={product.title}
+          loading="lazy"
+        />
       </div>
       <div className={style.title} title={product.title}>
         {product.title}

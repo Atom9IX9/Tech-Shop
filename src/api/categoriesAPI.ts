@@ -9,9 +9,10 @@ export const getSubCategories_API = async (category: TCategoryCode) => {
 };
 
 // * categories' types
-export type TCategoryCode = TMainCategoryCode | string;
+export type TCategoryCode = TMainCategoryCode;
 export type TSubCategory = { code: string };
 export type TMainCategoryCode =
+  | "all"
   | "beauty_and_health"
   | "sports_and_hobbies"
   | "goods_for_gamers"
