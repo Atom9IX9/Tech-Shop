@@ -4,18 +4,17 @@ import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import React from "react";
 import withSuspense from "utils/hoc/withSuspense";
-// ? page imports
 import Home from "pages/Home";
-import Subcategories from "pages/Subcategories";
 import { useAppDispatch } from "reducers/store";
 import { checkUserAuth } from "reducers/userReducer";
 
 // ? lazy page imports
-const SignIn = withSuspense(React.lazy(() => import("./pages/SignIn")));
-const SignUp = withSuspense(React.lazy(() => import("./pages/SignUp")));
-const About = withSuspense(React.lazy(() => import("./pages/About")));
-const AllCategories = withSuspense(React.lazy(() => import("./pages/AllCategories")));
-const Contacts = withSuspense(React.lazy(() => import("./pages/Contacts")));
+const SignIn = withSuspense(React.lazy(() => import("pages/SignIn")));
+const SignUp = withSuspense(React.lazy(() => import("pages/SignUp")));
+const About = withSuspense(React.lazy(() => import("pages/About")));
+const Catalog = withSuspense(React.lazy(() => import("pages/Catalog")));
+const Contacts = withSuspense(React.lazy(() => import("pages/Contacts")));
+const PageWithCategory = withSuspense(React.lazy(() => import("pages/Category")))
 
 const App = () => {
   const { i18n } = useTranslation();
@@ -40,8 +39,8 @@ const App = () => {
           <Route path="sign-in" element={<SignIn />} />
           <Route path="about" element={<About />} />
           <Route path="contacts" element={<Contacts />} />
-          <Route path="all-categories" element={<AllCategories />} />
-          <Route path=":category" element={<Subcategories />} />
+          <Route path="all-categories" element={<Catalog />} />
+          <Route path=":category" element={<PageWithCategory />} />
         </Route>
       </Routes>
     </div>

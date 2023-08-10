@@ -8,17 +8,25 @@ import { getCategories } from "utils/selectors/productSelectors";
 import { BsQuestionCircle } from "react-icons/bs";
 import { FaTelegramPlane } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import { useAppDispatch } from "reducers/store";
+import { fetchCategories } from "reducers/productsReducer";
 
 const HomeCategories = () => {
   const { t } = useTranslation(["sidebar"]);
+  const dispatch = useAppDispatch()
 
   const categories = useSelector(getCategories);
+
+  useEffect(() => {
+    dispatch(fetchCategories())
+  }, [dispatch])
 
   return (
     <aside className={style.categoriesBar}>
       <ul className={style.categoriesList}>
         {categories.map((c) => (
-          <li key={c} className={style.categoryWrapper}>
+          <li key={c.code} className={style.categoryWrapper}>
             <div className={style.category}>
               <CategoryLink category={c} />
             </div>

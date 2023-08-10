@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import HomeCategories from "components/Home/HomeCategories";
 import { User } from "components/contexts/UserContext";
 import productsAPI from "api/productsAPI";
+import categoriesAPI from "api/categoriesAPI";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -16,22 +17,38 @@ const Home = () => {
 
   const [productImg, setImg] = useState<File | null>(null);
 
+  const createCategory = () => {
+    categoriesAPI.createMainCategory({
+      en: "Sports and hobbies",
+      ua: "Спорт та захоплення",
+      ru: "Спорт и увлечения",
+    });
+  };
+
   useEffect(() => {
     dispatch(fetchProducts({ category: "all", page: 1 }));
   }, [dispatch]);
 
   useEffect(() => {
     if (productImg) {
-      productsAPI.createProduct({img: productImg, price: "2000", title: "Some text 4 alalalalala", category: "beauty_and_health"})
+      productsAPI.createProduct({
+        img: productImg,
+        price: "2000",
+        title: "Some text 4 alalalalala",
+        category: "beauty_and_health",
+      });
     }
-  }, [productImg])
+  }, [productImg]);
 
   if (role === "ADMIN") {
     return (
-      <input
-        type="file"
-        onChange={(e) => setImg(e.target.files ? e.target.files[0] : null)}
-      />
+      <div>
+        <input
+          type="file"
+          onChange={(e) => setImg(e.target.files ? e.target.files[0] : null)}
+        />
+        <button onClick={createCategory}>Send category</button>
+      </div>
     );
   }
 

@@ -1,12 +1,5 @@
-import productsAPI, {
-  TProductCard,
-} from "../api/productsAPI";
-import {
-  TCategoryCode,
-  TMainCategoryCode,
-  TSubCategory,
-  getSubCategories_API,
-} from "../api/categoriesAPI";
+import productsAPI, { TProductCard } from "../api/productsAPI";
+import categoriesAPI, { TCategoryCode, TMainCategory } from "../api/categoriesAPI";
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -15,34 +8,29 @@ export const initialState = {
   fetchings: {
     like: false,
   },
-  categories: [
-    "laptops_and_computers",
-    "smartphones_tv_and_electronics",
-    "goods_for_gamers",
-    "household_appliances",
-    "beauty_and_health",
-    "sports_and_hobbies",
-  ] as TMainCategoryCode[],
-  currentCategory: {
-    code: null as TCategoryCode | null,
-    subcategories: null as null | TSubCategory[],
-  },
+  categories: [] as TMainCategory[],
+  currentCategory: null as TMainCategory | null,
   page: 1,
-  pageSize: 10
+  pageSize: 10,
 };
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async ({page, category}: TFetchPostsPayload) => {
-    const products = await productsAPI.getAllProducts(category, initialState.pageSize, page);
-    return products
+  async ({ page, category }: TFetchPostsPayload) => {
+    const products = await productsAPI.getAllProducts(
+      category,
+      initialState.pageSize,
+      page
+    );
+    return products;
   }
 );
-export const fetchSubcategories = createAsyncThunk(
-  "products/fetchSubcategories",
-  async (category: TCategoryCode) => {
-    const subcategories = await getSubCategories_API(category);
-    return subcategories;
+
+export const fetchCategories = createAsyncThunk(
+  "product/fetchCategories",
+  async () => {
+    const categories = await categoriesAPI.getMainCategories()
+    return categories
   }
 );
 
@@ -50,18 +38,17 @@ const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    setCurrentCategory: (state, action: PayloadAction<TCategoryCode>) => {
-      state.currentCategory.code = action.payload;
+    setCurrentCategory: (state, action: PayloadAction<TMainCategory>) => {
+      state.currentCategory = action.payload;
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.productCards = action.payload.rows
-      })
-      .addCase(fetchSubcategories.fulfilled, (state, action) => {
-        state.currentCategory.subcategories = action.payload;
-      });
+    builder.addCase(fetchProducts.fulfilled, (state, action) => {
+      state.productCards = action.payload.rows;
+    })
+    .addCase(fetchCategories.fulfilled, (state, action) => {
+      state.categories = action.payload
+    })
   },
 });
 
@@ -75,7 +62,6 @@ export type TProductCharacteristics = {
   characteristics?: { [key: string]: string };
 };
 type TFetchPostsPayload = {
-  category: TCategoryCode,
-  page: number
-}
-
+  category: TCategoryCode;
+  page: number;
+};
