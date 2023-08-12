@@ -2,25 +2,36 @@ import { TProductCard } from "api/productsAPI";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import style from "style/homeStyle/productCard/productCard.style.module.css";
 import { getSale } from "utils/getSale";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "reducers/store";
 import { useSelector } from "react-redux";
-import { getFetchings } from "utils/selectors/productSelectors";
-import React from "react";
+import { getLikedProducts } from "utils/selectors/productSelectors";
+import React, { useState, useEffect } from "react";
 import cn from "classnames";
+import { likeProduct } from "reducers/productsReducer";
 
 const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
-  const fetchings = useSelector(getFetchings);
-  const navigate = useNavigate();
+  const [isLiked, setIsLiked] = useState(false);
+  const likedProducts = useSelector(getLikedProducts);
+
   const dispatch = useAppDispatch();
 
-  const like = (product: TProductCard) => {};
+  const like = () => {
+    if (!isLiked) {
+      dispatch(likeProduct({ id: product.id, method: "ADD" }));
+    } else if (isLiked) {
+      dispatch(likeProduct({ id: product.id, method: "REMOVE" }));
+    }
+  };
+
+  useEffect(() => {
+    setIsLiked(likedProducts.includes(product.id));
+  }, [likedProducts, product.id]);
 
   return (
     <div className={style.productCard}>
       <div className={style.liked}>
-        <div className={style.likeIcon} onClick={() => like(product)}>
-          {true ? ( // t/f
+        <div className={style.likeIcon} onClick={like}>
+          {isLiked ? (
             <AiFillHeart size={25} color="gold" />
           ) : (
             <AiOutlineHeart size={25} color="gold" />

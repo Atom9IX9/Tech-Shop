@@ -1,4 +1,4 @@
-import { fetchProducts } from "reducers/productsReducer";
+import { fetchLikedProductIds, fetchProducts } from "reducers/productsReducer";
 import { useAppDispatch } from "reducers/store";
 import { getProducts } from "utils/selectors/productSelectors";
 import ProductCard from "components/Home/ProductCard";
@@ -13,7 +13,7 @@ import categoriesAPI from "api/categoriesAPI";
 const Home = () => {
   const dispatch = useAppDispatch();
   const productCards = useSelector(getProducts);
-  const { role } = useContext(User);
+  const { role, id } = useContext(User);
 
   const [productImg, setImg] = useState<File | null>(null);
 
@@ -28,6 +28,10 @@ const Home = () => {
   useEffect(() => {
     dispatch(fetchProducts({ category: "all", page: 1 }));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchLikedProductIds())
+  }, [id, dispatch])
 
   useEffect(() => {
     if (productImg) {

@@ -10,6 +10,7 @@ import TextButton from "components/UI/TextButton";
 import { useTranslation } from "react-i18next";
 import { User } from "components/contexts/UserContext";
 import { setActiveMenu } from "reducers/appReducer";
+import { resetLikedProducts } from "reducers/productsReducer";
 
 const SidebarMain = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const SidebarMain = () => {
 
   const signOut: MouseEventHandler = (e) => {
     dispatch(signOutUser());
+    dispatch(resetLikedProducts())
     dispatch(setActiveMenu(false));
   };
 
