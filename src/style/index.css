@@ -15,6 +15,8 @@ body, html {
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
   height: min-content;
+
+  background: #F7F7F7;
 }
 
 :root {

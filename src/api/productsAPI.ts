@@ -72,7 +72,7 @@ const productsAPI = {
   },
   getLikedProductIds: async () => {
     try {
-      const response = await $authHost.get<TLikedProductsData>("api/product/like");
+      const response = await $authHost.get<TLikedProductsData>("api/product/liked-ids");
       return response.data;
     } catch (err: any) {
       return Promise.reject(err.response.data);

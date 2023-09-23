@@ -15,6 +15,8 @@ const About = withSuspense(React.lazy(() => import("pages/About")));
 const Catalog = withSuspense(React.lazy(() => import("pages/Catalog")));
 const Contacts = withSuspense(React.lazy(() => import("pages/Contacts")));
 const PageWithCategory = withSuspense(React.lazy(() => import("pages/Category")))
+const LikedProducts = withSuspense(React.lazy(() => import("pages/LikedProducts")))
+const AdminPanel = withSuspense(React.lazy(() => import("pages/AdminPanel")))
 
 const App = () => {
   const { i18n } = useTranslation();
@@ -40,6 +42,8 @@ const App = () => {
           <Route path="about" element={<About />} />
           <Route path="contacts" element={<Contacts />} />
           <Route path="all-categories" element={<Catalog />} />
+          <Route path="liked-products" element={<LikedProducts />} />
+          <Route path="admin-panel/*" element={<AdminPanel />} />
           <Route path=":category" element={<PageWithCategory />} />
         </Route>
       </Routes>

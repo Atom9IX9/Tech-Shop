@@ -1,4 +1,5 @@
 import CategoryLink from "./CategoryLink";
+import HomeCategoriesAsideProfile from "./HomeCategoriesAsideProfile";
 
 import RedLink from "components/UI/RedLink";
 import { useSelector } from "react-redux";
@@ -8,13 +9,15 @@ import { getCategories } from "utils/selectors/productSelectors";
 import { BsQuestionCircle } from "react-icons/bs";
 import { FaTelegramPlane } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useAppDispatch } from "reducers/store";
 import { fetchCategories } from "reducers/productsReducer";
+import { User } from "components/contexts/UserContext";
 
 const HomeCategories = () => {
   const { t } = useTranslation(["sidebar"]);
   const dispatch = useAppDispatch()
+  const { role } = useContext(User)
 
   const categories = useSelector(getCategories);
 
@@ -45,6 +48,7 @@ const HomeCategories = () => {
           </RedLink>
         </NavLink>
       </nav>
+      {role !== "GUEST" && <HomeCategoriesAsideProfile />}
     </aside>
   );
 };
