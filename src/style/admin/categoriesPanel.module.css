@@ -1,0 +1,127 @@
+.windowName {
+  height: 30px;
+  width: 224px;
+
+  color: var(--violet-bg-color);
+  font-weight: normal;
+  font-size: 20px;
+
+  margin: 0;
+  padding: 0;
+}
+
+.formSubtitle {
+  padding: 0;
+  margin-bottom: 15px;
+  margin-top: 10px;
+
+  height: 17px;
+  width: 207px;
+
+  font-size: 15px;
+  color: #666;
+  font-weight: normal;
+}
+
+.inputs {
+  list-style: none;
+  counter-reset: item;
+
+  margin: 0;
+  padding: 0;
+}
+
+.inputs li {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 26px;
+}
+
+.inputs li::before {
+  position: relative;
+  top: 5px;
+
+  display: block;
+  width: 22px;
+  height: 33px;
+
+  font-size: 16px;
+  line-height: 24px;
+  color: #595959;
+
+  content: counter(item);
+  counter-increment: item
+}
+
+
+.fileUpload {
+  width: 402px;
+  height: 97px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* border */
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23B9B9C3FF' stroke-width='4' stroke-dasharray='2%2c 4' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
+}
+
+.fileUploadBtn {
+  background: var(--violet-bg-color);
+  width: 87px;
+  height: 25px;
+  border: 0;
+
+  color: #fff;
+  font-size: 14px;
+  font-weight: normal;
+
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  -ms-transition: all 200ms;
+  -o-transition: all 200ms;
+
+  cursor: pointer;
+}
+
+.fileUploadBtn:hover {
+  opacity: 0.8;
+}
+
+.createBtn {
+  background: var(--pink-bg-color);
+  width: 108px;
+  height: 33px;
+
+  margin-top: 10px;
+  margin-left: 295px;
+
+  color: #fff;
+
+  border: 0;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  -ms-transition: all 200ms;
+  -o-transition: all 200ms;
+
+  cursor: pointer;
+}
+
+.createBtn:hover {
+  opacity: 0.8;
+}

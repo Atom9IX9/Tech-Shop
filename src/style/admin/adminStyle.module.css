@@ -74,3 +74,35 @@
   background: #2f81ed20;
   color: #2f80ed;
 }
+
+.input {
+  width: 336px;
+  height: 40px;
+
+  box-sizing: border-box;
+  padding-left: 10px;
+
+  border: solid #8e8e933b 1px;
+
+  outline: none;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+}
+
+.inputClear {
+  width: 44px;
+  height: 40px;
+
+  border: solid #8e8e933b 1px;
+  border-left: 0;
+  background: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
