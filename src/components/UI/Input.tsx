@@ -19,6 +19,7 @@ function Input<F extends FieldValues>({
   errors,
   touched = false,
   isDirty = false,
+  autoComplete = "off",
 }: TProps<F>) {
   const { t } = useTranslation("auth");
 
@@ -37,6 +38,8 @@ function Input<F extends FieldValues>({
                 type={type}
                 {...register(name, { required, validate })}
                 className={style.input}
+                autoComplete={autoComplete}
+                autoSave={autoComplete}
               />
               {(errors[name] || errors.root) && (
                 <CgDanger color="red" size={20} />
@@ -79,4 +82,5 @@ type TProps<T extends FieldValues> = {
   errors: FieldErrors<T>;
   touched?: boolean;
   isDirty?: boolean;
+  autoComplete?: "on" | "off";
 };

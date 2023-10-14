@@ -1,5 +1,3 @@
-import CategoryIcon from "./CategoryIcon";
-
 import { setCurrentCategory } from "../../reducers/productsReducer";
 import style from "../../style/homeStyle/productCard/categoryLink.module.css";
 import RedLink from "../UI/RedLink";
@@ -25,7 +23,11 @@ const Category: React.FC<TProps> = ({ category }) => {
       <RedLink
         icon={
           <div className={style.iconWrapper}>
-            <CategoryIcon code={category.code} size={25} color="#aeaeae" />
+            <img
+              className={style.icon}
+              src={`${process.env.REACT_APP_SERVER_API_HOST}/${category.icon}`}
+              alt=""
+            />
           </div>
         }
         textStyle="underline"

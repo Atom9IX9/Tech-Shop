@@ -3,7 +3,7 @@ import productsAPI, {
   TProductLikeData,
 } from "../api/productsAPI";
 import categoriesAPI, {
-  TCategoryCode,
+  CategoryCreateData,
   TMainCategory,
 } from "../api/categoriesAPI";
 
@@ -13,6 +13,10 @@ export const initialState = {
   productCards: [] as TProductCard[],
   fetchings: {
     like: false,
+    categoryCreating: false
+  },
+  statuses: {
+    categoryCreate: undefined as undefined | "success" | string
   },
   categories: [] as TMainCategory[],
   currentCategory: null as TMainCategory | null,
@@ -40,6 +44,18 @@ export const fetchCategories = createAsyncThunk(
     return categories;
   }
 );
+
+export const createCategory = createAsyncThunk(
+  "products/createCategory",
+  async (translates: CategoryCreateData, thunk) => {
+    try {
+      const category = await categoriesAPI.createMainCategory(translates)
+      return category
+    } catch (error: any) {
+      return thunk.rejectWithValue(error.response.data.message)
+    }
+  }
+)
 
 export const likeProduct = createAsyncThunk(
   "products/like",
@@ -94,6 +110,19 @@ const productsSlice = createSlice({
       .addCase(fetchLikedProductIds.fulfilled, (state, action) => {
         state.likedProducts = action.payload
       })
+      .addCase(createCategory.fulfilled, (state, action) => {
+        state.categories = [...state.categories, action.payload]
+        state.fetchings.categoryCreating = false
+        state.statuses.categoryCreate = "success"
+      })
+      .addCase(createCategory.pending, (state, action) => {
+        state.fetchings.categoryCreating = true;
+        state.statuses.categoryCreate = undefined
+      })
+      .addCase(createCategory.rejected, (state, action) => {
+        state.fetchings.categoryCreating = false
+        state.statuses.categoryCreate = action.payload as string
+      })
   },
 });
 
@@ -103,11 +132,11 @@ export const { setCurrentCategory, resetLikedProducts } = productsSlice.actions;
 export type TInitialState = typeof initialState;
 
 export type TProductCharacteristics = {
-  categories: TCategoryCode[];
+  categories: string[];
   characteristics?: { [key: string]: string };
 };
 type TFetchPostsPayload = {
-  category: TCategoryCode;
+  category: string;
   page: number;
 };
 type TLikeProductPayload = {

@@ -56,6 +56,8 @@
 
 
 .fileUpload {
+  position: relative;
+
   width: 402px;
   height: 97px;
 
@@ -67,11 +69,22 @@
   background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23B9B9C3FF' stroke-width='4' stroke-dasharray='2%2c 4' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
 }
 
+.fileUpload.drag {
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='%235073ff7a' stroke='%235073ff' stroke-width='4' stroke-dasharray='2%2c 4' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e")
+}
+
+.fileUploadInp {
+  display: none;
+}
 .fileUploadBtn {
   background: var(--violet-bg-color);
   width: 87px;
   height: 25px;
   border: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   color: #fff;
   font-size: 14px;
@@ -94,6 +107,24 @@
 
 .fileUploadBtn:hover {
   opacity: 0.8;
+}
+
+.fileUploadBtn.disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+.iconName {
+  position: absolute;
+
+  top: 65px;
+  left: 0;
+  right: 0;
+
+  text-align: center;
+  color: var(--violet-bg-color);
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .createBtn {
