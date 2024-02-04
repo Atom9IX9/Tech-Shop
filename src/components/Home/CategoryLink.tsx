@@ -11,7 +11,7 @@ import { TLng } from "types/types";
 const Category: React.FC<TProps> = ({ category }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { i18n } = useTranslation("categories");
+  const { i18n } = useTranslation();
 
   const selectCategory = () => {
     dispatch(setCurrentCategory(category));

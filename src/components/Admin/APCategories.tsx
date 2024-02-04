@@ -1,3 +1,5 @@
+import AvCategory from "./AvCategory";
+
 import style_g from "style/admin/adminStyle.module.css";
 import style from "style/admin/categoriesPanel.module.css";
 import classNames from "classnames";
@@ -12,10 +14,14 @@ import {
 import { IoTrashBinOutline } from "react-icons/io5";
 import { DragEventHandler, MouseEventHandler, useState } from "react";
 import { useAppDispatch } from "reducers/store";
-import { createCategory } from "reducers/productsReducer";
+import { createCategory, fetchCategories } from "reducers/productsReducer";
 import { useSelector } from "react-redux";
-import { getProductStatuses } from "utils/selectors/productSelectors";
+import {
+  getCategories,
+  getProductStatuses,
+} from "utils/selectors/productSelectors";
 import { CategoryCreateData } from "api/categoriesAPI";
+import { useEffect } from "react";
 
 const APCategories = () => {
   const {
@@ -47,9 +53,21 @@ const APCategories = () => {
 
   const [icon, setIcon] = useState<File | undefined>(undefined);
 
+  const categories = useSelector(getCategories);
+
+  useEffect(() => {
+    if (categories.length === 0) {
+      dispatch(fetchCategories());
+    }
+  }, [categories, dispatch]);
+
   return (
     <div className={style_g.content}>
-      <div className={classNames(style_g.APElement, style_g.contentElement)}>
+      <div
+        className={classNames(style_g.APElement, style_g.contentElement, {
+          [style.success]: statuses.categoryCreate === "success",
+        })}
+      >
         <h3 className={style.windowName}>Creating category</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           <h4 className={style.formSubtitle}>Title</h4>
@@ -117,12 +135,20 @@ const APCategories = () => {
             Create
           </button>
         </form>
-        <div>
+        <div className={style.statusCode}>
           {statuses.categoryCreate === undefined
             ? ""
             : statuses.categoryCreate === "success"
             ? "success"
             : statuses.categoryCreate}
+        </div>
+      </div>
+      <div className={classNames(style_g.APElement, style_g.contentElement)}>
+        <h3 className={style.windowName}>Available categories</h3>
+        <div>
+          {categories.map((category) => (
+            <AvCategory category={category} />
+          ))}
         </div>
       </div>
     </div>

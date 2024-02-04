@@ -51,9 +51,8 @@
   color: #595959;
 
   content: counter(item);
-  counter-increment: item
+  counter-increment: item;
 }
-
 
 .fileUpload {
   position: relative;
@@ -70,7 +69,7 @@
 }
 
 .fileUpload.drag {
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='%235073ff7a' stroke='%235073ff' stroke-width='4' stroke-dasharray='2%2c 4' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e")
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='%235073ff7a' stroke='%235073ff' stroke-width='4' stroke-dasharray='2%2c 4' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
 }
 
 .fileUploadInp {
@@ -110,7 +109,7 @@
 }
 
 .fileUploadBtn.disabled {
-  opacity: .5;
+  opacity: 0.5;
   cursor: default;
 }
 
@@ -155,4 +154,34 @@
 
 .createBtn:hover {
   opacity: 0.8;
+}
+
+.success {
+  animation: successAnim 2s ease;
+  -webkit-animation: successAnim 2s ease;
+}
+
+@keyframes successAnim {
+  0% {
+    outline: 2px solid #00800000;
+  }
+  25% {
+    outline: 2px solid #2bb900;
+  }
+  75% {
+    outline: 2px solid #2bb900;
+  }
+  100% {
+    outline: 2px solid #00800000;
+  }
+}
+
+.statusCode {
+  position: absolute;
+  bottom: 20px;
+  color: red;
+}
+
+.success.statusCode {
+  color: #2bb900;
 }

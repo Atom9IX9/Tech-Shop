@@ -1,12 +1,15 @@
 import { $authHost, $host } from "./instance";
 
+import { AxiosError } from "axios";
+
 const categoriesAPI = {
   getMainCategories: async () => {
     try {
       const response = await $host.get<TMainCategory[]>("api/category");
       return response.data;
-    } catch (err: any) {
-      return Promise.reject(err.response.data);
+    } catch (e) {
+      const err = e as AxiosError<{ message: string }>;
+      return Promise.reject(err.response?.data);
     }
   },
   createMainCategory: async (data: CategoryCreateData) => {
@@ -14,10 +17,10 @@ const categoriesAPI = {
       return Promise.reject({
         response: {
           data: {
-            message: "err/icon_is_null"
-          }
-        }
-      })
+            message: "err/icon_is_null",
+          },
+        },
+      });
     }
 
     const formData = new FormData();
@@ -40,6 +43,17 @@ const categoriesAPI = {
       return Promise.reject(error);
     }
   },
+  deleteCategory: async (categoryCode: string) => {
+    try {
+      const response = await $authHost.delete<{ deleted: boolean }>(
+        `api/category/${categoryCode}`
+      );
+      return response.data;
+    } catch (e) {
+      const err = e as AxiosError<{ message: string }>;
+      return Promise.reject(err.response?.data);
+    }
+  },
 };
 
 export default categoriesAPI;
@@ -55,4 +69,4 @@ export type TMainCategory = {
 } & TCategoryTranslates & {
     icon: string;
   };
-export type CategoryCreateData = TCategoryTranslates & { icon?: File }
+export type CategoryCreateData = TCategoryTranslates & { icon?: File };

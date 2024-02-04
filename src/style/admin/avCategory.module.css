@@ -1,0 +1,39 @@
+.avCategory {
+  height: 20px;
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 17px;
+}
+
+.categoryCode {
+  font-size: 15px;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  width: 100px;
+
+  margin-right: 85px;
+}
+
+.categoryTranslate {
+  color: #666666;
+  font-size: 15px;
+  font-style: italic;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+
+  height: 20px;
+  width: 120px;
+
+  margin-right: 150px;
+}
+
+.deleteButton {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

@@ -13,10 +13,11 @@ export const initialState = {
   productCards: [] as TProductCard[],
   fetchings: {
     like: false,
-    categoryCreating: false
+    categoryCreating: false,
   },
   statuses: {
-    categoryCreate: undefined as undefined | "success" | string
+    categoryCreate: undefined as undefined | "success" | string,
+    categoryFetched: undefined as undefined | "success" | string,
   },
   categories: [] as TMainCategory[],
   currentCategory: null as TMainCategory | null,
@@ -39,9 +40,14 @@ export const fetchProducts = createAsyncThunk(
 
 export const fetchCategories = createAsyncThunk(
   "products/fetchCategories",
-  async () => {
-    const categories = await categoriesAPI.getMainCategories();
-    return categories;
+  async (_, { rejectWithValue }) => {
+    try {
+      const categories = await categoriesAPI.getMainCategories();
+      return categories;
+    } catch (e) {
+      const err = e as { message: string };
+      return rejectWithValue(err.message);
+    }
   }
 );
 
@@ -49,13 +55,13 @@ export const createCategory = createAsyncThunk(
   "products/createCategory",
   async (translates: CategoryCreateData, thunk) => {
     try {
-      const category = await categoriesAPI.createMainCategory(translates)
-      return category
+      const category = await categoriesAPI.createMainCategory(translates);
+      return category;
     } catch (error: any) {
-      return thunk.rejectWithValue(error.response.data.message)
+      return thunk.rejectWithValue(error.response.data.message);
     }
   }
-)
+);
 
 export const likeProduct = createAsyncThunk(
   "products/like",
@@ -76,6 +82,19 @@ export const fetchLikedProductIds = createAsyncThunk(
   }
 );
 
+export const deleteCategory = createAsyncThunk(
+  "product/deleteCategory",
+  async (categoryCode: string, { rejectWithValue }) => {
+    try {
+      const isDeleted = await categoriesAPI.deleteCategory(categoryCode);
+      return categoryCode;
+    } catch (e) {
+      const err = e as { message: string };
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
 const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -84,8 +103,8 @@ const productsSlice = createSlice({
       state.currentCategory = action.payload;
     },
     resetLikedProducts: (state) => {
-      state.likedProducts = []
-    }
+      state.likedProducts = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -94,7 +113,14 @@ const productsSlice = createSlice({
       })
       .addCase(fetchCategories.fulfilled, (state, action) => {
         state.categories = action.payload;
+        state.statuses.categoryFetched = "success";
       })
+      .addCase(
+        fetchCategories.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.statuses.categoryFetched = action.payload;
+        }
+      )
       .addCase(likeProduct.fulfilled, (state, action) => {
         if (action.payload.method === "ADD") {
           state.likedProducts = [
@@ -108,21 +134,26 @@ const productsSlice = createSlice({
         }
       })
       .addCase(fetchLikedProductIds.fulfilled, (state, action) => {
-        state.likedProducts = action.payload
+        state.likedProducts = action.payload;
       })
       .addCase(createCategory.fulfilled, (state, action) => {
-        state.categories = [...state.categories, action.payload]
-        state.fetchings.categoryCreating = false
-        state.statuses.categoryCreate = "success"
+        state.categories = [...state.categories, action.payload];
+        state.fetchings.categoryCreating = false;
+        state.statuses.categoryCreate = "success";
       })
       .addCase(createCategory.pending, (state, action) => {
         state.fetchings.categoryCreating = true;
-        state.statuses.categoryCreate = undefined
+        state.statuses.categoryCreate = undefined;
       })
       .addCase(createCategory.rejected, (state, action) => {
-        state.fetchings.categoryCreating = false
-        state.statuses.categoryCreate = action.payload as string
+        state.fetchings.categoryCreating = false;
+        state.statuses.categoryCreate = action.payload as string;
       })
+      .addCase(deleteCategory.fulfilled, (state, action) => {
+        state.categories = state.categories.filter(
+          (c) => c.code !== action.payload
+        );
+      });
   },
 });
 

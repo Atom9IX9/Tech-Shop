@@ -1,13 +1,15 @@
 import style from "style/admin/adminStyle.module.css";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import AdminPanelNav from "components/Admin/AdminPanelNav";
-import APCategories from "components/Admin/APCategories";
-import APPeoples from "components/Admin/APPeoples";
-import APProducts from "components/Admin/APProducts";
-import APAdmins from "components/Admin/APAdmins";
-import APReports from "components/Admin/APReports";
-import APDashboard from "components/Admin/APDashboard";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import withSuspense from "utils/hoc/withSuspense";
+
+const APCategories = withSuspense(React.lazy(() => import("components/Admin/APCategories")))
+const APPeoples = withSuspense(React.lazy(() => import("components/Admin/APPeoples")))
+const APProducts = withSuspense(React.lazy(() => import("components/Admin/APProducts")))
+const APAdmins = withSuspense(React.lazy(() => import("components/Admin/APAdmins")))
+const APReports = withSuspense(React.lazy(() => import("components/Admin/APReports")))
+const APDashboard = withSuspense(React.lazy(() => import("components/Admin/APDashboard")))
 
 const AdminPanel = () => {
   const location = useLocation()
