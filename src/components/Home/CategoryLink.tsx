@@ -25,7 +25,7 @@ const Category: React.FC<TProps> = ({ category }) => {
           <div className={style.iconWrapper}>
             <img
               className={style.icon}
-              src={`${process.env.REACT_APP_SERVER_API_HOST}/${category.icon}`}
+              src={`${process.env.REACT_APP_SERVER_API_HOST}/public/${category.icon}`}
               alt=""
             />
           </div>

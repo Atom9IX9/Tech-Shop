@@ -40,7 +40,7 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
       </div>
       <div className={style.picture}>
         <img
-          src={process.env.REACT_APP_SERVER_API_HOST + "/" + product.img}
+          src={process.env.REACT_APP_SERVER_API_HOST + "/public/" + product.img}
           alt={product.title}
           loading="lazy"
         />
