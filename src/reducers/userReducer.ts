@@ -6,14 +6,13 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const initialState: TUserAuth = {
   id: null,
-  role: "ADMIN",
+  role: "GUEST",
   name: null,
   surname: null,
   email: null,
   city: undefined,
   error: undefined,
 };
-console.warn("role: defADMIN_")
 
 export const fetchUserLocationByCoords = createAsyncThunk(
   "user/fetchAddress",
