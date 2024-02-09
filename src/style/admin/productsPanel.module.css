@@ -1,0 +1,15 @@
+.formWrapper {
+  display: flex;
+  gap: 30px;
+}
+
+.fileUpload {
+  height: 270px;
+}
+
+.createBtn {
+  position: absolute;
+
+  bottom: 40px;
+  right: 95px;
+}

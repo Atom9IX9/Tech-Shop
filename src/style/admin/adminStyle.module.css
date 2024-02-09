@@ -31,8 +31,16 @@
 }
 
 .contentElement {
+  width: 472px;
   height: 472px;
+
+  position: relative;
+}
+.doubleContentElement {
+  width: 948px;
   height: 472px;
+
+  position: relative;
 }
 
 .navButton {

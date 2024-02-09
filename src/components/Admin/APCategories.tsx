@@ -1,18 +1,13 @@
 import AvCategory from "./AvCategory";
+import { APInput } from "./APInput";
 
 import style_g from "style/admin/adminStyle.module.css";
 import style from "style/admin/categoriesPanel.module.css";
 import classNames from "classnames";
 import {
-  FieldErrors,
-  FieldValues,
-  Path,
-  UseFormRegister,
-  UseFormResetField,
   useForm,
 } from "react-hook-form";
-import { IoTrashBinOutline } from "react-icons/io5";
-import { DragEventHandler, MouseEventHandler, useState } from "react";
+import { DragEventHandler, useState } from "react";
 import { useAppDispatch } from "reducers/store";
 import { createCategory, fetchCategories } from "reducers/productsReducer";
 import { useSelector } from "react-redux";
@@ -155,39 +150,5 @@ const APCategories = () => {
   );
 };
 
-function APInput<F extends FieldValues>({
-  name,
-  register,
-  required,
-  placeholder,
-  reset,
-}: TAPInput<F>) {
-  const onReset: MouseEventHandler = (e) => {
-    e.preventDefault();
-    reset(name);
-  };
-
-  return (
-    <div className={style_g.inputContainer}>
-      <input
-        className={style_g.input}
-        {...register(name, { required })}
-        placeholder={placeholder}
-        autoComplete="off"
-      />
-      <button className={style_g.inputClear} onClick={onReset}>
-        <IoTrashBinOutline size={16} color="#606266" />
-      </button>
-    </div>
-  );
-}
-
 export default APCategories;
-type TAPInput<FormData extends FieldValues> = {
-  name: Path<FormData>;
-  register: UseFormRegister<FormData>;
-  required: boolean;
-  placeholder?: string;
-  reset: UseFormResetField<FormData>;
-  errors: FieldErrors<FormData>;
-};
+

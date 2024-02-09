@@ -4,13 +4,17 @@ const productsAPI = {
   createProduct: async ({
     img,
     price,
-    title,
+    en,
+    ua,
+    ru,
     category,
   }: TProductCreateData) => {
     const formData = new FormData();
     formData.append("img", img);
     formData.append("price", price);
-    formData.append("title", title);
+    formData.append("en", en);
+    formData.append("ua", ua);
+    formData.append("ru", ru);
     formData.append("categoryCode", category);
     try {
       const response = await $authHost.post<TProductCard>(
@@ -82,7 +86,9 @@ const productsAPI = {
 export default productsAPI;
 export type TProductCard = {
   id: number;
-  title: string;
+  en: string;
+  ua: string;
+  ru: string
   price: number; // ? integer
   sale: number; // ? 0-100% ==> 0.00-1.00
   rating: number; // ? 0-5
@@ -90,7 +96,9 @@ export type TProductCard = {
   img: string; // ? url
 };
 export type TProductCreateData = {
-  title: string;
+  en: string;
+  ua: string;
+  ru: string;
   price: string;
   img: File;
   category: string;

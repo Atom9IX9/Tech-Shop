@@ -5,13 +5,16 @@ import { getSale } from "utils/getSale";
 import { useAppDispatch } from "reducers/store";
 import { useSelector } from "react-redux";
 import { getLikedProducts } from "utils/selectors/productSelectors";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useTransition } from "react";
 import cn from "classnames";
 import { likeProduct } from "reducers/productsReducer";
+import { useTranslation } from "react-i18next";
+import { TLng } from "types/types";
 
 const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   const [isLiked, setIsLiked] = useState(false);
   const likedProducts = useSelector(getLikedProducts);
+  const { i18n } = useTranslation()
 
   const dispatch = useAppDispatch();
 
@@ -41,12 +44,12 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
       <div className={style.picture}>
         <img
           src={process.env.REACT_APP_SERVER_API_HOST + "/public/" + product.img}
-          alt={product.title}
+          alt={product[i18n.language as TLng]}
           loading="lazy"
         />
       </div>
-      <div className={style.title} title={product.title}>
-        {product.title}
+      <div className={style.title} title={product[i18n.language as TLng]}>
+        {product[i18n.language as TLng]}
       </div>
       {product.sale ? (
         <span className={style.price}>{product.price} ₴</span>
