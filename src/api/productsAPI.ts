@@ -9,6 +9,12 @@ const productsAPI = {
     ru,
     category,
   }: TProductCreateData) => {
+    if (!img) {
+      return Promise.reject({
+        message: "err/image_is_null",
+      });
+    }
+
     const formData = new FormData();
     formData.append("img", img);
     formData.append("price", price);
@@ -28,14 +34,11 @@ const productsAPI = {
       );
       return response.data;
     } catch (err: any) {
+      console.log(err);
       return Promise.reject(err.response.data);
     }
   },
-  getAllProducts: async (
-    category: string,
-    pageSize: number,
-    page: number
-  ) => {
+  getAllProducts: async (category: string, pageSize: number, page: number) => {
     try {
       const response = await $host.get<{ count: number; rows: TProductCard[] }>(
         `api/product?page=${page}&pageSize=${pageSize}${
@@ -67,7 +70,7 @@ const productsAPI = {
         response = await $authHost.delete<TProductLikeData>(
           `api/product/like/${id}`
         );
-        return response.data
+        return response.data;
       }
     } catch (err: any) {
       return Promise.reject(err.response.data);
@@ -75,7 +78,9 @@ const productsAPI = {
   },
   getLikedProductIds: async () => {
     try {
-      const response = await $authHost.get<TLikedProductsData>("api/product/liked-ids");
+      const response = await $authHost.get<TLikedProductsData>(
+        "api/product/liked-ids"
+      );
       return response.data;
     } catch (err: any) {
       return Promise.reject(err.response.data);
@@ -88,7 +93,7 @@ export type TProductCard = {
   id: number;
   en: string;
   ua: string;
-  ru: string
+  ru: string;
   price: number; // ? integer
   sale: number; // ? 0-100% ==> 0.00-1.00
   rating: number; // ? 0-5
@@ -100,12 +105,12 @@ export type TProductCreateData = {
   ua: string;
   ru: string;
   price: string;
-  img: File;
+  img?: File;
   category: string;
 };
 export type TProductLikeData = {
   productId: number;
 };
 export type TLikedProductsData = {
-  likedProductIds: number[]
-}
+  likedProductIds: number[];
+};

@@ -160,6 +160,10 @@
   animation: successAnim 2s ease;
   -webkit-animation: successAnim 2s ease;
 }
+.error {
+  animation: errorAnim 2s ease;
+  -webkit-animation: errorAnim 2s ease;
+}
 
 @keyframes successAnim {
   0% {
@@ -175,13 +179,47 @@
     outline: 2px solid #00800000;
   }
 }
+@keyframes errorAnim {
+  0% {
+    outline: 2px solid #00800000;
+  }
+  25% {
+    outline: 2px solid red;
+  }
+  75% {
+    outline: 2px solid red;
+  }
+  100% {
+    outline: 2px solid #00800000;
+  }
+}
+@keyframes codeAnim {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 
 .statusCode {
   position: absolute;
   bottom: 20px;
-  color: red;
+  opacity: 0;
 }
-
-.success.statusCode {
+.success .statusCode {
   color: #2bb900;
+  animation: codeAnim 2s ease;
+  -webkit-animation: codeAnim 2s ease;
+}
+.error .statusCode {
+  color: red;
+  animation: codeAnim 2s ease;
+  -webkit-animation: codeAnim 2s ease;
 }

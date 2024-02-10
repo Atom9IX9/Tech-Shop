@@ -61,6 +61,7 @@ const APCategories = () => {
       <div
         className={classNames(style_g.APElement, style_g.contentElement, {
           [style.success]: statuses.categoryCreate === "success",
+          [style.error]: statuses.categoryCreate && statuses.categoryCreate !== "success",
         })}
       >
         <h3 className={style.windowName}>Creating category</h3>

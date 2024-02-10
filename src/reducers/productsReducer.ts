@@ -1,5 +1,6 @@
 import productsAPI, {
   TProductCard,
+  TProductCreateData,
   TProductLikeData,
 } from "../api/productsAPI";
 import categoriesAPI, {
@@ -14,9 +15,11 @@ export const initialState = {
   fetchings: {
     like: false,
     categoryCreating: false,
+    productCreating: false,
   },
   statuses: {
     categoryCreate: undefined as undefined | "success" | string,
+    productCreate: undefined as undefined | "success" | string,
     categoryFetched: undefined as undefined | "success" | string,
   },
   categories: [] as TMainCategory[],
@@ -53,12 +56,23 @@ export const fetchCategories = createAsyncThunk(
 
 export const createCategory = createAsyncThunk(
   "products/createCategory",
-  async (translates: CategoryCreateData, thunk) => {
+  async (createData: CategoryCreateData, thunk) => {
     try {
-      const category = await categoriesAPI.createMainCategory(translates);
+      const category = await categoriesAPI.createMainCategory(createData);
       return category;
     } catch (error: any) {
       return thunk.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+export const createProduct = createAsyncThunk(
+  "products/createProduct",
+  async (createData: TProductCreateData, thunk) => {
+    try {
+      const product = await productsAPI.createProduct(createData);
+      return product;
+    } catch (error: any) {
+      return thunk.rejectWithValue(error.message);
     }
   }
 );
@@ -141,13 +155,26 @@ const productsSlice = createSlice({
         state.fetchings.categoryCreating = false;
         state.statuses.categoryCreate = "success";
       })
-      .addCase(createCategory.pending, (state, action) => {
+      .addCase(createProduct.fulfilled, (state, action) => {
+        state.productCards = [...state.productCards, action.payload];
+        state.fetchings.productCreating = false;
+        state.statuses.productCreate = "success";
+      })
+      .addCase(createCategory.pending, (state) => {
         state.fetchings.categoryCreating = true;
         state.statuses.categoryCreate = undefined;
+      })
+      .addCase(createProduct.pending, (state) => {
+        state.fetchings.productCreating = true;
+        state.statuses.productCreate = undefined;
       })
       .addCase(createCategory.rejected, (state, action) => {
         state.fetchings.categoryCreating = false;
         state.statuses.categoryCreate = action.payload as string;
+      })
+      .addCase(createProduct.rejected, (state, action) => {
+        state.fetchings.productCreating = false;
+        state.statuses.productCreate = action.payload as string;
       })
       .addCase(deleteCategory.fulfilled, (state, action) => {
         state.categories = state.categories.filter(

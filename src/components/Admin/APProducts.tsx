@@ -11,7 +11,7 @@ import {
   getProductStatuses,
 } from "utils/selectors/productSelectors";
 import { useAppDispatch } from "reducers/store";
-import { fetchCategories } from "reducers/productsReducer";
+import { createProduct, fetchCategories } from "reducers/productsReducer";
 import { DragEventHandler, useEffect, useState } from "react";
 import style_g from "style/admin/adminStyle.module.css";
 import { useTranslation } from "react-i18next";
@@ -31,14 +31,12 @@ const APProducts = () => {
       ua: "",
       ru: "",
       price: "",
-    }
+    },
   });
   const statuses = useSelector(getProductStatuses);
   const dispatch = useAppDispatch();
   const onSubmit = (data: TProductCreateData) => {
-    if (icon) {
-      productsAPI.createProduct({...data, img: icon})
-    }
+    dispatch(createProduct({ ...data, img: icon }));
   };
 
   const [isDrag, setIsDrag] = useState(false);
@@ -72,7 +70,8 @@ const APProducts = () => {
     <div className={style_g.content}>
       <div
         className={classNames(style_g.APElement, style_g.doubleContentElement, {
-          [style.success]: statuses.categoryCreate === "success",
+          [style.success]: statuses.productCreate === "success",
+          [style.error]: statuses.productCreate !== undefined && statuses.productCreate !== "success",
         })}
       >
         <h3 className={style.windowName}>Creating product</h3>
@@ -127,7 +126,7 @@ const APProducts = () => {
               <h4 className={style.formSubtitle}>Category</h4>
               <select
                 className={pStyle.selectCategory}
-                {...register("category", {required: true})}
+                {...register("category", { required: true })}
               >
                 <option value={undefined} hidden></option>
                 {categories.map((c) => (
@@ -168,20 +167,20 @@ const APProducts = () => {
               </div>
             </div>
           </div>
-          <button type="submit" className={classNames(style.createBtn, pStyle.createBtn)}>
+          <button
+            type="submit"
+            className={classNames(style.createBtn, pStyle.createBtn)}
+          >
             Create
           </button>
         </form>
-        {/*
-        // todo status for product
         <div className={style.statusCode}>
-          {statuses.categoryCreate === undefined
+          {statuses.productCreate === undefined
             ? ""
-            : statuses.categoryCreate === "success"
+            : statuses.productCreate === "success"
             ? "success"
-            : statuses.categoryCreate}
-        </div>  
-        */}
+            : statuses.productCreate}
+        </div>
       </div>
     </div>
   );
