@@ -25,7 +25,7 @@ export const initialState = {
   categories: [] as TMainCategory[],
   currentCategory: null as TMainCategory | null,
   page: 1,
-  pageSize: 10,
+  pageSize: 20,
   likedProducts: [] as number[], // products' id
 };
 

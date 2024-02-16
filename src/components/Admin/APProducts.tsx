@@ -1,10 +1,10 @@
-import { APInput } from "./APInput";
+import { APInput, APSelect } from "./APInput";
 
 import style from "style/admin/categoriesPanel.module.css";
 import pStyle from "style/admin/productsPanel.module.css";
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
-import productsAPI, { TProductCreateData } from "api/productsAPI";
+import { TProductCreateData } from "api/productsAPI";
 import { useSelector } from "react-redux";
 import {
   getCategories,
@@ -22,7 +22,7 @@ const APProducts = () => {
     register,
     handleSubmit,
     formState: { errors },
-
+    setValue,
     resetField,
   } = useForm<TProductCreateData>({
     defaultValues: {
@@ -71,7 +71,9 @@ const APProducts = () => {
       <div
         className={classNames(style_g.APElement, style_g.doubleContentElement, {
           [style.success]: statuses.productCreate === "success",
-          [style.error]: statuses.productCreate !== undefined && statuses.productCreate !== "success",
+          [style.error]:
+            statuses.productCreate !== undefined &&
+            statuses.productCreate !== "success",
         })}
       >
         <h3 className={style.windowName}>Creating product</h3>
@@ -124,15 +126,14 @@ const APProducts = () => {
                 </li>
               </ol>
               <h4 className={style.formSubtitle}>Category</h4>
-              <select
-                className={pStyle.selectCategory}
-                {...register("category", { required: true })}
-              >
-                <option value={undefined} hidden></option>
-                {categories.map((c) => (
-                  <option value={c.code}>{c[i18n.language as TLng]}</option>
-                ))}
-              </select>
+              <APSelect<TProductCreateData>
+                options={categories.map((c) => ({
+                  value: c.code,
+                  label: c[i18n.language as TLng],
+                }))}
+                name="category"
+                setValue={setValue}
+              />
             </div>
             <div>
               <h4 className={style.formSubtitle}>Image</h4>

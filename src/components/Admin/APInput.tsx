@@ -1,13 +1,18 @@
 import style_g from "style/admin/adminStyle.module.css";
 import { IoTrashBinOutline } from "react-icons/io5";
-import { MouseEventHandler } from "react";
+import { ChangeEvent, MouseEventHandler } from "react";
 import {
   FieldErrors,
   FieldValues,
   Path,
+  PathValue,
   UseFormRegister,
   UseFormResetField,
+  UseFormSetValue,
 } from "react-hook-form";
+import { FiPlus } from "react-icons/fi";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
 export function APInput<F extends FieldValues>({
   name,
@@ -15,7 +20,7 @@ export function APInput<F extends FieldValues>({
   required,
   placeholder,
   reset,
-  type
+  type,
 }: TAPInput<F>) {
   const onReset: MouseEventHandler = (e) => {
     e.preventDefault();
@@ -38,6 +43,25 @@ export function APInput<F extends FieldValues>({
   );
 }
 
+const animatedComponents = makeAnimated();
+
+export function APSelect<F extends FieldValues>({
+  options,
+  name,
+  setValue,
+}: TAPSelect<F>) {
+  return (
+    //@ts-ignore
+    <Select
+      closeMenuOnSelect={true}
+      components={animatedComponents}
+      options={options}
+      //@ts-ignore
+      onChange={(newValue) => setValue(name, newValue.value)}
+    />
+  );
+}
+
 export type TAPInput<FormData extends FieldValues> = {
   name: Path<FormData>;
   register: UseFormRegister<FormData>;
@@ -45,5 +69,14 @@ export type TAPInput<FormData extends FieldValues> = {
   placeholder?: string;
   reset: UseFormResetField<FormData>;
   errors: FieldErrors<FormData>;
-  type?: "number"
+  type?: "number";
+};
+export type TAPSelect<FormData extends FieldValues> = {
+  options: TOption[];
+  name: Path<FormData>;
+  setValue: UseFormSetValue<FormData>;
+};
+type TOption = {
+  value: string;
+  label: string;
 };

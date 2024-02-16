@@ -48,7 +48,7 @@
   .categoryWrapper {
     display: flex;
     justify-content: left;
-    
+
     padding: 5px 0;
 
     width: 100%;
@@ -64,7 +64,7 @@
 }
 
 .profile {
-  padding: 30px 0px 0px 20px;
+  padding: 30px 0px 30px 20px;
 }
 
 .userInf {
@@ -118,7 +118,7 @@
 }
 
 .userInf:hover .userDisplayName {
-  color: var(--red-bg-color)
+  color: var(--red-bg-color);
 }
 
 .userLinks {

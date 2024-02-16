@@ -116,3 +116,43 @@
 
   cursor: pointer;
 }
+
+.select {
+  /*resets*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+
+  width: 40px;
+  height: 40px;
+  outline: 0;
+
+  z-index: 3;
+
+  border: #8e8e937d solid 2px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+
+  cursor: pointer;
+}
+
+.selectOption {
+  font-size: 20px;
+}
+
+.selectContainer {
+  position: relative;
+}
+
+.selectIcon {
+  position: absolute;
+
+  left: 7px;
+  top: 6px;
+
+  pointer-events: none;
+}
