@@ -1,0 +1,20 @@
+{
+  "creatingProduct": "Creating product",
+  "title": "Title",
+  "price": "Price",
+  "category": "Category",
+  "image": "Image",
+  "upload": "Upload",
+  "create": "Create",
+  "select": "Select...",
+  "creatingCategory": "Creating category",
+  "icon": "Icon",
+  "availableCategory": "Available categories",
+  
+  "information": "information",
+  "people": "people",
+  "admins": "admins",
+  "products": "products",
+  "categories": "categories",
+  "reports": "reports"
+}

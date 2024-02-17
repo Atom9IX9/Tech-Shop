@@ -1,16 +1,14 @@
 import style_g from "style/admin/adminStyle.module.css";
 import { IoTrashBinOutline } from "react-icons/io5";
-import { ChangeEvent, MouseEventHandler } from "react";
+import { MouseEventHandler } from "react";
 import {
   FieldErrors,
   FieldValues,
   Path,
-  PathValue,
   UseFormRegister,
   UseFormResetField,
   UseFormSetValue,
 } from "react-hook-form";
-import { FiPlus } from "react-icons/fi";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
@@ -49,6 +47,7 @@ export function APSelect<F extends FieldValues>({
   options,
   name,
   setValue,
+  placeholder,
 }: TAPSelect<F>) {
   return (
     //@ts-ignore
@@ -58,6 +57,13 @@ export function APSelect<F extends FieldValues>({
       options={options}
       //@ts-ignore
       onChange={(newValue) => setValue(name, newValue.value)}
+      placeholder={placeholder}
+      styles={{
+        control: (base) => ({
+          ...base,
+          borderRadius: 0,
+        }),
+      }}
     />
   );
 }
@@ -75,6 +81,7 @@ export type TAPSelect<FormData extends FieldValues> = {
   options: TOption[];
   name: Path<FormData>;
   setValue: UseFormSetValue<FormData>;
+  placeholder?: string;
 };
 type TOption = {
   value: string;

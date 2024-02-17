@@ -1,0 +1,20 @@
+{
+  "creatingProduct": "Создание продукта",
+  "title": "Название",
+  "price": "Цена",
+  "category": "Категория",
+  "image": "Изображение",
+  "upload": "Загрузить",
+  "create": "Создать",
+  "select": "Выбрать...",
+  "creatingCategory": "Создание категории",
+  "icon": "Иконка",
+  "availableCategory": "Доступные категории",
+
+  "information": "информация",
+  "people": "люди",
+  "admins": "админы",
+  "products": "продукты",
+  "categories": "категории",
+  "reports": "жалобы"
+}

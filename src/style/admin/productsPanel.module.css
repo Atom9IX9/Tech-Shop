@@ -10,6 +10,18 @@
 .createBtn {
   position: absolute;
 
-  bottom: 40px;
+  bottom: 10px;
   right: 95px;
+}
+
+.statusCodeContainer {
+  position: absolute;
+  right: 230px;
+  bottom: 20px;
+
+  text-align: left;
+
+  width: 270px;
+  height: 20px;
+  overflow: hidden;
 }

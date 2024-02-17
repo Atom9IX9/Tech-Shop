@@ -211,8 +211,6 @@
 }
 
 .statusCode {
-  position: absolute;
-  bottom: 20px;
   opacity: 0;
   pointer-events: none;
 }
@@ -225,4 +223,9 @@
   color: red;
   animation: codeAnim 2s ease;
   -webkit-animation: codeAnim 2s ease;
+}
+
+.statusCodeContainer {
+  position: absolute;
+  bottom: 10px;
 }

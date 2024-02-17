@@ -56,7 +56,7 @@ const APProducts = () => {
 
   const categories = useSelector(getCategories);
 
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation("admin");
 
   const [icon, setIcon] = useState<File | undefined>(undefined);
 
@@ -76,11 +76,11 @@ const APProducts = () => {
             statuses.productCreate !== "success",
         })}
       >
-        <h3 className={style.windowName}>Creating product</h3>
+        <h3 className={style.windowName}>{t("creatingProduct")}</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={pStyle.formWrapper}>
             <div>
-              <h4 className={style.formSubtitle}>Title</h4>
+              <h4 className={style.formSubtitle}>{t("title")}</h4>
               <ol className={style.inputs}>
                 <li>
                   <APInput<TProductCreateData>
@@ -112,7 +112,7 @@ const APProducts = () => {
                     reset={resetField}
                   />
                 </li>
-                <h4 className={style.formSubtitle}>Price</h4>
+                <h4 className={style.formSubtitle}>{t("price")}</h4>
                 <li>
                   <APInput<TProductCreateData>
                     errors={errors}
@@ -125,7 +125,7 @@ const APProducts = () => {
                   />
                 </li>
               </ol>
-              <h4 className={style.formSubtitle}>Category</h4>
+              <h4 className={style.formSubtitle}>{t("category")}</h4>
               <APSelect<TProductCreateData>
                 options={categories.map((c) => ({
                   value: c.code,
@@ -133,10 +133,11 @@ const APProducts = () => {
                 }))}
                 name="category"
                 setValue={setValue}
+                placeholder={t("select") as string}
               />
             </div>
             <div>
-              <h4 className={style.formSubtitle}>Image</h4>
+              <h4 className={style.formSubtitle}>{t("image")}</h4>
               <div
                 className={classNames(style.fileUpload, pStyle.fileUpload, {
                   [style.drag]: isDrag,
@@ -159,7 +160,7 @@ const APProducts = () => {
                       [style.disabled]: !!icon,
                     })}
                   >
-                    upload
+                    {t("upload")}
                   </div>
                 </label>
                 <div className={classNames(style.iconName, "unselectable")}>
@@ -172,15 +173,17 @@ const APProducts = () => {
             type="submit"
             className={classNames(style.createBtn, pStyle.createBtn)}
           >
-            Create
+            {t("create")}
           </button>
         </form>
-        <div className={style.statusCode}>
-          {statuses.productCreate === undefined
-            ? ""
-            : statuses.productCreate === "success"
-            ? "success"
-            : statuses.productCreate}
+        <div className={pStyle.statusCodeContainer}>
+          <div className={style.statusCode}>
+            {statuses.productCreate === undefined
+              ? ""
+              : statuses.productCreate === "success"
+              ? "success"
+              : statuses.productCreate}
+          </div>
         </div>
       </div>
     </div>

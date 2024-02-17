@@ -4,9 +4,7 @@ import { APInput } from "./APInput";
 import style_g from "style/admin/adminStyle.module.css";
 import style from "style/admin/categoriesPanel.module.css";
 import classNames from "classnames";
-import {
-  useForm,
-} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { DragEventHandler, useState } from "react";
 import { useAppDispatch } from "reducers/store";
 import { createCategory, fetchCategories } from "reducers/productsReducer";
@@ -17,6 +15,7 @@ import {
 } from "utils/selectors/productSelectors";
 import { CategoryCreateData } from "api/categoriesAPI";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const APCategories = () => {
   const {
@@ -30,6 +29,7 @@ const APCategories = () => {
   const onSubmit = (data: CategoryCreateData) => {
     dispatch(createCategory({ ...data, icon: icon }));
   };
+  const { t } = useTranslation("admin");
 
   const [isDrag, setIsDrag] = useState(false);
   const dragStartHandler: DragEventHandler = (e) => {
@@ -61,12 +61,13 @@ const APCategories = () => {
       <div
         className={classNames(style_g.APElement, style_g.contentElement, {
           [style.success]: statuses.categoryCreate === "success",
-          [style.error]: statuses.categoryCreate && statuses.categoryCreate !== "success",
+          [style.error]:
+            statuses.categoryCreate && statuses.categoryCreate !== "success",
         })}
       >
-        <h3 className={style.windowName}>Creating category</h3>
+        <h3 className={style.windowName}>{t("creatingCategory")}</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h4 className={style.formSubtitle}>Title</h4>
+          <h4 className={style.formSubtitle}>{t("title")}</h4>
           <ol className={style.inputs}>
             <li>
               <APInput<CategoryCreateData>
@@ -99,7 +100,7 @@ const APCategories = () => {
               />
             </li>
           </ol>
-          <h4 className={style.formSubtitle}>Icon</h4>
+          <h4 className={style.formSubtitle}>{t("icon")}</h4>
           <div
             className={classNames(style.fileUpload, { [style.drag]: isDrag })}
             onDragLeave={dragLeaveHandler}
@@ -120,7 +121,7 @@ const APCategories = () => {
                   [style.disabled]: !!icon,
                 })}
               >
-                upload
+                {t("upload")}
               </div>
             </label>
             <div className={classNames(style.iconName, "unselectable")}>
@@ -128,19 +129,21 @@ const APCategories = () => {
             </div>
           </div>
           <button type="submit" className={style.createBtn}>
-            Create
+            {t("create")}
           </button>
         </form>
-        <div className={style.statusCode}>
-          {statuses.categoryCreate === undefined
-            ? ""
-            : statuses.categoryCreate === "success"
-            ? "success"
-            : statuses.categoryCreate}
+        <div className={style.statusCodeContainer}>
+          <div className={style.statusCode}>
+            {statuses.categoryCreate === undefined
+              ? ""
+              : statuses.categoryCreate === "success"
+              ? "success"
+              : statuses.categoryCreate}
+          </div>
         </div>
       </div>
       <div className={classNames(style_g.APElement, style_g.contentElement)}>
-        <h3 className={style.windowName}>Available categories</h3>
+        <h3 className={style.windowName}>{t("availableCategory")}</h3>
         <div>
           {categories.map((category) => (
             <AvCategory category={category} />
@@ -152,4 +155,3 @@ const APCategories = () => {
 };
 
 export default APCategories;
-

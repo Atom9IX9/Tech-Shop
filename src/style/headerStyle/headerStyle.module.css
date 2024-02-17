@@ -16,7 +16,7 @@
   max-width: 1600px;
 
   margin: auto;
-  
+
   display: flex;
   align-items: center;
   gap: 16px;
@@ -101,6 +101,8 @@
   font-size: 15px;
 
   padding: 5px 10px;
+
+  cursor: pointer;
 }
 
 .searchBtn:hover {
@@ -176,7 +178,7 @@
 }
 
 .lngName {
-  color: #fff
+  color: #fff;
 }
 
 .lngSelect .selected .lngName {

@@ -6,45 +6,54 @@ import { RiAdminFill } from "react-icons/ri";
 import classNames from "classnames";
 import style from "style/admin/adminStyle.module.css";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const AdminPanelNav = () => {
+  const { t } = useTranslation("admin");
+
   return (
     <nav className={classNames(style.adminNav, style.APElement)}>
       <NavButton
+      to="information"
         icon={<MdDashboard size={18} color="gray" />}
         activeIcon={<MdDashboard size={18} color={"#2F80ED"} />}
       >
-        Dashboard
+        {t("information")}
       </NavButton>
       <NavButton
+      to="people"
         icon={<IoPeopleSharp size={18} color="gray" />}
         activeIcon={<IoPeopleSharp size={18} color="#2F80ED" />}
       >
-        People
+        {t("people")}
       </NavButton>
       <NavButton
+      to="admins"
         icon={<RiAdminFill size={18} color="gray" />}
         activeIcon={<RiAdminFill size={18} color="#2F80ED" />}
       >
-        Admins
+        {t("admins")}
       </NavButton>
       <NavButton
+      to="products"
         icon={<FaShoppingBag size={18} color="gray" />}
         activeIcon={<FaShoppingBag size={18} color="#2F80ED" />}
       >
-        Products
+        {t("products")}
       </NavButton>
       <NavButton
+      to="categories"
         icon={<MdCategory size={18} color="gray" />}
         activeIcon={<MdCategory size={18} color="#2F80ED" />}
       >
-        Categories
+        {t("categories")}
       </NavButton>
       <NavButton
+        to="reports"
         icon={<MdReportProblem size={18} color="gray" />}
         activeIcon={<MdReportProblem size={18} color="#2F80ED" />}
       >
-        Reports
+        {t("reports")}
       </NavButton>
     </nav>
   );
@@ -52,6 +61,7 @@ const AdminPanelNav = () => {
 
 const NavButton: React.FC<TNavButtonProps> = ({
   children,
+  to,
   icon,
   activeIcon,
 }) => {
@@ -59,7 +69,7 @@ const NavButton: React.FC<TNavButtonProps> = ({
 
   return (
     <NavLink
-      to={children.toLowerCase()}
+      to={to}
       className={({ isActive }) => {
         setIsActive(isActive);
         return [isActive ? style.active : "", style.navButton].join(" ");
@@ -76,4 +86,5 @@ type TNavButtonProps = {
   children: string;
   icon: JSX.Element;
   activeIcon: JSX.Element;
+  to: string;
 };

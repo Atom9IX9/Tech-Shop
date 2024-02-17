@@ -9,7 +9,7 @@ const APPeoples = withSuspense(React.lazy(() => import("components/Admin/APPeopl
 const APProducts = withSuspense(React.lazy(() => import("components/Admin/APProducts")))
 const APAdmins = withSuspense(React.lazy(() => import("components/Admin/APAdmins")))
 const APReports = withSuspense(React.lazy(() => import("components/Admin/APReports")))
-const APDashboard = withSuspense(React.lazy(() => import("components/Admin/APDashboard")))
+const APInformation = withSuspense(React.lazy(() => import("components/Admin/APInformation")))
 
 const AdminPanel = () => {
   const location = useLocation()
@@ -29,7 +29,7 @@ const AdminPanel = () => {
         <Route path="products" element={<APProducts />} />
         <Route path="admins" element={<APAdmins />} />
         <Route path="people" element={<APPeoples />} />
-        <Route path="dashboard" element={<APDashboard />} />
+        <Route path="information" element={<APInformation />} />
         <Route path="reports" element={<APReports />} />
       </Routes>
     </div>

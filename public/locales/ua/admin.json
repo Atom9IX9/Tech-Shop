@@ -1,0 +1,20 @@
+{
+  "creatingProduct": "Створення продукту",
+  "title": "Назва",
+  "price": "Ціна",
+  "category": "Категорія",
+  "image": "Зображення",
+  "upload": "Додати",
+  "create": "Створити",
+  "select": "Обрати...",
+  "creatingCategory": "Створення категорії",
+  "icon": "Значок",
+  "availableCategory": "Доступні категорії",
+
+  "information": "інформація",
+  "people": "люди",
+  "admins": "адміни",
+  "products": "продукти",
+  "categories": "категорії",
+  "reports": "скарги"
+}
