@@ -26,7 +26,7 @@ const Home = () => {
       <HomeCategories />
       <main className={style.homeContent}>
         <div className={style.productCards}>
-          {productCards.map((p) => (
+          {productCards?.map((p) => (
             <ProductCard product={p} key={p.id} />
           ))}
         </div>

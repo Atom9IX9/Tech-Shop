@@ -28,7 +28,7 @@ const HomeCategories = () => {
   return (
     <aside className={style.categoriesBar}>
       <ul className={style.categoriesList}>
-        {categories.map((c) => (
+        {categories?.map((c) => (
           <li key={c.code} className={style.categoryWrapper}>
             <div className={style.category}>
               <CategoryLink category={c} />
