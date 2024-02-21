@@ -76,7 +76,7 @@ const NavButton: React.FC<TNavButtonProps> = ({
       }}
     >
       {isActive ? activeIcon : icon}
-      {children}
+      <div className={style.navButtonText}>{children}</div>
     </NavLink>
   );
 };
