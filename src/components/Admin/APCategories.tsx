@@ -128,9 +128,11 @@ const APCategories = () => {
               {icon?.name}
             </div>
           </div>
-          <button type="submit" className={style.createBtn}>
-            {t("create")}
-          </button>
+          <div className={style.createBtnContainer}>
+            <button type="submit" className={style.createBtn}>
+              {t("create")}
+            </button>
+          </div>
         </form>
         <div className={style.statusCodeContainer}>
           <div className={style.statusCode}>

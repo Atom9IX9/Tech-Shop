@@ -131,9 +131,6 @@
   width: 108px;
   height: 33px;
 
-  margin-top: 10px;
-  margin-right: 295px;
-
   color: #fff;
 
   border: 0;
@@ -216,18 +213,34 @@
 }
 .success .statusCode {
   color: #2bb900;
-  animation: codeAnim 2s ease;
-  -webkit-animation: codeAnim 2s ease;
 }
 .error .statusCode {
   color: red;
-  animation: codeAnim 2s ease;
-  -webkit-animation: codeAnim 2s ease;
 }
 
 .statusCodeContainer {
   position: absolute;
   bottom: 10px;
+}
+
+.createBtnContainer {
+  position: absolute;
+  right: 50px;
+  bottom: 10px;
+
+  width: min-content;
+  height: min-content;
+}
+
+@media screen and (min-width: 1245px) {
+  .success .statusCode {
+    animation: codeAnim 2s ease;
+    -webkit-animation: codeAnim 2s ease;
+  }
+  .error .statusCode {
+    animation: codeAnim 2s ease;
+    -webkit-animation: codeAnim 2s ease;
+  }
 }
 
 @media screen and (max-width: 1245px) {
@@ -238,4 +251,32 @@
     width: 100%;
     height: 40px;
   }
+  .success {
+    animation: none;
+    -webkit-animation: none;
+  }
+  .error {
+    animation: none;
+    -webkit-animation: none;
+  }
+  .statusCode {
+    opacity: 1;
+    animation: none;
+    -webkit-animation: none;
+    margin-top: 10px;
+  }
+  .statusCodeContainer {
+    position: relative;
+    margin-top: 5px;
+  }
+  .createBtnContainer {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+  }
 }
+
+/* todo: form style file */
