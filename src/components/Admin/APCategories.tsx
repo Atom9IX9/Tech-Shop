@@ -3,6 +3,7 @@ import { APInput } from "./APInput";
 
 import style_g from "style/admin/adminStyle.module.css";
 import style from "style/admin/categoriesPanel.module.css";
+import style_f from "style/admin/formStyle.module.css";
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import { DragEventHandler, useState } from "react";
@@ -60,15 +61,15 @@ const APCategories = () => {
     <div className={style_g.content}>
       <div
         className={classNames(style_g.APElement, style_g.contentElement, {
-          [style.success]: statuses.categoryCreate === "success",
-          [style.error]:
+          [style_f.success]: statuses.categoryCreate === "success",
+          [style_f.error]:
             statuses.categoryCreate && statuses.categoryCreate !== "success",
         })}
       >
-        <h3 className={style.windowName}>{t("creatingCategory")}</h3>
+        <h3 className={style_f.windowName}>{t("creatingCategory")}</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h4 className={style.formSubtitle}>{t("title")}</h4>
-          <ol className={style.inputs}>
+          <h4 className={style_f.formSubtitle}>{t("title")}</h4>
+          <ol className={style_f.inputs}>
             <li>
               <APInput<CategoryCreateData>
                 errors={errors}
@@ -100,16 +101,16 @@ const APCategories = () => {
               />
             </li>
           </ol>
-          <h4 className={style.formSubtitle}>{t("icon")}</h4>
+          <h4 className={style_f.formSubtitle}>{t("icon")}</h4>
           <div
-            className={classNames(style.fileUpload, { [style.drag]: isDrag })}
+            className={classNames(style_f.fileUpload, { [style.drag]: isDrag })}
             onDragLeave={dragLeaveHandler}
             onDragOver={dragStartHandler}
             onDrop={dropHandler}
           >
             <label>
               <input
-                className={classNames(style.fileUploadInp, "unselectable")}
+                className={classNames(style_f.fileUploadInp, "unselectable")}
                 type="file"
                 {...register("icon", {
                   onChange: (e) => setIcon(e.target.files[0]),
@@ -117,25 +118,25 @@ const APCategories = () => {
                 disabled={!!icon}
               />
               <div
-                className={classNames(style.fileUploadBtn, {
+                className={classNames(style_f.fileUploadBtn, {
                   [style.disabled]: !!icon,
                 })}
               >
                 {t("upload")}
               </div>
             </label>
-            <div className={classNames(style.iconName, "unselectable")}>
+            <div className={classNames(style_f.iconName, "unselectable")}>
               {icon?.name}
             </div>
           </div>
           <div className={style.createBtnContainer}>
-            <button type="submit" className={style.createBtn}>
+            <button type="submit" className={style_f.createBtn}>
               {t("create")}
             </button>
           </div>
         </form>
         <div className={style.statusCodeContainer}>
-          <div className={style.statusCode}>
+          <div className={style_f.statusCode}>
             {statuses.categoryCreate === undefined
               ? ""
               : statuses.categoryCreate === "success"
@@ -145,7 +146,7 @@ const APCategories = () => {
         </div>
       </div>
       <div className={classNames(style_g.APElement, style_g.contentElement)}>
-        <h3 className={style.windowName}>{t("availableCategory")}</h3>
+        <h3 className={style_f.windowName}>{t("availableCategory")}</h3>
         <div>
           {categories.map((category) => (
             <AvCategory category={category} />

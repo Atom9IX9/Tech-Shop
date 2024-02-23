@@ -1,7 +1,7 @@
 import { APInput, APSelect } from "./APInput";
 
-import style from "style/admin/categoriesPanel.module.css";
 import pStyle from "style/admin/productsPanel.module.css";
+import fStyle from "style/admin/formStyle.module.css";
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import { TProductCreateData } from "api/productsAPI";
@@ -70,18 +70,18 @@ const APProducts = () => {
     <div className={style_g.content}>
       <div
         className={classNames(style_g.APElement, style_g.doubleContentElement, {
-          [style.success]: statuses.productCreate === "success",
-          [style.error]:
+          [fStyle.success]: statuses.productCreate === "success",
+          [fStyle.error]:
             statuses.productCreate !== undefined &&
             statuses.productCreate !== "success",
         })}
       >
-        <h3 className={style.windowName}>{t("creatingProduct")}</h3>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <h3 className={fStyle.windowName}>{t("creatingProduct")}</h3>
+        <form className={pStyle.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={pStyle.formWrapper}>
             <div>
-              <h4 className={style.formSubtitle}>{t("title")}</h4>
-              <ol className={style.inputs}>
+              <h4 className={fStyle.formSubtitle}>{t("title")}</h4>
+              <ol className={fStyle.inputs}>
                 <li>
                   <APInput<TProductCreateData>
                     errors={errors}
@@ -112,7 +112,7 @@ const APProducts = () => {
                     reset={resetField}
                   />
                 </li>
-                <h4 className={style.formSubtitle}>{t("price")}</h4>
+                <h4 className={fStyle.formSubtitle}>{t("price")}</h4>
                 <li>
                   <APInput<TProductCreateData>
                     errors={errors}
@@ -125,7 +125,7 @@ const APProducts = () => {
                   />
                 </li>
               </ol>
-              <h4 className={style.formSubtitle}>{t("category")}</h4>
+              <h4 className={fStyle.formSubtitle}>{t("category")}</h4>
               <APSelect<TProductCreateData>
                 options={categories.map((c) => ({
                   value: c.code,
@@ -137,10 +137,10 @@ const APProducts = () => {
               />
             </div>
             <div>
-              <h4 className={style.formSubtitle}>{t("image")}</h4>
+              <h4 className={fStyle.formSubtitle}>{t("image")}</h4>
               <div
-                className={classNames(style.fileUpload, pStyle.fileUpload, {
-                  [style.drag]: isDrag,
+                className={classNames(fStyle.fileUpload, pStyle.fileUpload, {
+                  [fStyle.drag]: isDrag,
                 })}
                 onDragLeave={dragLeaveHandler}
                 onDragOver={dragStartHandler}
@@ -148,7 +148,7 @@ const APProducts = () => {
               >
                 <label>
                   <input
-                    className={classNames(style.fileUploadInp, "unselectable")}
+                    className={classNames(fStyle.fileUploadInp, "unselectable")}
                     type="file"
                     {...register("img", {
                       onChange: (e) => setIcon(e.target.files[0]),
@@ -156,14 +156,14 @@ const APProducts = () => {
                     disabled={!!icon}
                   />
                   <div
-                    className={classNames(style.fileUploadBtn, {
-                      [style.disabled]: !!icon,
+                    className={classNames(fStyle.fileUploadBtn, {
+                      [fStyle.disabled]: !!icon,
                     })}
                   >
                     {t("upload")}
                   </div>
                 </label>
-                <div className={classNames(style.iconName, "unselectable")}>
+                <div className={classNames(fStyle.iconName, "unselectable")}>
                   {icon?.name}
                 </div>
               </div>
@@ -171,13 +171,13 @@ const APProducts = () => {
           </div>
           <button
             type="submit"
-            className={classNames(style.createBtn, pStyle.createBtn)}
+            className={classNames(fStyle.createBtn, pStyle.createBtn)}
           >
             {t("create")}
           </button>
         </form>
         <div className={pStyle.statusCodeContainer}>
-          <div className={style.statusCode}>
+          <div className={fStyle.statusCode}>
             {statuses.productCreate === undefined
               ? ""
               : statuses.productCreate === "success"

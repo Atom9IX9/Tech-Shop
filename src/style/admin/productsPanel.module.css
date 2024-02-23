@@ -4,7 +4,7 @@
 }
 
 .fileUpload {
-  height: 270px;
+  height: 270px !important;
 }
 
 .createBtn {
@@ -24,4 +24,29 @@
   width: 270px;
   height: 20px;
   overflow: hidden;
+}
+
+@media screen and (max-width: 1245px) {
+  .formWrapper {
+    display: block;
+    width: 100%;
+    padding-bottom: 10px;
+  }
+  .createBtn {
+    display: block;
+    position: relative;
+  }
+  .createBtn {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+  }
+  .statusCodeContainer {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: min-content;
+    padding-bottom: 10px;
+  }
 }

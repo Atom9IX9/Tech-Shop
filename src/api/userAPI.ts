@@ -36,8 +36,9 @@ const userAPI = {
   },
   checkAuth: async () => {
     try {
-      const response: AxiosResponse<TUser> = await $authHost.get("api/user/auth");
-      return response.data;
+      const response: AxiosResponse<TCheckAuthData> = await $authHost.get("api/user/auth");
+      localStorage.setItem("userToken", response.data.token)
+      return response.data.user;
     } catch (err: any) {
       return Promise.reject(err.response.data);
     }
@@ -73,4 +74,8 @@ type TUser = {
   role: "ADMIN" | "USER";
   name: string;
   surname: string;
+}
+type TCheckAuthData = {
+  user: TUser;
+  token: string;
 }

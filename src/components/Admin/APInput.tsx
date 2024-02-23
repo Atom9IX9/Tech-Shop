@@ -1,4 +1,4 @@
-import style_g from "style/admin/adminStyle.module.css";
+import style_f from "style/admin/formStyle.module.css";
 import { IoTrashBinOutline } from "react-icons/io5";
 import { MouseEventHandler } from "react";
 import {
@@ -26,15 +26,15 @@ export function APInput<F extends FieldValues>({
   };
 
   return (
-    <div className={style_g.inputContainer}>
+    <div className={style_f.inputContainer}>
       <input
-        className={style_g.input}
+        className={style_f.input}
         {...register(name, { required })}
         placeholder={placeholder}
         autoComplete="off"
         type={type || "text"}
       />
-      <button className={style_g.inputClear} onClick={onReset}>
+      <button className={style_f.inputClear} onClick={onReset}>
         <IoTrashBinOutline size={16} color="#606266" />
       </button>
     </div>
