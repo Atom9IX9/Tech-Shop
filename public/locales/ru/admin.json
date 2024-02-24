@@ -16,5 +16,13 @@
   "admins": "админы",
   "products": "продукты",
   "categories": "категории",
-  "reports": "жалобы"
+  "reports": "жалобы",
+  "noCategoriesHere": "Нет категорий",
+
+  "err/image_is_null": "Добавьте изображение",
+  "err/category_is_null": "Добавьте категорию",
+  "err/icon_is_null": "Добавьте иконку",
+  "err/no_access": "Нет доступа",
+
+  "success": "Успешно"
 }

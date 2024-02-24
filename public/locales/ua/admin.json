@@ -16,5 +16,13 @@
   "admins": "адміни",
   "products": "продукти",
   "categories": "категорії",
-  "reports": "скарги"
+  "reports": "скарги",
+  "noCategoriesHere": "Немає категорій",
+
+  "err/image_is_null": "Додайте зображення",
+  "err/category_is_null": "Додайте категорію",
+  "err/icon_is_null": "Додайте значок",
+  "err/no_access": "Немає доступу",
+
+  "success": "Успішно"
 }

@@ -1,25 +1,40 @@
 import style from "style/admin/adminStyle.module.css";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import AdminPanelNav from "components/Admin/AdminPanelNav";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import withSuspense from "utils/hoc/withSuspense";
+import { User } from "components/contexts/UserContext";
 
-const APCategories = withSuspense(React.lazy(() => import("components/Admin/APCategories")))
-const APPeoples = withSuspense(React.lazy(() => import("components/Admin/APPeoples")))
-const APProducts = withSuspense(React.lazy(() => import("components/Admin/APProducts")))
-const APAdmins = withSuspense(React.lazy(() => import("components/Admin/APAdmins")))
-const APReports = withSuspense(React.lazy(() => import("components/Admin/APReports")))
-const APInformation = withSuspense(React.lazy(() => import("components/Admin/APInformation")))
+const APCategories = withSuspense(
+  React.lazy(() => import("components/Admin/APCategories"))
+);
+const APPeoples = withSuspense(
+  React.lazy(() => import("components/Admin/APPeoples"))
+);
+const APProducts = withSuspense(
+  React.lazy(() => import("components/Admin/APProducts"))
+);
+const APAdmins = withSuspense(
+  React.lazy(() => import("components/Admin/APAdmins"))
+);
+const APReports = withSuspense(
+  React.lazy(() => import("components/Admin/APReports"))
+);
+const APInformation = withSuspense(
+  React.lazy(() => import("components/Admin/APInformation"))
+);
 
 const AdminPanel = () => {
-  const location = useLocation()
-  const nav = useNavigate()
-  
+  const nav = useNavigate();
+  const { role } = useContext(User)
+
   useEffect(() => {
-    if (location.pathname === "/admin-panel") {
-      nav("dashboard")
+    if (role !== "ADMIN") {
+      nav("/")
+    } else {
+      nav("information");
     }
-  }, [location, nav])
+  }, [nav, role]);
 
   return (
     <div className={style.AP}>

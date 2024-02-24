@@ -11,8 +11,12 @@ const productsAPI = {
   }: TProductCreateData) => {
     if (!img) {
       return Promise.reject({
-        message: "err/image_is_null",
+        message: "image_is_null",
       });
+    } else if (!category) {
+      return Promise.reject({
+        message: "category_is_null"
+      })
     }
 
     const formData = new FormData();

@@ -5,7 +5,7 @@ const APInformation = () => {
   return (
     <div className={style.content}>
       <div className={classNames(style.APElement, style.contentElement)}>
-        dashboard
+        information
       </div>
     </div>
   );

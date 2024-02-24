@@ -8,7 +8,7 @@ import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import { DragEventHandler, useState } from "react";
 import { useAppDispatch } from "reducers/store";
-import { createCategory, fetchCategories } from "reducers/productsReducer";
+import { createCategory, fetchCategories, resetCreateStatuses } from "reducers/productsReducer";
 import { useSelector } from "react-redux";
 import {
   getCategories,
@@ -56,6 +56,9 @@ const APCategories = () => {
       dispatch(fetchCategories());
     }
   }, [categories, dispatch]);
+  useEffect(() => {
+    dispatch(resetCreateStatuses())
+  }, [dispatch])
 
   return (
     <div className={style_g.content}>
@@ -140,17 +143,17 @@ const APCategories = () => {
             {statuses.categoryCreate === undefined
               ? ""
               : statuses.categoryCreate === "success"
-              ? "success"
-              : statuses.categoryCreate}
+              ? t("success")
+              : t("err/" + statuses.categoryCreate)}
           </div>
         </div>
       </div>
       <div className={classNames(style_g.APElement, style_g.contentElement)}>
         <h3 className={style_f.windowName}>{t("availableCategory")}</h3>
         <div>
-          {categories.map((category) => (
+          {categories.length ? categories.map((category) => (
             <AvCategory category={category} />
-          ))}
+          )) : t("noCategoriesHere")}
         </div>
       </div>
     </div>

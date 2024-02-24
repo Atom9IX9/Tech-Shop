@@ -11,7 +11,7 @@ import {
   getProductStatuses,
 } from "utils/selectors/productSelectors";
 import { useAppDispatch } from "reducers/store";
-import { createProduct, fetchCategories } from "reducers/productsReducer";
+import { createProduct, fetchCategories, resetCreateStatuses } from "reducers/productsReducer";
 import { DragEventHandler, useEffect, useState } from "react";
 import style_g from "style/admin/adminStyle.module.css";
 import { useTranslation } from "react-i18next";
@@ -65,6 +65,9 @@ const APProducts = () => {
       dispatch(fetchCategories());
     }
   }, [categories, dispatch]);
+  useEffect(() => {
+    dispatch(resetCreateStatuses())
+  }, [dispatch])
 
   return (
     <div className={style_g.content}>
@@ -181,8 +184,8 @@ const APProducts = () => {
             {statuses.productCreate === undefined
               ? ""
               : statuses.productCreate === "success"
-              ? "success"
-              : statuses.productCreate}
+              ? t("success")
+              : t("err/" + statuses.productCreate)}
           </div>
         </div>
       </div>

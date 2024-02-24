@@ -10,11 +10,19 @@
   "creatingCategory": "Creating category",
   "icon": "Icon",
   "availableCategory": "Available categories",
-  
+
   "information": "information",
   "people": "people",
   "admins": "admins",
   "products": "products",
   "categories": "categories",
-  "reports": "reports"
+  "reports": "reports",
+  "noCategoriesHere": "No categories",
+
+  "err/image_is_null": "Add an image",
+  "err/icon_is_null": "Add an icon",
+  "err/category_is_null": "Add a category",
+  "err/no_access": "No access",
+
+  "success": "successfully"
 }

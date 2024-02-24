@@ -17,7 +17,7 @@ const categoriesAPI = {
       return Promise.reject({
         response: {
           data: {
-            message: "err/icon_is_null",
+            message: "icon_is_null",
           },
         },
       });

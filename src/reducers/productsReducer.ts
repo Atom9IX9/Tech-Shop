@@ -119,6 +119,10 @@ const productsSlice = createSlice({
     resetLikedProducts: (state) => {
       state.likedProducts = [];
     },
+    resetCreateStatuses: (state) => {
+      state.statuses.productCreate = undefined;
+      state.statuses.categoryCreate = undefined;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -185,7 +189,7 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const { setCurrentCategory, resetLikedProducts } = productsSlice.actions;
+export const { setCurrentCategory, resetLikedProducts, resetCreateStatuses } = productsSlice.actions;
 
 export type TInitialState = typeof initialState;
 
