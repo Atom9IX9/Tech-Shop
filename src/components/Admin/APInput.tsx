@@ -34,7 +34,7 @@ export function APInput<F extends FieldValues>({
         autoComplete="off"
         type={type || "text"}
       />
-      <button className={style_f.inputClear} onClick={onReset}>
+      <button className={style_f.inputClear} type="button" onClick={onReset}>
         <IoTrashBinOutline size={16} color="#606266" />
       </button>
     </div>
