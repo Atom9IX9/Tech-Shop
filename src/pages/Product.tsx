@@ -1,5 +1,5 @@
 import ProductPageNav from "components/Product/ProductNav";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import style from "style/productStyle/productPage.module.css";
 import { useSelector } from "react-redux";
@@ -24,6 +24,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { checkLiked } from "utils/selectors/checkIsLiked";
 import Loader from "components/Loader/Loader";
 import { User } from "components/contexts/UserContext";
+import Dialog from "components/Dialog/Dialog";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
@@ -33,6 +34,7 @@ const ProductPage: React.FC = () => {
   const productLikedIds = useSelector(getLikedProducts);
   const fetchings = useSelector(getFetchings);
   const user = useContext(User);
+  const [dialog, setDialog] = useState(false)
 
   // todo: redux api thunk for ~getProduct()~
   useEffect(() => {
@@ -58,8 +60,11 @@ const ProductPage: React.FC = () => {
   } else if (!product) {
     return <div>error 404</div>;
   } else {
-    return (
+    return ( 
       <div className={style.productPageContainer}>
+        {dialog && <Dialog close={() => setDialog(false)}>
+            <div className={style.createDescriptionWindow}></div>
+          </Dialog>}
         <ProductPageNav
           category={product.categoryCode}
           categories={categories}
@@ -125,7 +130,7 @@ const ProductPage: React.FC = () => {
                 user.role === "ADMIN" && (
                   <div>
                     There is no product description.{" "}
-                    <span className={style.addDescription}>
+                    <span className={style.addDescription} onClick={() => setDialog(true)}>
                       ADD DESCRIPTION
                     </span>
                   </div>

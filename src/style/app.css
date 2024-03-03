@@ -21,6 +21,21 @@ ul[class] {
   list-style: none;
 }
 
+.dialog {
+  position: absolute;
+  background: #00000055;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  right: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
 .unselectable {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Chrome/Safari/Opera */
