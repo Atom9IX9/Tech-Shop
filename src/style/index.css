@@ -16,7 +16,7 @@ body, html {
   width: 100%;
   height: min-content;
 
-  background: #F7F7F7;
+  background: #ffffff;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -34,8 +34,8 @@ input[type="number"]:focus {
 :root {
   --dark-bg-color: #2c2c2c;
   --violet-bg-color: #8c52ff;
-  --pink-bg-color: #ff66c4;
-  --pink-active-bg-color: #ff7ccd;
+  --pink-bg-color: #FF00B8;
+  --pink-active-bg-color: #ff3fb5;
   --dark-active-bg-color: #4c4c4c;
   --red-bg-color: #fc004c;
   --blue-bg-color: #3367f7;

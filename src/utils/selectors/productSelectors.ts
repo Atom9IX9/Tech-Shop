@@ -7,3 +7,4 @@ export const getCurrentCategory = (state: RootState) =>
   state.products.currentCategory;
 export const getLikedProducts = (state: RootState) => state.products.likedProducts;
 export const getProductStatuses = (state: RootState) => state.products.statuses;
+export const getCurrentProduct = (state: RootState) => state.products.currentProduct;

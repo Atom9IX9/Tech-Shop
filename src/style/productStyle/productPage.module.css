@@ -1,6 +1,6 @@
 .productPageContainer {
   margin: auto;
-  margin-top: 143px;
+  margin-top: 80px;
   max-width: 1437px;
 }
 
@@ -43,6 +43,153 @@
 }
 .navLink:hover {
   opacity: .75;
+}
+
+.productInfContainer {
+  display: flex;
+  gap: 84px;
+
+  margin-top: 26px;
+}
+
+.productImages {
+  width: 645px;
+  height: 700px;
+}
+
+.productInfo {
+  width: 720px;
+  min-height: 645px;
+}
+
+.productImgsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  
+  width: 645px;
+  height: 545px;
+}
+
+.productLargeImage {
+  height: 100%;
+  max-width: 100%;
+}
+
+.productTitle {
+  width: 100%;
+  min-height: 163px;
+
+  color: var(--dark-bg-color);
+  font-size: 32px;
+  
+  display: flex;
+  align-items: center;
+}
+
+.toBucketBlock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 6px;
+}
+
+.fullPrice {
+  color: var(--pink-bg-color);
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.currency {
+  color: var(--violet-bg-color);
+  font-size: 22px;
+}
+
+.discountedPrice {
+  position: relative;
+  top: 5px;
+
+  color: #828282;
+  text-decoration: line-through;
+  font-size: 18px;
+}
+
+.buyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+
+  width: 295px;
+  height: 76px;
+  background: var(--pink-bg-color);
+
+  border: 0;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  -ms-transition: all 200ms;
+  -o-transition: all 200ms;
+}
+
+.buyBtn:hover {
+  background: var(--pink-active-bg-color);
+}
+
+.buyBtnText {
+  color: #fff;
+  font-size: 30px;
+}
+
+.likesBlock {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  font-size: 20px;
+  color: var(--dark-bg-color);
+
+  margin-top: 20px;
+}
+
+.likeIcon {
+  height: min-content;
+  cursor: pointer;
+}
+
+.likesCount {
+  height: 35px;
+}
+
+.productDescription {
+  margin-top: 20px;
+  min-height: 220px;
+}
+
+.addDescription {
+  color: var(--blue-bg-color);
+  text-decoration: underline;
+  
+  cursor: pointer;
+
+  transition: all 150ms;
+  -webkit-transition: all 150ms;
+  -moz-transition: all 150ms;
+  -ms-transition: all 150ms;
+  -o-transition: all 150ms;
+}
+
+.addDescription:hover {
+  color: var(--red-bg-color);
 }
 
 @media screen and (max-width: 768px) {

@@ -1,4 +1,5 @@
 import productsAPI, {
+  TFullProduct,
   TProductCard,
   TProductCreateData,
   TProductLikeData,
@@ -16,6 +17,7 @@ export const initialState = {
     like: false,
     categoryCreating: false,
     productCreating: false,
+    productOpening: false,
   },
   statuses: {
     categoryCreate: undefined as undefined | "success" | string,
@@ -27,17 +29,36 @@ export const initialState = {
   page: 1,
   pageSize: 20,
   likedProducts: [] as number[], // products' id
+  currentProduct: undefined as undefined | TFullProduct,
 };
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async ({ page, category }: TFetchPostsPayload) => {
-    const products = await productsAPI.getAllProducts(
-      category,
-      initialState.pageSize,
-      page
-    );
-    return products;
+  async ({ page, category }: TFetchPostsPayload, { rejectWithValue }) => {
+    try {
+      const products = await productsAPI.getAllProducts(
+        category,
+        initialState.pageSize,
+        page
+      );
+      return products;
+    } catch (e) {
+      const err = e as { message: string };
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const fetchCurrentProduct = createAsyncThunk(
+  "products/fetchOneProduct",
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const product = await productsAPI.getProduct(id);
+      return product;
+    } catch (e) {
+      const err = e as { message: string };
+      return rejectWithValue(err.message);
+    }
   }
 );
 
@@ -122,7 +143,7 @@ const productsSlice = createSlice({
     resetCreateStatuses: (state) => {
       state.statuses.productCreate = undefined;
       state.statuses.categoryCreate = undefined;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -139,16 +160,30 @@ const productsSlice = createSlice({
           state.statuses.categoryFetched = action.payload;
         }
       )
+      .addCase(likeProduct.pending, (state) => {
+        state.fetchings.like = true;
+      })
+      .addCase(likeProduct.rejected, (state) => {
+        state.fetchings.like = false;
+      })
       .addCase(likeProduct.fulfilled, (state, action) => {
+        const likeId = Number(action.payload.likedProduct.productId)
+        state.fetchings.like = false;
         if (action.payload.method === "ADD") {
           state.likedProducts = [
             ...state.likedProducts,
-            Number(action.payload.likedProduct.productId),
+            likeId,
           ];
+          if (state.currentProduct?.id === likeId) {
+            state.currentProduct.likesCount+=1
+          }
         } else if (action.payload.method === "REMOVE") {
           state.likedProducts = state.likedProducts.filter(
-            (id) => id !== Number(action.payload.likedProduct.productId)
+            (id) => id !== likeId
           );
+          if (state.currentProduct?.id === likeId) {
+            state.currentProduct.likesCount-=1
+          }
         }
       })
       .addCase(fetchLikedProductIds.fulfilled, (state, action) => {
@@ -184,12 +219,23 @@ const productsSlice = createSlice({
         state.categories = state.categories.filter(
           (c) => c.code !== action.payload
         );
-      });
+      })
+      .addCase(fetchCurrentProduct.fulfilled, (state, action) => {
+        state.currentProduct = action.payload
+        state.fetchings.productOpening = false
+      })
+      .addCase(fetchCurrentProduct.pending, (state) => {
+        state.fetchings.productOpening = true
+      })
+      .addCase(fetchCurrentProduct.rejected, (state) => {
+        state.fetchings.productOpening = false
+      })
   },
 });
 
 export default productsSlice.reducer;
-export const { setCurrentCategory, resetLikedProducts, resetCreateStatuses } = productsSlice.actions;
+export const { setCurrentCategory, resetLikedProducts, resetCreateStatuses } =
+  productsSlice.actions;
 
 export type TInitialState = typeof initialState;
 

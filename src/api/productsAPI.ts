@@ -56,7 +56,7 @@ const productsAPI = {
   },
   getProduct: async (id: number) => {
     try {
-      const response = await $host.get<TProductCard>(`api/product/${id}`);
+      const response = await $host.get<TFullProduct>(`api/product/${id}`);
       return response.data;
     } catch (err: any) {
       return Promise.reject(err.response.data);
@@ -100,7 +100,6 @@ export type TProductCard = {
   ru: string;
   price: number; // ? integer
   sale: number; // ? 0-100% ==> 0.00-1.00
-  rating: number; // ? 0-5
   categoryCode: string;
   img: string; // ? url
 };
@@ -118,3 +117,10 @@ export type TProductLikeData = {
 export type TLikedProductsData = {
   likedProductIds: number[];
 };
+export type TFullProduct = TProductCard & {
+  rating: number; // 0-5
+  likesCount: number;
+  descriptionEn: string | null;
+  descriptionUa: string | null;
+  descriptionRu: string | null
+}

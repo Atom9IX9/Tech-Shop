@@ -4,7 +4,10 @@ import style from "style/homeStyle/productCard/productCard.style.module.css";
 import { getSale } from "utils/getSale";
 import { useAppDispatch } from "reducers/store";
 import { useSelector } from "react-redux";
-import { getLikedProducts } from "utils/selectors/productSelectors";
+import {
+  getFetchings,
+  getLikedProducts,
+} from "utils/selectors/productSelectors";
 import React, { useState, useEffect } from "react";
 import cn from "classnames";
 import { likeProduct } from "reducers/productsReducer";
@@ -15,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   const [isLiked, setIsLiked] = useState(false);
   const likedProducts = useSelector(getLikedProducts);
+  const fetchings = useSelector(getFetchings);
   const { i18n } = useTranslation();
   const navigate = useNavigate();
 
@@ -24,10 +28,12 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   };
 
   const like = () => {
-    if (!isLiked) {
-      dispatch(likeProduct({ id: product.id, method: "ADD" }));
-    } else if (isLiked) {
-      dispatch(likeProduct({ id: product.id, method: "REMOVE" }));
+    if (!fetchings.like) {
+      if (!isLiked) {
+        dispatch(likeProduct({ id: product.id, method: "ADD" }));
+      } else if (isLiked) {
+        dispatch(likeProduct({ id: product.id, method: "REMOVE" }));
+      }
     }
   };
 
