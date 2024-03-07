@@ -23,6 +23,7 @@ export const initialState = {
     categoryCreate: undefined as undefined | "success" | string,
     productCreate: undefined as undefined | "success" | string,
     categoryFetched: undefined as undefined | "success" | string,
+    productFetchingById: undefined as undefined | "success" | string,
   },
   categories: [] as TMainCategory[],
   currentCategory: null as TMainCategory | null,
@@ -227,8 +228,9 @@ const productsSlice = createSlice({
       .addCase(fetchCurrentProduct.pending, (state) => {
         state.fetchings.productOpening = true
       })
-      .addCase(fetchCurrentProduct.rejected, (state) => {
+      .addCase(fetchCurrentProduct.rejected, (state, action) => {
         state.fetchings.productOpening = false
+        state.statuses.productFetchingById = action.payload as string
       })
   },
 });

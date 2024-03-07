@@ -15,8 +15,8 @@ const productsAPI = {
       });
     } else if (!category) {
       return Promise.reject({
-        message: "category_is_null"
-      })
+        message: "category_is_null",
+      });
     }
 
     const formData = new FormData();
@@ -38,7 +38,6 @@ const productsAPI = {
       );
       return response.data;
     } catch (err: any) {
-      console.log(err);
       return Promise.reject(err.response.data);
     }
   },
@@ -56,7 +55,10 @@ const productsAPI = {
   },
   getProduct: async (id: number) => {
     try {
-      const response = await $host.get<TFullProduct>(`api/product/${id}`);
+      const response = await $host.get<TFullProduct | undefined>(`api/product/${id}`);
+      if (!response.data) {
+        return Promise.reject({message: "err/product_is_null"})
+      }
       return response.data;
     } catch (err: any) {
       return Promise.reject(err.response.data);
@@ -86,6 +88,17 @@ const productsAPI = {
         "api/product/liked-ids"
       );
       return response.data;
+    } catch (err: any) {
+      return Promise.reject(err.response.data);
+    }
+  },
+  updateDescription: async (data: TDescriptionData, productId: number) => {
+    try {
+      const response = await $authHost.put<TFullProduct>(
+        `api/product/${productId}/description`,
+        data
+      );
+      return response.data
     } catch (err: any) {
       return Promise.reject(err.response.data);
     }
@@ -122,5 +135,10 @@ export type TFullProduct = TProductCard & {
   likesCount: number;
   descriptionEn: string | null;
   descriptionUa: string | null;
-  descriptionRu: string | null
-}
+  descriptionRu: string | null;
+};
+export type TDescriptionData = {
+  en: string;
+  ru: string;
+  ua: string;
+};

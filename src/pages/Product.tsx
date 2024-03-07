@@ -8,6 +8,7 @@ import {
   getCurrentProduct,
   getFetchings,
   getLikedProducts,
+  getProductStatuses,
 } from "utils/selectors/productSelectors";
 import { useAppDispatch } from "reducers/store";
 import {
@@ -25,6 +26,7 @@ import { checkLiked } from "utils/selectors/checkIsLiked";
 import Loader from "components/Loader/Loader";
 import { User } from "components/contexts/UserContext";
 import Dialog from "components/Dialog/Dialog";
+import DescriptionForm from "components/Product/DescriptionForm";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
@@ -33,10 +35,10 @@ const ProductPage: React.FC = () => {
   const categories = useSelector(getCategories);
   const productLikedIds = useSelector(getLikedProducts);
   const fetchings = useSelector(getFetchings);
+  const statuses = useSelector(getProductStatuses);
   const user = useContext(User);
   const [dialog, setDialog] = useState(false)
 
-  // todo: redux api thunk for ~getProduct()~
   useEffect(() => {
     dispatch(fetchCurrentProduct(paramsId));
   }, [paramsId, dispatch]);
@@ -54,16 +56,17 @@ const ProductPage: React.FC = () => {
   const like = (method: "ADD" | "REMOVE") => {
     dispatch(likeProduct({ id: product?.id || 0, method }));
   };
+  const closeDialog = () => setDialog(false)
 
   if (fetchings.productOpening) {
     return <Loader />;
-  } else if (!product) {
-    return <div>error 404</div>;
+  } else if (statuses.productFetchingById || !product) {
+    return <div>{statuses.productFetchingById}</div>;
   } else {
     return ( 
       <div className={style.productPageContainer}>
-        {dialog && <Dialog close={() => setDialog(false)}>
-            <div className={style.createDescriptionWindow}></div>
+        {dialog && <Dialog close={closeDialog}>
+            <DescriptionForm productId={paramsId} closeForm={closeDialog} />
           </Dialog>}
         <ProductPageNav
           category={product.categoryCode}

@@ -1,6 +1,6 @@
 import style_f from "style/admin/formStyle.module.css";
 import { IoTrashBinOutline } from "react-icons/io5";
-import { MouseEventHandler } from "react";
+import { FormEventHandler, MouseEventHandler } from "react";
 import {
   FieldErrors,
   FieldValues,
@@ -68,6 +68,29 @@ export function APSelect<F extends FieldValues>({
   );
 }
 
+export function APTxtArea<F extends FieldValues>({
+  errors,
+  name,
+  register,
+  required,
+  reset,
+}: TAPTxtArea<F>) {
+  const autoGrow: FormEventHandler<HTMLTextAreaElement> = (e) => {
+    e.currentTarget.style.height = "5px";
+    e.currentTarget.style.height = e.currentTarget.scrollHeight + "px";
+  };
+
+  return (
+    <div className={style_f.textareaContainer}>
+      <textarea
+        {...register(name, { required })}
+        className={style_f.textarea}
+        onChange={autoGrow}
+      ></textarea>
+    </div>
+  );
+}
+
 export type TAPInput<FormData extends FieldValues> = {
   name: Path<FormData>;
   register: UseFormRegister<FormData>;
@@ -76,6 +99,13 @@ export type TAPInput<FormData extends FieldValues> = {
   reset: UseFormResetField<FormData>;
   errors: FieldErrors<FormData>;
   type?: "number";
+};
+export type TAPTxtArea<FormData extends FieldValues> = {
+  name: Path<FormData>;
+  register: UseFormRegister<FormData>;
+  required: boolean;
+  reset: UseFormResetField<FormData>;
+  errors: FieldErrors<FormData>;
 };
 export type TAPSelect<FormData extends FieldValues> = {
   options: TOption[];
