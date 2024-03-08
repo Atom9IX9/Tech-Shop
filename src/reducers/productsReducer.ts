@@ -1,4 +1,5 @@
 import productsAPI, {
+  TDescriptionData,
   TFullProduct,
   TProductCard,
   TProductCreateData,
@@ -18,12 +19,14 @@ export const initialState = {
     categoryCreating: false,
     productCreating: false,
     productOpening: false,
+    productDescriptionUpdating: false,
   },
   statuses: {
     categoryCreate: undefined as undefined | "success" | string,
     productCreate: undefined as undefined | "success" | string,
     categoryFetched: undefined as undefined | "success" | string,
     productFetchingById: undefined as undefined | "success" | string,
+    productDescriptionUpdating: undefined as undefined | "success" | string,
   },
   categories: [] as TMainCategory[],
   currentCategory: null as TMainCategory | null,
@@ -99,6 +102,21 @@ export const createProduct = createAsyncThunk(
   }
 );
 
+export const updateProductDescription = createAsyncThunk(
+  "product/updateDescription",
+  async (
+    { productId, data }: TUpdateProductDescriptionThunkData,
+    { rejectWithValue }
+  ) => {
+    try {
+      const product = await productsAPI.updateDescription(data, productId);
+      return product;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const likeProduct = createAsyncThunk(
   "products/like",
   async ({ id, method }: TLikeProductPayload) => {
@@ -168,22 +186,19 @@ const productsSlice = createSlice({
         state.fetchings.like = false;
       })
       .addCase(likeProduct.fulfilled, (state, action) => {
-        const likeId = Number(action.payload.likedProduct.productId)
+        const likeId = Number(action.payload.likedProduct.productId);
         state.fetchings.like = false;
         if (action.payload.method === "ADD") {
-          state.likedProducts = [
-            ...state.likedProducts,
-            likeId,
-          ];
+          state.likedProducts = [...state.likedProducts, likeId];
           if (state.currentProduct?.id === likeId) {
-            state.currentProduct.likesCount+=1
+            state.currentProduct.likesCount += 1;
           }
         } else if (action.payload.method === "REMOVE") {
           state.likedProducts = state.likedProducts.filter(
             (id) => id !== likeId
           );
           if (state.currentProduct?.id === likeId) {
-            state.currentProduct.likesCount-=1
+            state.currentProduct.likesCount -= 1;
           }
         }
       })
@@ -222,16 +237,33 @@ const productsSlice = createSlice({
         );
       })
       .addCase(fetchCurrentProduct.fulfilled, (state, action) => {
-        state.currentProduct = action.payload
-        state.fetchings.productOpening = false
+        state.currentProduct = action.payload;
+        state.fetchings.productOpening = false;
       })
       .addCase(fetchCurrentProduct.pending, (state) => {
-        state.fetchings.productOpening = true
+        state.fetchings.productOpening = true;
       })
       .addCase(fetchCurrentProduct.rejected, (state, action) => {
-        state.fetchings.productOpening = false
-        state.statuses.productFetchingById = action.payload as string
+        state.fetchings.productOpening = false;
+        state.statuses.productFetchingById = action.payload as string;
       })
+      .addCase(updateProductDescription.fulfilled, (state, action) => {
+        state.fetchings.productDescriptionUpdating = false;
+        if (state.currentProduct) {
+          state.currentProduct.descriptionEn = action.payload.en;
+          state.currentProduct.descriptionRu = action.payload.ru;
+          state.currentProduct.descriptionUa = action.payload.ua;
+        }
+        state.statuses.productDescriptionUpdating = "success";
+      })
+      .addCase(updateProductDescription.pending, (state, action) => {
+        state.fetchings.productDescriptionUpdating = true;
+        state.statuses.productDescriptionUpdating = undefined;
+      })
+      .addCase(updateProductDescription.rejected, (state, action) => {
+        state.fetchings.productDescriptionUpdating = false;
+        state.statuses.productDescriptionUpdating = action.payload as string;
+      });
   },
 });
 
@@ -252,4 +284,8 @@ type TFetchPostsPayload = {
 type TLikeProductPayload = {
   id: number;
   method: "ADD" | "REMOVE";
+};
+type TUpdateProductDescriptionThunkData = {
+  productId: number;
+  data: TDescriptionData;
 };

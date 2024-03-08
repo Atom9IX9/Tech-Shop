@@ -98,7 +98,7 @@ const productsAPI = {
         `api/product/${productId}/description`,
         data
       );
-      return response.data
+      return data
     } catch (err: any) {
       return Promise.reject(err.response.data);
     }

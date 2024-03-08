@@ -37,7 +37,7 @@ const ProductPage: React.FC = () => {
   const fetchings = useSelector(getFetchings);
   const statuses = useSelector(getProductStatuses);
   const user = useContext(User);
-  const [dialog, setDialog] = useState(false)
+  const [dialog, setDialog] = useState(false);
 
   useEffect(() => {
     dispatch(fetchCurrentProduct(paramsId));
@@ -56,18 +56,22 @@ const ProductPage: React.FC = () => {
   const like = (method: "ADD" | "REMOVE") => {
     dispatch(likeProduct({ id: product?.id || 0, method }));
   };
-  const closeDialog = () => setDialog(false)
+  const closeDialog = () => {
+    setDialog(false);
+  };
 
   if (fetchings.productOpening) {
     return <Loader />;
   } else if (statuses.productFetchingById || !product) {
     return <div>{statuses.productFetchingById}</div>;
   } else {
-    return ( 
+    return (
       <div className={style.productPageContainer}>
-        {dialog && <Dialog close={closeDialog}>
+        {dialog && (
+          <Dialog close={closeDialog}>
             <DescriptionForm productId={paramsId} closeForm={closeDialog} />
-          </Dialog>}
+          </Dialog>
+        )}
         <ProductPageNav
           category={product.categoryCode}
           categories={categories}
@@ -133,7 +137,10 @@ const ProductPage: React.FC = () => {
                 user.role === "ADMIN" && (
                   <div>
                     There is no product description.{" "}
-                    <span className={style.addDescription} onClick={() => setDialog(true)}>
+                    <span
+                      className={style.addDescription}
+                      onClick={() => setDialog(true)}
+                    >
                       ADD DESCRIPTION
                     </span>
                   </div>
