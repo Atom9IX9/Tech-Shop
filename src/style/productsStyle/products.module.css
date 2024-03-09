@@ -1,0 +1,17 @@
+.productCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 170px);
+  justify-content: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .productCards {
+    grid-template-columns: repeat(4, 25%);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .productCards {
+    grid-template-columns: 50% 50%;
+  }
+}

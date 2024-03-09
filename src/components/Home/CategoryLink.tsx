@@ -1,5 +1,5 @@
 import { setCurrentCategory } from "../../reducers/productsReducer";
-import style from "../../style/homeStyle/productCard/categoryLink.module.css";
+import style from "../../style/homeStyle/categoryLink.module.css";
 import RedLink from "../UI/RedLink";
 import { TMainCategory } from "../../api/categoriesAPI";
 

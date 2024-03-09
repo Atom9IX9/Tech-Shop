@@ -1,6 +1,6 @@
 import { TProductCard } from "api/productsAPI";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import style from "style/homeStyle/productCard/productCard.style.module.css";
+import style from "style/productsStyle/productCard/productCard.style.module.css";
 import { getSale } from "utils/getSale";
 import { useAppDispatch } from "reducers/store";
 import { useSelector } from "react-redux";
