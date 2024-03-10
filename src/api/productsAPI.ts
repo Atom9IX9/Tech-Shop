@@ -1,5 +1,7 @@
 import { $authHost, $host } from "./instance";
 
+import { TLng } from "types/types";
+
 const productsAPI = {
   createProduct: async ({
     img,
@@ -41,12 +43,12 @@ const productsAPI = {
       return Promise.reject(err.response.data);
     }
   },
-  getAllProducts: async (category: string, pageSize: number, page: number) => {
+  getAllProducts: async (category: string, pageSize: number, page: number, like?: string, likeLng?: TLng) => {
     try {
       const response = await $host.get<{ count: number; rows: TProductCard[] }>(
         `api/product?page=${page}&pageSize=${pageSize}${
           category !== "all" ? "&category=" + category : ""
-        }`
+        }${like && likeLng ? `&like=${like}&likeLng=${likeLng}` : ""}`
       );
       return response.data;
     } catch (err: any) {
@@ -111,10 +113,10 @@ export type TProductCard = {
   en: string;
   ua: string;
   ru: string;
-  price: number; // ? integer
-  sale: number; // ? 0-100% ==> 0.00-1.00
+  price: number; // integer
+  sale: number; // 0-100% ==> 0.00-1.00
   categoryCode: string;
-  img: string; // ? url
+  img: string; // url
 };
 export type TProductCreateData = {
   en: string;

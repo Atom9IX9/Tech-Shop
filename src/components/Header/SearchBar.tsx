@@ -5,12 +5,16 @@ import cn from "classnames";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import { useEffect, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useAppDispatch } from "reducers/store";
+import { fetchProducts } from "reducers/productsReducer";
+import { TLng } from "types/types";
 
 const SearchBar = () => {
   const [value, setValue] = useState("");
   const { t, i18n } = useTranslation("header");
+  const dispatch = useAppDispatch();
 
   const { transcript, listening, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
@@ -24,8 +28,20 @@ const SearchBar = () => {
     setValue(transcript);
   }, [transcript]);
 
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    dispatch(
+      fetchProducts({
+        category: "all",
+        page: 1,
+        like: value,
+        likeLng: i18n.language as TLng,
+      })
+    );
+  };
+
   return (
-    <form onSubmit={(e) => e.preventDefault()} className={style.searchForm}>
+    <form onSubmit={onSubmit} className={style.searchForm}>
       <div className={style.searchBarContainer}>
         <AiOutlineSearch size={23} color="#4c4c4c" />
         <input

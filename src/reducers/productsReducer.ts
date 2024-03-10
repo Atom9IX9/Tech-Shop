@@ -11,6 +11,7 @@ import categoriesAPI, {
 } from "../api/categoriesAPI";
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { TLng } from "types/types";
 
 export const initialState = {
   productCards: [] as TProductCard[],
@@ -29,7 +30,6 @@ export const initialState = {
     productDescriptionUpdating: undefined as undefined | "success" | string,
   },
   categories: [] as TMainCategory[],
-  currentCategory: null as TMainCategory | null,
   page: 1,
   pageSize: 20,
   likedProducts: [] as number[], // products' id
@@ -38,12 +38,14 @@ export const initialState = {
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async ({ page, category }: TFetchPostsPayload, { rejectWithValue }) => {
+  async ({ page, category, like, likeLng }: TFetchPostsPayload, { rejectWithValue }) => {
     try {
       const products = await productsAPI.getAllProducts(
         category,
         initialState.pageSize,
-        page
+        page,
+        like,
+        likeLng
       );
       return products;
     } catch (e) {
@@ -153,9 +155,6 @@ const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    setCurrentCategory: (state, action: PayloadAction<TMainCategory>) => {
-      state.currentCategory = action.payload;
-    },
     resetLikedProducts: (state) => {
       state.likedProducts = [];
     },
@@ -268,7 +267,7 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const { setCurrentCategory, resetLikedProducts, resetCreateStatuses } =
+export const { resetLikedProducts, resetCreateStatuses } =
   productsSlice.actions;
 
 export type TInitialState = typeof initialState;
@@ -280,6 +279,8 @@ export type TProductCharacteristics = {
 type TFetchPostsPayload = {
   category: string;
   page: number;
+  like?: string;
+  likeLng?: TLng;
 };
 type TLikeProductPayload = {
   id: number;

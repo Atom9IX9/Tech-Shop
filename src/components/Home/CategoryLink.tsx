@@ -1,20 +1,16 @@
-import { setCurrentCategory } from "../../reducers/productsReducer";
 import style from "../../style/homeStyle/categoryLink.module.css";
 import RedLink from "../UI/RedLink";
 import { TMainCategory } from "../../api/categoriesAPI";
 
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { TLng } from "types/types";
 
 const Category: React.FC<TProps> = ({ category }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { i18n } = useTranslation();
 
   const selectCategory = () => {
-    dispatch(setCurrentCategory(category));
     navigate(`/${category.code}`);
   };
 
