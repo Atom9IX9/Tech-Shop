@@ -27,6 +27,7 @@ import Loader from "components/Loader/Loader";
 import { User } from "components/contexts/UserContext";
 import Dialog from "components/Dialog/Dialog";
 import DescriptionForm from "components/Product/DescriptionForm";
+import CustomSlider from "components/UI/Slider";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
@@ -79,17 +80,13 @@ const ProductPage: React.FC = () => {
         />
         <div className={style.productInfContainer}>
           <div className={style.productImages}>
-            <div className={style.productImgsContainer}>
-              <img
-                className={style.productLargeImage}
-                src={
-                  process.env.REACT_APP_SERVER_API_HOST +
-                  "/public/" +
-                  product.img
-                }
-                alt="product"
-              />
-            </div>
+            <CustomSlider
+              images={product.img
+                .split("/")
+                .map(
+                  (i) => `${process.env.REACT_APP_SERVER_API_HOST}/public/${i}`
+                )}
+            />
           </div>
           <div className={style.productInfo}>
             <h2 className={style.productTitle}>
@@ -135,7 +132,7 @@ const ProductPage: React.FC = () => {
                 !product.descriptionRu &&
                 !product.descriptionUa &&
                 user.role === "ADMIN" && (
-                  <div>
+                  <>
                     There is no product description.{" "}
                     <span
                       className={style.addDescription}
@@ -143,15 +140,15 @@ const ProductPage: React.FC = () => {
                     >
                       ADD DESCRIPTION
                     </span>
-                  </div>
+                  </>
                 )) || (
-                <div>
+                <>
                   {(i18n.language as TLng) === "en"
                     ? product.descriptionEn
                     : (i18n.language as TLng) === "ua"
                     ? product.descriptionUa
                     : product.descriptionRu}
-                </div>
+                </>
               )}
             </div>
           </div>

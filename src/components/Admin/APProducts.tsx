@@ -11,8 +11,12 @@ import {
   getProductStatuses,
 } from "utils/selectors/productSelectors";
 import { useAppDispatch } from "reducers/store";
-import { createProduct, fetchCategories, resetCreateStatuses } from "reducers/productsReducer";
-import { DragEventHandler, useEffect, useState } from "react";
+import {
+  createProduct,
+  fetchCategories,
+  resetCreateStatuses,
+} from "reducers/productsReducer";
+import { ChangeEvent, DragEventHandler, useEffect, useState } from "react";
 import style_g from "style/admin/adminStyle.module.css";
 import { useTranslation } from "react-i18next";
 import { TLng } from "types/types";
@@ -36,13 +40,13 @@ const APProducts = () => {
   const statuses = useSelector(getProductStatuses);
   const dispatch = useAppDispatch();
   const onSubmit = (data: TProductCreateData) => {
-    dispatch(createProduct({ ...data, img: icon }));
+    dispatch(createProduct({ ...data, imgs: images }));
   };
 
   const [isDrag, setIsDrag] = useState(false);
   const dragStartHandler: DragEventHandler = (e) => {
     e.preventDefault();
-    if (!icon) setIsDrag(true);
+    if (!images) setIsDrag(true);
   };
   const dragLeaveHandler: DragEventHandler = (e) => {
     e.preventDefault();
@@ -50,7 +54,7 @@ const APProducts = () => {
   };
   const dropHandler: DragEventHandler = (e) => {
     e.preventDefault();
-    setIcon(e.dataTransfer.files[0]);
+    setImages([...(images || []), ...Array.from(e.dataTransfer.files || [])]);
     setIsDrag(false);
   };
 
@@ -58,7 +62,7 @@ const APProducts = () => {
 
   const { t, i18n } = useTranslation("admin");
 
-  const [icon, setIcon] = useState<File | undefined>(undefined);
+  const [images, setImages] = useState<File[] | undefined>(undefined);
 
   useEffect(() => {
     if (categories.length === 0) {
@@ -66,8 +70,8 @@ const APProducts = () => {
     }
   }, [categories, dispatch]);
   useEffect(() => {
-    dispatch(resetCreateStatuses())
-  }, [dispatch])
+    dispatch(resetCreateStatuses());
+  }, [dispatch]);
 
   return (
     <div className={style_g.content}>
@@ -153,21 +157,18 @@ const APProducts = () => {
                   <input
                     className={classNames(fStyle.fileUploadInp, "unselectable")}
                     type="file"
-                    {...register("img", {
-                      onChange: (e) => setIcon(e.target.files[0]),
+                    {...register("imgs", {
+                      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+                        setImages([
+                          ...(images || []),
+                          ...Array.from(e.target.files || []),
+                        ]),
                     })}
-                    disabled={!!icon}
                   />
-                  <div
-                    className={classNames(fStyle.fileUploadBtn, {
-                      [fStyle.disabled]: !!icon,
-                    })}
-                  >
-                    {t("upload")}
-                  </div>
+                  <div className={fStyle.fileUploadBtn}>{t("upload")}</div>
                 </label>
                 <div className={classNames(fStyle.iconName, "unselectable")}>
-                  {icon?.name}
+                  {Array.from(images || [])?.map((i) => i.name)}
                 </div>
               </div>
             </div>

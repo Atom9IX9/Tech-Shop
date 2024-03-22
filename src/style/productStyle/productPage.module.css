@@ -39,10 +39,10 @@
 }
 
 .subcategoriesNavLink:hover {
-  color: #474747a9
+  color: #474747a9;
 }
 .navLink:hover {
-  opacity: .75;
+  opacity: 0.75;
 }
 
 .productInfContainer {
@@ -55,6 +55,7 @@
 .productImages {
   width: 645px;
   height: 700px;
+  max-height: 700px;
 }
 
 .productInfo {
@@ -62,11 +63,11 @@
   min-height: 645px;
 }
 
-.productImgsContainer {
+.productImgContainer {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  
+
   width: 645px;
   height: 545px;
 }
@@ -82,7 +83,7 @@
 
   color: var(--dark-bg-color);
   font-size: 32px;
-  
+
   display: flex;
   align-items: center;
 }
@@ -171,14 +172,20 @@
 }
 
 .productDescription {
+  display: inline-block;
+
   margin-top: 20px;
   min-height: 220px;
+
+  max-width: 700px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .addDescription {
   color: var(--blue-bg-color);
   text-decoration: underline;
-  
+
   cursor: pointer;
 
   transition: all 150ms;

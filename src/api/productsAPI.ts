@@ -4,16 +4,16 @@ import { TLng } from "types/types";
 
 const productsAPI = {
   createProduct: async ({
-    img,
+    imgs,
     price,
     en,
     ua,
     ru,
     category,
   }: TProductCreateData) => {
-    if (!img) {
+    if (!imgs || imgs.length < 2) {
       return Promise.reject({
-        message: "image_is_null",
+        message: "images_are_not_2",
       });
     } else if (!category) {
       return Promise.reject({
@@ -22,7 +22,9 @@ const productsAPI = {
     }
 
     const formData = new FormData();
-    formData.append("img", img);
+    Array.from(imgs || []).forEach((i) => {
+      formData.append("img", i);
+    })
     formData.append("price", price);
     formData.append("en", en);
     formData.append("ua", ua);
@@ -116,14 +118,14 @@ export type TProductCard = {
   price: number; // integer
   sale: number; // 0-100% ==> 0.00-1.00
   categoryCode: string;
-  img: string; // url
+  img: string; // url ~example("img1.jpg/img2.jpg/img3.jpg") ==> to arr: img.split("/")
 };
 export type TProductCreateData = {
   en: string;
   ua: string;
   ru: string;
   price: string;
-  img?: File;
+  imgs?: File[];
   category: string;
 };
 export type TProductLikeData = {
