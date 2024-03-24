@@ -54,7 +54,7 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
       </div>
       <div className={style.picture} onClick={() => goToProduct()}>
         <img
-          src={process.env.REACT_APP_SERVER_API_HOST + "/public/" + product.img.split("/")[0]}
+          src={process.env.REACT_APP_SERVER_API_HOST + "/public/" + product.imgs.split("/")[0]}
           alt={product[i18n.language as TLng]}
           loading="lazy"
         />

@@ -167,8 +167,12 @@ const APProducts = () => {
                   />
                   <div className={fStyle.fileUploadBtn}>{t("upload")}</div>
                 </label>
-                <div className={classNames(fStyle.iconName, "unselectable")}>
-                  {Array.from(images || [])?.map((i) => i.name)}
+                <div className={classNames(fStyle.iconNames, "unselectable")}>
+                  {Array.from(images || [])?.map((i, index) => {
+                    if (index > 3) return <></>;
+                    return <div>{i.name}</div>;
+                  })}
+                  {(images && images?.length > 4) && <div>and {images?.length - 4} else</div>}
                 </div>
               </div>
             </div>

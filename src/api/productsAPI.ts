@@ -23,7 +23,7 @@ const productsAPI = {
 
     const formData = new FormData();
     Array.from(imgs || []).forEach((i) => {
-      formData.append("img", i);
+      formData.append("imgs", i);
     })
     formData.append("price", price);
     formData.append("en", en);
@@ -107,6 +107,14 @@ const productsAPI = {
       return Promise.reject(err.response.data);
     }
   },
+  getLikedProducts: async () => {
+    try {
+      const response = await $authHost.get<TProductCard[]>("api/product/liked-products")
+      return response.data
+    } catch (error) {
+      
+    }
+  }
 };
 
 export default productsAPI;
@@ -118,7 +126,7 @@ export type TProductCard = {
   price: number; // integer
   sale: number; // 0-100% ==> 0.00-1.00
   categoryCode: string;
-  img: string; // url ~example("img1.jpg/img2.jpg/img3.jpg") ==> to arr: img.split("/")
+  imgs: string; // url ~example("img1.jpg/img2.jpg/img3.jpg") ==> to arr: img.split("/")
 };
 export type TProductCreateData = {
   en: string;

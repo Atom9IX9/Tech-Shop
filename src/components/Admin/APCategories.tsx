@@ -128,7 +128,7 @@ const APCategories = () => {
                 {t("upload")}
               </div>
             </label>
-            <div className={classNames(style_f.iconName, "unselectable")}>
+            <div className={classNames(style_f.iconNames, "unselectable")}>
               {icon?.name}
             </div>
           </div>

@@ -81,7 +81,7 @@ const ProductPage: React.FC = () => {
         <div className={style.productInfContainer}>
           <div className={style.productImages}>
             <CustomSlider
-              images={product.img
+              images={product.imgs
                 .split("/")
                 .map(
                   (i) => `${process.env.REACT_APP_SERVER_API_HOST}/public/${i}`
