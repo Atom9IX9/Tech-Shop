@@ -28,7 +28,7 @@ import { User } from "components/contexts/UserContext";
 import Dialog from "components/Dialog/Dialog";
 import DescriptionForm from "components/Product/DescriptionForm";
 import CustomSlider from "components/UI/Slider";
-import StarRating from "components/Product/StarRaiting";
+import StarRating from "components/Product/StarRating";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
