@@ -28,6 +28,7 @@ import { User } from "components/contexts/UserContext";
 import Dialog from "components/Dialog/Dialog";
 import DescriptionForm from "components/Product/DescriptionForm";
 import CustomSlider from "components/UI/Slider";
+import StarRating from "components/Product/StarRaiting";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
@@ -41,8 +42,8 @@ const ProductPage: React.FC = () => {
   const [dialog, setDialog] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchCurrentProduct(paramsId));
-  }, [paramsId, dispatch]);
+    dispatch(fetchCurrentProduct({ id: paramsId, userId: user.id || 0 }));
+  }, [paramsId, dispatch, user.id]);
   useEffect(() => {
     if (!productLikedIds.length) dispatch(fetchLikedProductIds());
   }, [productLikedIds.length, dispatch]);
@@ -128,28 +129,33 @@ const ProductPage: React.FC = () => {
               <div className={style.likesCount}>{product.likesCount}</div>
             </div>
             <div className={style.productDescription}>
-              {(!product.descriptionEn &&
-                !product.descriptionRu &&
-                !product.descriptionUa &&
-                user.role === "ADMIN" && (
+              <div>
+                {(!product.descriptionEn &&
+                  !product.descriptionRu &&
+                  !product.descriptionUa &&
+                  user.role === "ADMIN" && (
+                    <>
+                      There is no product description.{" "}
+                      <span
+                        className={style.addDescription}
+                        onClick={() => setDialog(true)}
+                      >
+                        ADD DESCRIPTION
+                      </span>
+                    </>
+                  )) || (
                   <>
-                    There is no product description.{" "}
-                    <span
-                      className={style.addDescription}
-                      onClick={() => setDialog(true)}
-                    >
-                      ADD DESCRIPTION
-                    </span>
+                    {(i18n.language as TLng) === "en"
+                      ? product.descriptionEn
+                      : (i18n.language as TLng) === "ua"
+                      ? product.descriptionUa
+                      : product.descriptionRu}
                   </>
-                )) || (
-                <>
-                  {(i18n.language as TLng) === "en"
-                    ? product.descriptionEn
-                    : (i18n.language as TLng) === "ua"
-                    ? product.descriptionUa
-                    : product.descriptionRu}
-                </>
-              )}
+                )}
+              </div>
+              <div>
+                <StarRating averageRating={product.rating.average} userRating={product.rating.user} />
+              </div>
             </div>
           </div>
         </div>

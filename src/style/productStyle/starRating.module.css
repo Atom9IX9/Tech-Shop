@@ -1,0 +1,18 @@
+.starsContainer {
+  display: flex;
+  align-items: center;
+}
+
+.starRatingContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avRating {
+  position: relative;
+  top: 2px;
+  font-size: 20px;
+
+  color: #636363;
+}

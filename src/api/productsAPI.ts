@@ -57,9 +57,9 @@ const productsAPI = {
       return Promise.reject(err.response.data);
     }
   },
-  getProduct: async (id: number) => {
+  getProduct: async (id: number, userId: number) => {
     try {
-      const response = await $host.get<TFullProduct | undefined>(`api/product/${id}`);
+      const response = await $host.get<TFullProduct | undefined>(`api/product/${id}/user/${userId}`);
       if (!response.data) {
         return Promise.reject({message: "err/product_is_null"})
       }
@@ -143,7 +143,10 @@ export type TLikedProductsData = {
   likedProductIds: number[];
 };
 export type TFullProduct = TProductCard & {
-  rating: number; // 0-5
+  rating: {
+    average: number;
+    user: number;
+  }; // 0-5
   likesCount: number;
   descriptionEn: string | null;
   descriptionUa: string | null;

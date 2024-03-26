@@ -38,7 +38,10 @@ export const initialState = {
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async ({ page, category, like, likeLng }: TFetchPostsPayload, { rejectWithValue }) => {
+  async (
+    { page, category, like, likeLng }: TFetchPostsPayload,
+    { rejectWithValue }
+  ) => {
     try {
       const products = await productsAPI.getAllProducts(
         category,
@@ -57,9 +60,9 @@ export const fetchProducts = createAsyncThunk(
 
 export const fetchCurrentProduct = createAsyncThunk(
   "products/fetchOneProduct",
-  async (id: number, { rejectWithValue }) => {
+  async ({ id, userId }: FetchProductData, { rejectWithValue }) => {
     try {
-      const product = await productsAPI.getProduct(id);
+      const product = await productsAPI.getProduct(id, userId);
       return product;
     } catch (e) {
       const err = e as { message: string };
@@ -289,4 +292,8 @@ type TLikeProductPayload = {
 type TUpdateProductDescriptionThunkData = {
   productId: number;
   data: TDescriptionData;
+};
+type FetchProductData = {
+  id: number;
+  userId: number;
 };
