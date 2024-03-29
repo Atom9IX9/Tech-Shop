@@ -111,8 +111,16 @@ const productsAPI = {
     try {
       const response = await $authHost.get<TProductCard[]>("api/product/liked-products")
       return response.data
-    } catch (error) {
-      
+    } catch (error: any) {
+      return Promise.reject(error.response.data);
+    }
+  },
+  addRate: async (productId: number, rate: number) => {
+    try {
+      const response = await $authHost.post<TRateData>(`api/product/rating/${productId}`, { rate })
+      return response.data
+    } catch (err: any) {
+      return Promise.reject(err.response.data)
     }
   }
 };
@@ -157,3 +165,8 @@ export type TDescriptionData = {
   ru: string;
   ua: string;
 };
+export type TRateData = {
+  rate: number; // 0-5
+  productId: number;
+  averageRating: number; // (0-5).toFixed(1) as 0.0-5.0
+}

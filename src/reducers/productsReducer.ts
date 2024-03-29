@@ -132,6 +132,18 @@ export const likeProduct = createAsyncThunk(
     return { likedProduct, method };
   }
 );
+// todo: rating update request; rating.rejected + rating.pending; rating statuses/fetchings;
+export const addRating = createAsyncThunk(
+  "product/addRating",
+  async ({ rate, productId }: TAddRatingData, { rejectWithValue }) => {
+    try {
+      const data = productsAPI.addRate(productId, rate)
+      return data
+    } catch (error: any) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
 
 export const fetchLikedProductIds = createAsyncThunk(
   "products/fetchLiked",
@@ -265,7 +277,13 @@ const productsSlice = createSlice({
       .addCase(updateProductDescription.rejected, (state, action) => {
         state.fetchings.productDescriptionUpdating = false;
         state.statuses.productDescriptionUpdating = action.payload as string;
-      });
+      })
+      .addCase(addRating.fulfilled, (state, action) => {
+        if (state.currentProduct) {
+          state.currentProduct.rating.average = action.payload.averageRating
+          state.currentProduct.rating.user = action.payload.rate
+        }
+      })
   },
 });
 
@@ -296,4 +314,8 @@ type TUpdateProductDescriptionThunkData = {
 type FetchProductData = {
   id: number;
   userId: number;
+};
+type TAddRatingData = {
+  rate: number;
+  productId: number;
 };

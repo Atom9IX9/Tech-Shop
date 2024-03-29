@@ -12,6 +12,7 @@ import {
 } from "utils/selectors/productSelectors";
 import { useAppDispatch } from "reducers/store";
 import {
+  addRating,
   fetchCategories,
   fetchCurrentProduct,
   fetchLikedProductIds,
@@ -29,6 +30,7 @@ import Dialog from "components/Dialog/Dialog";
 import DescriptionForm from "components/Product/DescriptionForm";
 import CustomSlider from "components/UI/Slider";
 import StarRating from "components/Product/StarRating";
+import productsAPI from "api/productsAPI";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
@@ -154,7 +156,13 @@ const ProductPage: React.FC = () => {
                 )}
               </div>
               <div>
-                <StarRating averageRating={product.rating.average} userRating={product.rating.user} />
+                <StarRating
+                  averageRating={product.rating.average}
+                  userRating={product.rating.user}
+                  rateHandler={(rate) =>
+                    dispatch(addRating({ rate, productId: product.id }))
+                  }
+                />
               </div>
             </div>
           </div>

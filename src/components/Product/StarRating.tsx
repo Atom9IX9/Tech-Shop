@@ -5,6 +5,7 @@ import { useState } from "react";
 const StarRating: React.FC<TStarRatingProps> = ({
   averageRating,
   userRating = 0,
+  rateHandler
 }) => {
   const stars: JSX.Element[] = [];
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
@@ -40,6 +41,7 @@ const StarRating: React.FC<TStarRatingProps> = ({
         size={30}
         onMouseEnter={(e) => setHoverIndex(i)}
         onMouseLeave={(e) => setHoverIndex(null)}
+        onClick={() => rateHandler(i + 1)}
       />
     );
   }
@@ -56,4 +58,5 @@ export default StarRating;
 type TStarRatingProps = {
   averageRating: number; // 0-5
   userRating: number; // 0-5 ~def(0)
+  rateHandler: (rate: number) => void
 };
