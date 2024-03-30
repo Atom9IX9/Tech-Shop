@@ -13,7 +13,7 @@ export const initialState: TUserAuth = {
   city: undefined,
   error: undefined,
 };
-// console.warn("defADMIN_")
+// console.warn("~default 'ADMIN'")
 
 export const fetchUserLocationByCoords = createAsyncThunk(
   "user/fetchAddress",

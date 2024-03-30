@@ -1,14 +1,25 @@
 import { User } from "components/contexts/UserContext";
 import style from "style/homeStyle/sidebar.module.css";
-import { useContext } from "react";
+import { MouseEventHandler, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import RedLink from "components/UI/RedLink";
 import { useTranslation } from "react-i18next";
+import { useAppDispatch } from "reducers/store";
+import { signOutUser } from "reducers/userReducer";
+import { resetLikedProducts } from "reducers/productsReducer";
+import { setActiveMenu } from "reducers/appReducer";
 
 const HomeCategoriesAsideProfile = () => {
   const { name, surname, email } = useContext(User);
-  const navigate = useNavigate()
-  const { t } = useTranslation(["sidebar", "common"])
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { t } = useTranslation(["sidebar", "common"]);
+
+  const signOut: MouseEventHandler = (e) => {
+    dispatch(signOutUser());
+    dispatch(resetLikedProducts());
+    dispatch(setActiveMenu(false));
+  };
 
   return (
     <div className={style.profile}>
@@ -26,7 +37,9 @@ const HomeCategoriesAsideProfile = () => {
         <RedLink textStyle="underline">{t("sidebar:basket")}</RedLink>
         <RedLink textStyle="underline">{t("sidebar:viewed")}</RedLink>
         <RedLink textStyle="underline">{t("sidebar:myReviews")}</RedLink>
-        <RedLink textStyle="underline">{t("common:signOut")}</RedLink>
+        <RedLink onClick={signOut} textStyle="underline">
+          {t("common:signOut")}
+        </RedLink>
       </div>
     </div>
   );

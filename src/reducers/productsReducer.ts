@@ -21,6 +21,7 @@ export const initialState = {
     productCreating: false,
     productOpening: false,
     productDescriptionUpdating: false,
+    rating: false,
   },
   statuses: {
     categoryCreate: undefined as undefined | "success" | string,
@@ -132,18 +133,17 @@ export const likeProduct = createAsyncThunk(
     return { likedProduct, method };
   }
 );
-// todo: rating update request; rating.rejected + rating.pending; rating statuses/fetchings;
 export const addRating = createAsyncThunk(
   "product/addRating",
   async ({ rate, productId }: TAddRatingData, { rejectWithValue }) => {
     try {
-      const data = productsAPI.addRate(productId, rate)
-      return data
+      const data = productsAPI.addRate(productId, rate);
+      return data;
     } catch (error: any) {
-      return rejectWithValue(error.message)
+      return rejectWithValue(error.message);
     }
   }
-)
+);
 
 export const fetchLikedProductIds = createAsyncThunk(
   "products/fetchLiked",
@@ -157,7 +157,7 @@ export const deleteCategory = createAsyncThunk(
   "product/deleteCategory",
   async (categoryCode: string, { rejectWithValue }) => {
     try {
-      const isDeleted = await categoriesAPI.deleteCategory(categoryCode);
+      await categoriesAPI.deleteCategory(categoryCode);
       return categoryCode;
     } catch (e) {
       const err = e as { message: string };
@@ -280,10 +280,22 @@ const productsSlice = createSlice({
       })
       .addCase(addRating.fulfilled, (state, action) => {
         if (state.currentProduct) {
-          state.currentProduct.rating.average = action.payload.averageRating
-          state.currentProduct.rating.user = action.payload.rate
+          state.currentProduct.rating.average = action.payload.averageRating;
+          state.currentProduct.rating.user = action.payload.rate;
+          state.fetchings.rating = false;
         }
       })
+      .addCase(addRating.rejected, (state, action) => {
+        if (state.currentProduct) {
+          state.fetchings.rating = false;
+          alert(action.payload as string)
+        }
+      })
+      .addCase(addRating.pending, (state, action) => {
+        if (state.currentProduct) {
+          state.fetchings.rating = true;
+        }
+      });
   },
 });
 

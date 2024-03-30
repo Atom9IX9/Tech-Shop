@@ -1,6 +1,6 @@
 import ProductPageNav from "components/Product/ProductNav";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import style from "style/productStyle/productPage.module.css";
 import { useSelector } from "react-redux";
 import {
@@ -30,7 +30,6 @@ import Dialog from "components/Dialog/Dialog";
 import DescriptionForm from "components/Product/DescriptionForm";
 import CustomSlider from "components/UI/Slider";
 import StarRating from "components/Product/StarRating";
-import productsAPI from "api/productsAPI";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
@@ -42,6 +41,7 @@ const ProductPage: React.FC = () => {
   const statuses = useSelector(getProductStatuses);
   const user = useContext(User);
   const [dialog, setDialog] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(fetchCurrentProduct({ id: paramsId, userId: user.id || 0 }));
@@ -58,10 +58,26 @@ const ProductPage: React.FC = () => {
   const product = useSelector(getCurrentProduct);
 
   const like = (method: "ADD" | "REMOVE") => {
-    dispatch(likeProduct({ id: product?.id || 0, method }));
+    if (!user.id) {
+      navigate("/sign-in")
+      return
+    }
+    if (!fetchings.like) {
+      dispatch(likeProduct({ id: product?.id || 0, method }));
+    }
   };
   const closeDialog = () => {
     setDialog(false);
+  };
+
+  const handleRate = (rate: number) => {
+    if (!user.id) {
+      navigate("/sign-in")
+      return
+    }
+    if (!fetchings.rating) {
+      dispatch(addRating({ rate, productId: product?.id || 0 }));
+    }
   };
 
   if (fetchings.productOpening) {
@@ -159,9 +175,7 @@ const ProductPage: React.FC = () => {
                 <StarRating
                   averageRating={product.rating.average}
                   userRating={product.rating.user}
-                  rateHandler={(rate) =>
-                    dispatch(addRating({ rate, productId: product.id }))
-                  }
+                  rateHandler={handleRate}
                 />
               </div>
             </div>
