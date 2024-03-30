@@ -34,7 +34,7 @@ const SignUpForm = () => {
 
   useEffect(() => {
     if (!error && role !== "GUEST") {
-      navigate("/");
+      navigate(-1);
     } else if (error?.message !== "pending" && error && error.message) {
       setError(error?.info?.field, { message: "err/" + error.message });
     }

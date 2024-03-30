@@ -8,12 +8,13 @@ import {
   getFetchings,
   getLikedProducts,
 } from "utils/selectors/productSelectors";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import cn from "classnames";
 import { likeProduct } from "reducers/productsReducer";
 import { useTranslation } from "react-i18next";
 import { TLng } from "types/types";
 import { useNavigate } from "react-router-dom";
+import { User } from "components/contexts/UserContext";
 
 const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -21,6 +22,7 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   const fetchings = useSelector(getFetchings);
   const { i18n } = useTranslation();
   const navigate = useNavigate();
+  const { role } = useContext(User);
 
   const dispatch = useAppDispatch();
   const goToProduct = () => {
@@ -29,10 +31,14 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
 
   const like = () => {
     if (!fetchings.like) {
-      if (!isLiked) {
-        dispatch(likeProduct({ id: product.id, method: "ADD" }));
-      } else if (isLiked) {
-        dispatch(likeProduct({ id: product.id, method: "REMOVE" }));
+      if (role !== "GUEST") {
+        if (!isLiked) {
+          dispatch(likeProduct({ id: product.id, method: "ADD" }));
+        } else if (isLiked) {
+          dispatch(likeProduct({ id: product.id, method: "REMOVE" }));
+        }
+      } else {
+        navigate("/sign-in")
       }
     }
   };
@@ -54,7 +60,11 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
       </div>
       <div className={style.picture} onClick={() => goToProduct()}>
         <img
-          src={process.env.REACT_APP_SERVER_API_HOST + "/public/" + product.imgs.split("/")[0]}
+          src={
+            process.env.REACT_APP_SERVER_API_HOST +
+            "/public/" +
+            product.imgs.split("/")[0]
+          }
           alt={product[i18n.language as TLng]}
           loading="lazy"
         />

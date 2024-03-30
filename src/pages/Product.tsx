@@ -58,7 +58,7 @@ const ProductPage: React.FC = () => {
   const product = useSelector(getCurrentProduct);
 
   const like = (method: "ADD" | "REMOVE") => {
-    if (!user.id) {
+    if (user.role === "GUEST") {
       navigate("/sign-in")
       return
     }
