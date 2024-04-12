@@ -171,13 +171,14 @@ const ProductPage: React.FC = () => {
                   </>
                 )}
               </div>
-              <div>
+              <footer className={style.pDescriptionFooter}>
+                <span className={style.shopName}>Tech-Shop</span>
                 <StarRating
                   averageRating={product.rating.average}
                   userRating={product.rating.user}
                   rateHandler={handleRate}
                 />
-              </div>
+              </footer>
             </div>
           </div>
         </div>

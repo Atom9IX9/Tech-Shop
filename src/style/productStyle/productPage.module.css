@@ -54,8 +54,11 @@
 
 .productImages {
   width: 645px;
-  height: 700px;
-  max-height: 700px;
+  height: 600px;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .productInfo {
@@ -70,11 +73,6 @@
 
   width: 645px;
   height: 545px;
-}
-
-.productLargeImage {
-  height: 100%;
-  max-width: 100%;
 }
 
 .productTitle {
@@ -172,7 +170,9 @@
 }
 
 .productDescription {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   margin-top: 20px;
   min-height: 220px;
@@ -180,6 +180,21 @@
   max-width: 700px;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.pDescriptionFooter {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.shopName {
+  color: #474747;
+  font-weight: bold;
+  font-size: 25px;
+  user-select: none;
 }
 
 .addDescription {
