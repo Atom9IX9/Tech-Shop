@@ -95,7 +95,7 @@ const ProductPage: React.FC = () => {
         <ProductPageNav
           category={product.categoryCode}
           categories={categories}
-          subcategories={[{ code: "subcat1" }, { code: "subcat2" }]}
+          subcategories={product.subcategories}
         />
         <div className={style.productInfContainer}>
           <div className={style.productImages}>

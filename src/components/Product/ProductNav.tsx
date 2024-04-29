@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
-import { TMainCategory, TSubCategory } from "api/categoriesAPI";
+import { TMainCategory, TSubcategory } from "api/categoriesAPI";
 import style from "style/productStyle/productPage.module.css";
 import { getCategoryTranslate } from "utils/getCategoryTranslateWithCode";
+import { useTranslation } from "react-i18next";
+import { TLng } from "types/types";
 
 
 const ProductPageNav: React.FC<TProductPageNav> = ({
@@ -10,6 +12,7 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
   subcategories,
   categories
 }) => {
+  const { i18n } = useTranslation()
 
   return (
     <nav className={style.productPageNav}>
@@ -24,7 +27,7 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
               className={style.subcategoriesNavLink}
               to={`/${category}/${sc.code}`}
             >
-              {sc.code.toLocaleUpperCase()}
+              {sc[i18n.language as TLng].toLocaleUpperCase()}
             </NavLink>
           </div>
         );
@@ -34,4 +37,4 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
 };
 
 export default ProductPageNav
-type TProductPageNav = { category: string; subcategories: TSubCategory[]; categories: TMainCategory[] };
+type TProductPageNav = { category: string; subcategories: TSubcategory[]; categories: TMainCategory[] };

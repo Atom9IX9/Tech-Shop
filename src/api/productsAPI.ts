@@ -1,3 +1,4 @@
+import { TSubcategory } from "./categoriesAPI";
 import { $authHost, $host } from "./instance";
 
 import { TLng } from "types/types";
@@ -24,7 +25,7 @@ const productsAPI = {
     const formData = new FormData();
     Array.from(imgs || []).forEach((i) => {
       formData.append("imgs", i);
-    })
+    });
     formData.append("price", price);
     formData.append("en", en);
     formData.append("ua", ua);
@@ -45,7 +46,13 @@ const productsAPI = {
       return Promise.reject(err.response.data);
     }
   },
-  getAllProducts: async (category: string, pageSize: number, page: number, like?: string, likeLng?: TLng) => {
+  getAllProducts: async (
+    category: string,
+    pageSize: number,
+    page: number,
+    like?: string,
+    likeLng?: TLng
+  ) => {
     try {
       const response = await $host.get<{ count: number; rows: TProductCard[] }>(
         `api/product?page=${page}&pageSize=${pageSize}${
@@ -59,11 +66,14 @@ const productsAPI = {
   },
   getProduct: async (id: number, userId: number) => {
     try {
-      const response = await $host.get<TFullProduct | undefined>(`api/product/${id}/user/${userId}`);
-      if (!response.data) {
-        return Promise.reject({message: "err/product_is_null"})
+      const response = await Promise.all([
+        $host.get<TFullProduct | undefined>(`api/product/${id}/user/${userId}`),
+        $host.get<TSubcategory[]>(`api/category/productsubcategory/${id}`),
+      ]);
+      if (!response[0].data) {
+        return Promise.reject({ message: "err/product_is_null" });
       }
-      return response.data;
+      return {...response[0].data, subcategories: response[1].data};
     } catch (err: any) {
       return Promise.reject(err.response.data);
     }
@@ -102,27 +112,32 @@ const productsAPI = {
         `api/product/${productId}/description`,
         data
       );
-      return data
+      return data;
     } catch (err: any) {
       return Promise.reject(err.response.data);
     }
   },
   getLikedProducts: async () => {
     try {
-      const response = await $authHost.get<TProductCard[]>("api/product/liked-products")
-      return response.data
+      const response = await $authHost.get<TProductCard[]>(
+        "api/product/liked-products"
+      );
+      return response.data;
     } catch (error: any) {
       return Promise.reject(error.response.data);
     }
   },
   addRate: async (productId: number, rate: number) => {
     try {
-      const response = await $authHost.post<TRateData>(`api/product/rating/${productId}`, { rate })
-      return response.data
+      const response = await $authHost.post<TRateData>(
+        `api/product/rating/${productId}`,
+        { rate }
+      );
+      return response.data;
     } catch (err: any) {
-      return Promise.reject(err.response.data)
+      return Promise.reject(err.response.data);
     }
-  }
+  },
 };
 
 export default productsAPI;
@@ -159,6 +174,7 @@ export type TFullProduct = TProductCard & {
   descriptionEn: string | null;
   descriptionUa: string | null;
   descriptionRu: string | null;
+  subcategories: TSubcategory[];
 };
 export type TDescriptionData = {
   en: string;
@@ -169,4 +185,4 @@ export type TRateData = {
   rate: number; // 0-5
   productId: number;
   averageRating: number; // (0-5).toFixed(1) as 0.0-5.0
-}
+};

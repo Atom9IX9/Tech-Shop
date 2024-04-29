@@ -58,7 +58,13 @@ const categoriesAPI = {
 
 export default categoriesAPI;
 // * categories' types
-export type TSubCategory = { code: string };
+export type TSubcategory = {
+  code: string;
+  en: string;
+  ua: string;
+  ru: string;
+  categoryCode: string;
+};
 export type TCategoryTranslates = {
   en: string;
   ua: string;
