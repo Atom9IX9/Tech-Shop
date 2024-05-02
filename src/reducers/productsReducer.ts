@@ -58,6 +58,17 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
+export const fetchProductsWithSubcategory = createAsyncThunk(
+  "products/fetchProductsWithSubcategory",
+  async (subcategory: string, { rejectWithValue }) => {
+    try {
+      const products = await productsAPI.getAllWithSubcategory(subcategory);
+      return products;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const fetchCurrentProduct = createAsyncThunk(
   "products/fetchOneProduct",
@@ -183,6 +194,9 @@ const productsSlice = createSlice({
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.productCards = action.payload.rows;
       })
+      .addCase(fetchProductsWithSubcategory.fulfilled, (state, action) => {
+        state.productCards = action.payload?.rows || [];
+      })
       .addCase(fetchCategories.fulfilled, (state, action) => {
         state.categories = action.payload;
         state.statuses.categoryFetched = "success";
@@ -288,7 +302,7 @@ const productsSlice = createSlice({
       .addCase(addRating.rejected, (state, action) => {
         if (state.currentProduct) {
           state.fetchings.rating = false;
-          alert(action.payload as string)
+          alert(action.payload as string);
         }
       })
       .addCase(addRating.pending, (state, action) => {

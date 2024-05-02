@@ -45,7 +45,7 @@ const App = () => {
           <Route path="all-categories" element={<Catalog />} />
           <Route path="liked-products" element={<LikedProducts />} />
           <Route path="admin-panel/*" element={<AdminPanel />} />
-          <Route path=":category" element={<PageWithCategory />} />
+          <Route path=":category/:subcategory?" element={<PageWithCategory />} />
           <Route path="product/:id" element={<Product />} />
         </Route>
       </Routes>

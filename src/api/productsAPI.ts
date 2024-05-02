@@ -73,7 +73,7 @@ const productsAPI = {
       if (!response[0].data) {
         return Promise.reject({ message: "err/product_is_null" });
       }
-      return {...response[0].data, subcategories: response[1].data};
+      return { ...response[0].data, subcategories: response[1].data };
     } catch (err: any) {
       return Promise.reject(err.response.data);
     }
@@ -136,6 +136,16 @@ const productsAPI = {
       return response.data;
     } catch (err: any) {
       return Promise.reject(err.response.data);
+    }
+  },
+  getAllWithSubcategory: async (subcategoryCode: string) => {
+    try {
+      const response = await $host.get<{count: number, rows: TProductCard[]}>(
+        `api/product/subcategory/${subcategoryCode}`
+      );
+      return response.data;
+    } catch (error: any) {
+      Promise.reject(error.response.data);
     }
   },
 };
