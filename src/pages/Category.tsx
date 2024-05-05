@@ -6,7 +6,6 @@ import { fetchProducts, fetchProductsWithSubcategory } from "reducers/productsRe
 import { useAppDispatch } from "reducers/store";
 import { getProducts } from "utils/selectors/productSelectors";
 import style from "style/categoryPageStyle/categoryPageStyle.module.css";
-import productsAPI from "api/productsAPI";
 
 const Subcategories = () => {
   const dispatch = useAppDispatch();

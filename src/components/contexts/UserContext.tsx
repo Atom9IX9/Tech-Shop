@@ -7,6 +7,7 @@ import {
   getUserName,
   getUserSurname,
   getUserRole,
+  getIsUserChecked,
 } from "utils/selectors/userSelectors";
 import { createContext } from "react";
 import { useSelector } from "react-redux";
@@ -21,6 +22,7 @@ const UserContext: React.FC<TProps> = ({ children }) => {
     id: useSelector(getUserId),
     role: useSelector(getUserRole),
     city: useSelector(getUserCity),
+    isChecked: useSelector(getIsUserChecked)
   };
 
   return <User.Provider value={user}>{children}</User.Provider>;

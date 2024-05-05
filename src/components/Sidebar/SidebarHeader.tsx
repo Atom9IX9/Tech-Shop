@@ -55,7 +55,7 @@ const SidebarHeader = () => {
           >
             <div className={style.authIconWrapper}>
               <div className={style.userLetter}>
-                {name && name[0]}
+                <div>{name && name[0]}</div>
               </div>
             </div>
             <div className={style.userInfo}>

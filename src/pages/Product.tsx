@@ -95,7 +95,8 @@ const ProductPage: React.FC = () => {
         <ProductPageNav
           category={product.categoryCode}
           categories={categories}
-          subcategories={product.subcategories}
+          subcategories={[{code: "as", en: "en", ua: "ua", ru: 'ru', categoryCode: "sport_and_hobby"}]}
+          subcategoriesForAdding={product.addSubcategoryOptions}
         />
         <div className={style.productInfContainer}>
           <div className={style.productImages}>

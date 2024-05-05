@@ -54,6 +54,25 @@ const categoriesAPI = {
       return Promise.reject(err.response?.data);
     }
   },
+  createSubcategory: async (data: TSubcategoryCreateData) => {
+    try {
+      if (!data.categoryCode) {
+        return Promise.reject({message: "err/categoryIsNull"})
+      }
+      const response = await $authHost.post<TSubcategory>("api/category/subcategory", data);
+      return response.data
+    } catch (error: any) {
+      return Promise.reject(error.response.data)
+    }
+  },
+  getSubcategoriesWithCategory: async (categoryCode: string) => {
+    try {
+      const response = await $host.get<TSubcategory[]>(`api/category/${categoryCode}`)
+      return response.data || []
+    } catch (error: any) {
+      return Promise.reject(error.response.data)
+    }
+  }
 };
 
 export default categoriesAPI;
@@ -76,3 +95,4 @@ export type TMainCategory = {
     icon: string;
   };
 export type CategoryCreateData = TCategoryTranslates & { icon?: File };
+export type TSubcategoryCreateData = Omit<TSubcategory, "code">

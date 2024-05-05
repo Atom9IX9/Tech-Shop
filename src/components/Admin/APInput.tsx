@@ -5,6 +5,7 @@ import {
   FieldErrors,
   FieldValues,
   Path,
+  PathValue,
   UseFormRegister,
   UseFormResetField,
   UseFormSetValue,
@@ -48,16 +49,24 @@ export function APSelect<F extends FieldValues>({
   name,
   setValue,
   placeholder,
+  disabled,
+  defaultValue,
+  defaultSelectInpValue
 }: TAPSelect<F>) {
+  if (defaultValue) {
+    setValue(name, defaultValue)
+  }
   return (
     //@ts-ignore
     <Select
       closeMenuOnSelect={true}
       components={animatedComponents}
+      //@ts-ignore
       options={options}
       //@ts-ignore
       onChange={(newValue) => setValue(name, newValue.value)}
-      placeholder={placeholder}
+      isDisabled={disabled}
+      placeholder={defaultSelectInpValue || placeholder}
       styles={{
         control: (base) => ({
           ...base,
@@ -112,6 +121,9 @@ export type TAPSelect<FormData extends FieldValues> = {
   name: Path<FormData>;
   setValue: UseFormSetValue<FormData>;
   placeholder?: string;
+  disabled?: boolean;
+  defaultValue?: PathValue<FormData, Path<FormData>>;
+  defaultSelectInpValue?: string;
 };
 type TOption = {
   value: string;

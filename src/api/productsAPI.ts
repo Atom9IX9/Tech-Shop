@@ -185,6 +185,7 @@ export type TFullProduct = TProductCard & {
   descriptionUa: string | null;
   descriptionRu: string | null;
   subcategories: TSubcategory[];
+  addSubcategoryOptions: TSubcategory[];
 };
 export type TDescriptionData = {
   en: string;

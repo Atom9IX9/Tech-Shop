@@ -12,6 +12,7 @@ export const initialState: TUserAuth = {
   email: null,
   city: undefined,
   error: undefined,
+  isChecked: false
 };
 // console.warn("~default 'ADMIN'")
 
@@ -87,11 +88,14 @@ const userSlice = createSlice({
         state.name = action.payload.name;
         state.surname = action.payload.surname;
         state.error = undefined;
+        state.isChecked = true;
       })
       .addCase(signUpUser.rejected, (state, action: PayloadAction<any>) => {
         state.error = action.payload;
+        state.isChecked = true
       })
       .addCase(signUpUser.pending, (state) => {
+        state.isChecked = false
         if (state.error) {
           state.error.message = "pending";
         }
@@ -103,11 +107,14 @@ const userSlice = createSlice({
         state.name = action.payload.name;
         state.surname = action.payload.surname;
         state.error = undefined;
+        state.isChecked = true
       })
       .addCase(signInUser.rejected, (state, action: PayloadAction<any>) => {
         state.error = action.payload;
+        state.isChecked = true
       })
       .addCase(signInUser.pending, (state) => {
+        state.isChecked = false
         if (state.error) {
           state.error.message = "pending";
         }
@@ -119,6 +126,10 @@ const userSlice = createSlice({
         state.name = action.payload.name;
         state.surname = action.payload.surname;
         state.error = undefined;
+        state.isChecked = true;
+      })
+      .addCase(checkUserAuth.rejected, (state) => {
+        state.isChecked = true;
       })
   },
 });
@@ -136,6 +147,7 @@ export type TUserAuth = {
     message: string | "pending";
     info?: any;
   };
+  isChecked: boolean;
 };
 type TFetchUserLocationByCoordsPayload = {
   coords: TCoords;

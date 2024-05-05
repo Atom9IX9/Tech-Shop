@@ -8,6 +8,7 @@ import productsAPI, {
 import categoriesAPI, {
   CategoryCreateData,
   TMainCategory,
+  TSubcategoryCreateData,
 } from "../api/categoriesAPI";
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
@@ -18,6 +19,8 @@ export const initialState = {
   fetchings: {
     like: false,
     categoryCreating: false,
+    subcategoryCreating: false,
+    subcategoryFetching: false,
     productCreating: false,
     productOpening: false,
     productDescriptionUpdating: false,
@@ -25,6 +28,8 @@ export const initialState = {
   },
   statuses: {
     categoryCreate: undefined as undefined | "success" | string,
+    subcategoryCreate: undefined as undefined | "success" | string,
+    subcategoryFetched: undefined as undefined | "success" | string,
     productCreate: undefined as undefined | "success" | string,
     categoryFetched: undefined as undefined | "success" | string,
     productFetchingById: undefined as undefined | "success" | string,
@@ -82,7 +87,19 @@ export const fetchCurrentProduct = createAsyncThunk(
     }
   }
 );
-
+export const fetchSubcategories = createAsyncThunk(
+  "product/fetchSubcategories",
+  async (categoryCode: string, { rejectWithValue }) => {
+    try {
+      const subcategories = await categoriesAPI.getSubcategoriesWithCategory(
+        categoryCode
+      );
+      return subcategories;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 export const fetchCategories = createAsyncThunk(
   "products/fetchCategories",
   async (_, { rejectWithValue }) => {
@@ -104,6 +121,17 @@ export const createCategory = createAsyncThunk(
       return category;
     } catch (error: any) {
       return thunk.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+export const createSubcategory = createAsyncThunk(
+  "products/createSubcategory",
+  async (createData: TSubcategoryCreateData, thunk) => {
+    try {
+      const subcategory = await categoriesAPI.createSubcategory(createData);
+      return subcategory;
+    } catch (error: any) {
+      return thunk.rejectWithValue(error.message);
     }
   }
 );
@@ -187,6 +215,8 @@ const productsSlice = createSlice({
     resetCreateStatuses: (state) => {
       state.statuses.productCreate = undefined;
       state.statuses.categoryCreate = undefined;
+      state.statuses.subcategoryCreate = undefined;
+      state.statuses.subcategoryFetched = undefined;
     },
   },
   extraReducers: (builder) => {
@@ -238,6 +268,10 @@ const productsSlice = createSlice({
         state.fetchings.categoryCreating = false;
         state.statuses.categoryCreate = "success";
       })
+      .addCase(createSubcategory.fulfilled, (state, action) => {
+        state.fetchings.subcategoryCreating = false;
+        state.statuses.subcategoryCreate = "success";
+      })
       .addCase(createProduct.fulfilled, (state, action) => {
         state.productCards = [...state.productCards, action.payload];
         state.fetchings.productCreating = false;
@@ -247,6 +281,10 @@ const productsSlice = createSlice({
         state.fetchings.categoryCreating = true;
         state.statuses.categoryCreate = undefined;
       })
+      .addCase(createSubcategory.pending, (state) => {
+        state.fetchings.subcategoryCreating = true;
+        state.statuses.subcategoryCreate = undefined;
+      })
       .addCase(createProduct.pending, (state) => {
         state.fetchings.productCreating = true;
         state.statuses.productCreate = undefined;
@@ -254,6 +292,10 @@ const productsSlice = createSlice({
       .addCase(createCategory.rejected, (state, action) => {
         state.fetchings.categoryCreating = false;
         state.statuses.categoryCreate = action.payload as string;
+      })
+      .addCase(createSubcategory.rejected, (state, action) => {
+        state.fetchings.subcategoryCreating = false;
+        state.statuses.subcategoryCreate = action.payload as string;
       })
       .addCase(createProduct.rejected, (state, action) => {
         state.fetchings.productCreating = false;
@@ -309,6 +351,20 @@ const productsSlice = createSlice({
         if (state.currentProduct) {
           state.fetchings.rating = true;
         }
+      })
+      .addCase(fetchSubcategories.fulfilled, (state, action) => {
+        state.fetchings.subcategoryFetching = false
+        state.statuses.subcategoryFetched = "success"
+        if (state.currentProduct) {
+          state.currentProduct.addSubcategoryOptions = action.payload;
+        }
+      })
+      .addCase(fetchSubcategories.pending, (state) => {
+        state.fetchings.subcategoryFetching = true
+      })
+      .addCase(fetchSubcategories.rejected, (state, action) => {
+        state.fetchings.subcategoryFetching = false
+        state.statuses.subcategoryFetched = action.payload as string
       });
   },
 });

@@ -4,6 +4,27 @@
   max-width: 1437px;
 }
 
+.subcategoriesContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+.addSubcategoryButtonContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.addSubcategoryButtonArrow {
+  position: relative;
+  bottom: 5px;
+}
+.addSubcategoryButton {
+  position: relative;
+  bottom: 5px;
+  
+  cursor: pointer;
+}
+
 .navLink {
   color: var(--pink-bg-color);
   font-size: 20px;

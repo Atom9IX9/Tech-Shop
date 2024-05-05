@@ -26,16 +26,16 @@ const APInformation = withSuspense(
 
 const AdminPanel = () => {
   const nav = useNavigate();
-  const { role } = useContext(User);
+  const { role, isChecked } = useContext(User);
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (role !== "ADMIN") {
+    if (isChecked && role !== "ADMIN") {
       nav("/");
     } else if (pathname === "/admin-panel") {
       nav("information");
     }
-  }, [nav, role, pathname]);
+  }, [nav, role, pathname, isChecked]);
 
   return (
     <div className={style.AP}>

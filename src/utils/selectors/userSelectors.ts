@@ -7,3 +7,4 @@ export const getUserId = (state: RootState) => state.user.id;
 export const getUserEmail = (state: RootState) => state.user.email;
 export const getUserCity = (state: RootState) => state.user.city;
 export const getUserError = (state: RootState) => state.user.error;
+export const getIsUserChecked = (state: RootState) => state.user.isChecked;
