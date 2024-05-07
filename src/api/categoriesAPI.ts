@@ -72,6 +72,14 @@ const categoriesAPI = {
     } catch (error: any) {
       return Promise.reject(error.response.data)
     }
+  },
+  createProductSubcategory: async (subcategoryCode: string, productId: number) => {
+    try {
+      const response = await $authHost.post<any>(`api/category/productSubcategory`, { productId, subcategoryCode })
+      return response.data
+    } catch (error: any) {
+      return Promise.reject(error.response.data)
+    }
   }
 };
 

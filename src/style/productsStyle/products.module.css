@@ -3,6 +3,9 @@
   grid-template-columns: repeat(auto-fill, 170px);
   justify-content: center;
 }
+.productCardsContainer {
+  height: 90vh;
+}
 
 @media screen and (max-width: 1024px) {
   .productCards {

@@ -1,23 +1,34 @@
 import { NavLink } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { CgAdd } from "react-icons/cg";
-import { TMainCategory, TSubcategory } from "api/categoriesAPI";
+import categoriesAPI, {
+  TMainCategory,
+  TSubcategory,
+  TSubcategoryCreateData,
+} from "api/categoriesAPI";
 import style from "style/productStyle/productPage.module.css";
 import { getCategoryTranslate } from "utils/getCategoryTranslateWithCode";
 import { useTranslation } from "react-i18next";
 import { TLng } from "types/types";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useAppDispatch } from "reducers/store";
-import { fetchSubcategories } from "reducers/productsReducer";
+import {
+  createProductSubcategory,
+  fetchSubcategories,
+} from "reducers/productsReducer";
 import { User } from "components/contexts/UserContext";
 import Dialog from "components/Dialog/Dialog";
 import SubcategoryForm from "components/Admin/forms/SubcategoryForm";
+import { APSelect } from "components/Admin/APInput";
+import { useForm } from "react-hook-form";
+import { getEnCode } from "utils/getCategoryCode";
 
 const ProductPageNav: React.FC<TProductPageNav> = ({
   category,
   subcategories,
   categories,
   subcategoriesForAdding,
+  productId,
 }) => {
   const { i18n } = useTranslation();
   const dispatch = useAppDispatch();
@@ -28,21 +39,52 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
     setDialog(true);
     dispatch(fetchSubcategories(category));
   };
+  const { setValue, handleSubmit, getValues } = useForm<{
+    subcategoryCode: string;
+  }>();
+
+  const successHandler = (data: TSubcategoryCreateData) => {
+    dispatch(
+      createProductSubcategory({
+        productId,
+        subcategory: { ...data, code: getEnCode(data.en) },
+      })
+    );
+  };
+  const onSubmit = ({ subcategoryCode }: { subcategoryCode: string }) => {
+    dispatch(
+      createProductSubcategory({
+        productId,
+        subcategory: subcategoriesForAdding.filter(sc => sc.code === subcategoryCode)[0]
+      })
+    )
+  };
 
   return (
     <nav className={style.productPageNav}>
       {dialog && (
         <Dialog close={() => setDialog(false)}>
-          <SubcategoryForm
-            categories={categories}
-            disableSelect={true}
-            defaultSelectValue={category}
-            defaultSelectInpValue={getCategoryTranslate(
-              categories,
-              category
-            )}
-            onSuccess={() => setDialog(false)}
-          />
+          <div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <APSelect
+                name="subcategoryCode"
+                options={subcategoriesForAdding?.map((sc) => ({
+                  label: sc[i18n.language as TLng],
+                  value: sc.code,
+                }))}
+                setValue={setValue}
+              />
+              <button>Add</button>
+            </form>
+            <SubcategoryForm
+              categories={categories}
+              disableSelect={true}
+              defaultSelectValue={category}
+              defaultSelectInpValue={getCategoryTranslate(categories, category)}
+              //todo: creating productSubcategory on success creating
+              onSuccess={successHandler}
+            />
+          </div>
         </Dialog>
       )}
       <NavLink to={`/${category}`} className={style.navLink}>
@@ -86,4 +128,5 @@ type TProductPageNav = {
   subcategories: TSubcategory[];
   categories: TMainCategory[];
   subcategoriesForAdding: TSubcategory[];
+  productId: number;
 };

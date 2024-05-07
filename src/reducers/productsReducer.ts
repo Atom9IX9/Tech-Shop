@@ -8,6 +8,7 @@ import productsAPI, {
 import categoriesAPI, {
   CategoryCreateData,
   TMainCategory,
+  TSubcategory,
   TSubcategoryCreateData,
 } from "../api/categoriesAPI";
 
@@ -25,6 +26,7 @@ export const initialState = {
     productOpening: false,
     productDescriptionUpdating: false,
     rating: false,
+    productsFetching: false,
   },
   statuses: {
     categoryCreate: undefined as undefined | "success" | string,
@@ -34,6 +36,7 @@ export const initialState = {
     categoryFetched: undefined as undefined | "success" | string,
     productFetchingById: undefined as undefined | "success" | string,
     productDescriptionUpdating: undefined as undefined | "success" | string,
+    productsFetched: undefined as undefined | "success" | string,
   },
   categories: [] as TMainCategory[],
   page: 1,
@@ -205,6 +208,21 @@ export const deleteCategory = createAsyncThunk(
   }
 );
 
+export const createProductSubcategory = createAsyncThunk(
+  "product/createProductSubcategory~",
+  async (payload: TCreateProductSubcategoryPayload, { rejectWithValue }) => {
+    try {
+      await categoriesAPI.createProductSubcategory(
+        payload.subcategory.code,
+        payload.productId
+      );
+      return payload.subcategory;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -223,9 +241,23 @@ const productsSlice = createSlice({
     builder
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.productCards = action.payload.rows;
+        state.fetchings.productsFetching = false;
+      })
+      .addCase(fetchProducts.pending, (state, action) => {
+        state.fetchings.productsFetching = true;
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.fetchings.productsFetching = false;
       })
       .addCase(fetchProductsWithSubcategory.fulfilled, (state, action) => {
         state.productCards = action.payload?.rows || [];
+        state.fetchings.productsFetching = false;
+      })
+      .addCase(fetchProductsWithSubcategory.pending, (state, action) => {
+        state.fetchings.productsFetching = true;
+      })
+      .addCase(fetchProductsWithSubcategory.rejected, (state, action) => {
+        state.fetchings.productsFetching = false;
       })
       .addCase(fetchCategories.fulfilled, (state, action) => {
         state.categories = action.payload;
@@ -353,18 +385,36 @@ const productsSlice = createSlice({
         }
       })
       .addCase(fetchSubcategories.fulfilled, (state, action) => {
-        state.fetchings.subcategoryFetching = false
-        state.statuses.subcategoryFetched = "success"
+        state.fetchings.subcategoryFetching = false;
+        state.statuses.subcategoryFetched = "success";
+        let subcategoriesForAdding: TSubcategory[] = action.payload;
         if (state.currentProduct) {
-          state.currentProduct.addSubcategoryOptions = action.payload;
+          state.currentProduct.subcategories.forEach((csc) => {
+            subcategoriesForAdding = subcategoriesForAdding.filter(
+              (scfa) => scfa.code !== csc.code
+            );
+          });
+          state.currentProduct.addSubcategoryOptions = subcategoriesForAdding;
         }
       })
       .addCase(fetchSubcategories.pending, (state) => {
-        state.fetchings.subcategoryFetching = true
+        state.fetchings.subcategoryFetching = true;
       })
       .addCase(fetchSubcategories.rejected, (state, action) => {
-        state.fetchings.subcategoryFetching = false
-        state.statuses.subcategoryFetched = action.payload as string
+        state.fetchings.subcategoryFetching = false;
+        state.statuses.subcategoryFetched = action.payload as string;
+      })
+      .addCase(createProductSubcategory.fulfilled, (state, action) => {
+        if (state.currentProduct) {
+          state.currentProduct.subcategories = [
+            ...state.currentProduct.subcategories,
+            action.payload,
+          ];
+          state.currentProduct.addSubcategoryOptions =
+            state.currentProduct.addSubcategoryOptions.filter(
+              (sc) => sc.code !== action.payload.code
+            );
+        }
       });
   },
 });
@@ -399,5 +449,9 @@ type FetchProductData = {
 };
 type TAddRatingData = {
   rate: number;
+  productId: number;
+};
+type TCreateProductSubcategoryPayload = {
+  subcategory: TSubcategory;
   productId: number;
 };

@@ -1,0 +1,1 @@
+export const getEnCode = (en: string) => en.replace(" ", "_").toLowerCase()

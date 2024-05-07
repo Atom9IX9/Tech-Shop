@@ -29,6 +29,7 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
     formState: { errors },
     resetField,
     setValue,
+    getValues
   } = useForm<TSubcategoryCreateData>();
   const dispatch = useAppDispatch();
   const submitHandler = (data: TSubcategoryCreateData) => {
@@ -39,12 +40,12 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
 
   useEffect(() => {
     if (onSuccess && statuses.subcategoryCreate === "success") {
-      onSuccess();
+      onSuccess({...getValues()});
       return () => {
         dispatch(resetCreateStatuses());
       };
     }
-  }, [onSuccess, statuses.subcategoryCreate, dispatch]);
+  }, [onSuccess, statuses.subcategoryCreate, dispatch, getValues]);
 
   const { t, i18n } = useTranslation("admin");
 
@@ -133,5 +134,5 @@ type TSubcategoryFormProps = {
   disableSelect?: boolean;
   defaultSelectValue?: string;
   defaultSelectInpValue?: string;
-  onSuccess?: () => void;
+  onSuccess?: (values: TSubcategoryCreateData) => void;
 };
