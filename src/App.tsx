@@ -1,12 +1,14 @@
 import Layout from "components/Layout";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import React from "react";
 import withSuspense from "utils/hoc/withSuspense";
 import Home from "pages/Home";
 import { useAppDispatch } from "reducers/store";
 import { checkUserAuth } from "reducers/userReducer";
+import { User } from "components/contexts/UserContext";
+import { setBasket } from "reducers/basketReducer";
 
 // ? lazy page imports
 const SignIn = withSuspense(React.lazy(() => import("pages/SignIn")));
@@ -22,6 +24,7 @@ const Product = withSuspense(React.lazy(() => import("pages/Product")))
 const App = () => {
   const { i18n } = useTranslation();
   const dispatch = useAppDispatch();
+  const user = useContext(User)
 
   useEffect(() => {
     // auto sign-in
@@ -32,6 +35,10 @@ const App = () => {
     // removes full locales ("en-US" => "en")
     i18n.changeLanguage(i18n.language.slice(0, 2));
   }, [i18n]);
+
+  useEffect(() => {
+    dispatch(setBasket())
+  }, [user, dispatch])
 
   return (
     <div className="app">

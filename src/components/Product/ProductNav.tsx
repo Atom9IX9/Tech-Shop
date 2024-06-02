@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { CgAdd } from "react-icons/cg";
-import categoriesAPI, {
+import {
   TMainCategory,
   TSubcategory,
   TSubcategoryCreateData,
@@ -18,7 +18,7 @@ import {
 } from "reducers/productsReducer";
 import { User } from "components/contexts/UserContext";
 import Dialog from "components/Dialog/Dialog";
-import SubcategoryForm from "components/Admin/forms/SubcategoryForm";
+import SubcategoryForm, { SubmitBtn } from "components/Admin/forms/SubcategoryForm";
 import { APSelect } from "components/Admin/APInput";
 import { useForm } from "react-hook-form";
 import { getEnCode } from "utils/getCategoryCode";
@@ -39,7 +39,7 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
     setDialog(true);
     dispatch(fetchSubcategories(category));
   };
-  const { setValue, handleSubmit, getValues } = useForm<{
+  const { setValue, handleSubmit } = useForm<{
     subcategoryCode: string;
   }>();
 
@@ -64,8 +64,8 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
     <nav className={style.productPageNav}>
       {dialog && (
         <Dialog close={() => setDialog(false)}>
-          <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={style.dialogWindow}>
+            <form onSubmit={handleSubmit(onSubmit)} className={style.dialogWindowForm}>
               <APSelect
                 name="subcategoryCode"
                 options={subcategoriesForAdding?.map((sc) => ({
@@ -74,8 +74,11 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
                 }))}
                 setValue={setValue}
               />
-              <button>Add</button>
+              <div className={style.addBtnContainer}>
+                <SubmitBtn>Add</SubmitBtn>
+              </div>
             </form>
+            <div className={style.orLine}>АБО</div>
             <SubcategoryForm
               categories={categories}
               disableSelect={true}

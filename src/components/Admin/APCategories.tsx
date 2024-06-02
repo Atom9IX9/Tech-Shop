@@ -7,10 +7,7 @@ import style from "style/admin/categoriesPanel.module.css";
 import style_f from "style/admin/formStyle.module.css";
 import classNames from "classnames";
 import { useAppDispatch } from "reducers/store";
-import {
-  fetchCategories,
-  resetCreateStatuses,
-} from "reducers/productsReducer";
+import { fetchCategories, resetCreateStatuses } from "reducers/productsReducer";
 import { useSelector } from "react-redux";
 import {
   getCategories,
@@ -21,7 +18,7 @@ import { useTranslation } from "react-i18next";
 
 const APCategories = () => {
   const dispatch = useAppDispatch();
-  
+
   const { t } = useTranslation("admin");
   const statuses = useSelector(getProductStatuses);
   const categories = useSelector(getCategories);
@@ -64,9 +61,7 @@ const APCategories = () => {
             : t("noCategoriesHere")}
         </div>
       </div>
-      
-        <SubcategoryForm categories={categories} />
-        
+      <SubcategoryForm categories={categories} />
     </div>
   );
 };

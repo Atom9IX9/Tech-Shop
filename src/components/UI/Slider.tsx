@@ -13,7 +13,7 @@ const CustomSlider: React.FC<{ images: string[] }> = ({ images }) => {
     slidesToScroll: 1,
   };
   return (
-    <div className="slider-container" style={{height: "min-content"}}>
+    <div className="slider-container" style={{ height: "min-content" }}>
       <Slider {...settings}>
         {images.map((url) => (
           <div>

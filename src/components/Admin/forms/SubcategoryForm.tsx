@@ -10,7 +10,7 @@ import {
 } from "reducers/productsReducer";
 import { useAppDispatch } from "reducers/store";
 import style from "style/admin/formStyle.module.css";
-import { TLng } from "types/types";
+import { TChildren, TLng } from "types/types";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { getProductStatuses } from "utils/selectors/productSelectors";
@@ -29,7 +29,7 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
     formState: { errors },
     resetField,
     setValue,
-    getValues
+    getValues,
   } = useForm<TSubcategoryCreateData>();
   const dispatch = useAppDispatch();
   const submitHandler = (data: TSubcategoryCreateData) => {
@@ -40,7 +40,7 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
 
   useEffect(() => {
     if (onSuccess && statuses.subcategoryCreate === "success") {
-      onSuccess({...getValues()});
+      onSuccess({ ...getValues() });
       return () => {
         dispatch(resetCreateStatuses());
       };
@@ -110,9 +110,7 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
         </ol>
 
         <div className={style.createBtnContainer}>
-          <button type="submit" className={style.createBtn}>
-            {t("create")}
-          </button>
+          <SubmitBtn>{t("create") as string}</SubmitBtn>
         </div>
       </form>
       <div className={style.statusCodeContainer}>
@@ -125,6 +123,14 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
         </div>
       </div>
     </div>
+  );
+};
+
+export const SubmitBtn: React.FC<{children: TChildren}> = ({children}) => {
+  return (
+    <button type="submit" className={style.createBtn}>
+      {children}
+    </button>
   );
 };
 

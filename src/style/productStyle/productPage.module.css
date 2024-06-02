@@ -245,8 +245,49 @@
   margin-bottom: 15px;
 }
 
+.dialogWindow {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.dialogWindowForm {
+  position: relative;
+  height: 100px;
+  width: 95%;
+  margin: auto;
+  margin-bottom: 25px;
+}
+
+.orLine {
+  margin: 10px 0;
+  font-size: 18px;
+  text-align: center;
+  color: #4747478c;
+}
+
+.addBtnContainer {
+  width: min-content;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+
+
 @media screen and (max-width: 768px) {
   .productPageContainer {
     margin-top: 0;
+  }
+  
+}
+
+@media screen and (max-width: 1245px) {
+  .addBtnContainer {
+    width: 100%;
   }
 }

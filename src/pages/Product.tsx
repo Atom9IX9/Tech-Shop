@@ -1,5 +1,5 @@
 import ProductPageNav from "components/Product/ProductNav";
-import { useContext, useEffect, useState } from "react";
+import { MouseEventHandler, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import style from "style/productStyle/productPage.module.css";
 import { useSelector } from "react-redux";
@@ -30,6 +30,8 @@ import Dialog from "components/Dialog/Dialog";
 import DescriptionForm from "components/Product/DescriptionForm";
 import CustomSlider from "components/UI/Slider";
 import StarRating from "components/Product/StarRating";
+import { createBasketProduct } from "reducers/basketReducer";
+import { getBasketFetchings } from "utils/selectors/basketSelectors";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
@@ -38,10 +40,11 @@ const ProductPage: React.FC = () => {
   const categories = useSelector(getCategories);
   const productLikedIds = useSelector(getLikedProducts);
   const fetchings = useSelector(getFetchings);
+  const basketFetchings = useSelector(getBasketFetchings);
   const statuses = useSelector(getProductStatuses);
   const user = useContext(User);
   const [dialog, setDialog] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchCurrentProduct({ id: paramsId, userId: user.id || 0 }));
@@ -59,8 +62,8 @@ const ProductPage: React.FC = () => {
 
   const like = (method: "ADD" | "REMOVE") => {
     if (user.role === "GUEST") {
-      navigate("/sign-in")
-      return
+      navigate("/sign-in");
+      return;
     }
     if (!fetchings.like) {
       dispatch(likeProduct({ id: product?.id || 0, method }));
@@ -72,11 +75,17 @@ const ProductPage: React.FC = () => {
 
   const handleRate = (rate: number) => {
     if (!user.id) {
-      navigate("/sign-in")
-      return
+      navigate("/sign-in");
+      return;
     }
     if (!fetchings.rating) {
       dispatch(addRating({ rate, productId: product?.id || 0 }));
+    }
+  };
+
+  const addToBasket: MouseEventHandler = (e) => {
+    if (product) {
+      dispatch(createBasketProduct(product.id));
     }
   };
 
@@ -125,7 +134,7 @@ const ProductPage: React.FC = () => {
                   <span className={style.currency}> ₴</span>
                 </div>
               </div>
-              <button className={style.buyBtn}>
+              <button className={style.buyBtn} onClick={addToBasket} disabled={basketFetchings.basketProductCreating}>
                 <MdOutlineAddShoppingCart size={30} color="#fff" />
                 <div className={style.buyBtnText}>Buy</div>
               </button>

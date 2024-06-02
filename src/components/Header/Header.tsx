@@ -8,13 +8,27 @@ import IconBtn from "../UI/IconBtn";
 import style from "style/headerStyle/headerStyle.module.css";
 import { AiOutlineUser, AiFillHeart } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { User } from "components/contexts/UserContext";
 import { LuCrown } from "react-icons/lu";
+import basketAPI from "api/basketAPI";
+import { useSelector } from "react-redux";
+import { getBasketId } from "utils/selectors/basketSelectors";
 
 const Header = () => {
   const { role } = useContext(User);
+  const [basketDialog, setBasketDialog] = useState(false)
+  const basketId = useSelector(getBasketId)
+  const navigate = useNavigate()
+
+  const openCart = () => {
+    if (!basketId) {
+      return navigate("/sign-in")
+    }
+    basketAPI.getBasketProducts(basketId).then((ps) => console.log(ps))
+    setBasketDialog(true)
+  }
 
   return (
     <header className={style.header}>
@@ -50,7 +64,7 @@ const Header = () => {
             ) as JSX.Element)
           )}
         </div>
-        <IconBtn>
+        <IconBtn onClick={() => openCart()}>
           <BsCart4 size={30} color="#fff" />
         </IconBtn>
       </div>

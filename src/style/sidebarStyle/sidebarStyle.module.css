@@ -184,6 +184,7 @@
 .profileLink {  
   display: flex;
   align-items: center;
+  gap: 20px;
   width: 108%;
   
   padding: 15px 10px;
