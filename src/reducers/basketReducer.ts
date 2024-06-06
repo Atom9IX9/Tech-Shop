@@ -1,17 +1,18 @@
 import { RootState } from "./store";
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import basketAPI, { TBasket } from "api/basketAPI";
-import { TProductCard } from "api/productsAPI";
+import basketAPI, { TBasket, TBasketProduct } from "api/basketAPI";
 
 const initialState = {
   basketId: null as null | number,
-  basketProducts: [] as TProductCard[],
+  basketProducts: [] as TBasketProduct[],
   statuses: {
     basketProductCreated: undefined as undefined | string,
+    basketProductsFetched: undefined as undefined | string,
   },
   fetchings: {
     basketProductCreating: false,
+    basketProductsFetching: false,
   },
 };
 
@@ -46,6 +47,25 @@ export const createBasketProduct = createAsyncThunk<
   }
 );
 
+export const fetchBasketProducts = createAsyncThunk<
+  TBasketProduct[],
+  void,
+  { state: RootState; rejectedValue: string }
+>("basket/getProducts", async (_, { rejectWithValue, getState }) => {
+  try {
+    const basketId = getState().basket.basketId;
+    let products = [];
+    if (basketId) {
+      products = await basketAPI.getBasketProducts(basketId);
+      return products;
+    } else {
+      return rejectWithValue("basketId_is_null");
+    }
+  } catch (error: any) {
+    return rejectWithValue(error.message);
+  }
+});
+
 const basketSlice = createSlice({
   name: "basket",
   initialState,
@@ -67,8 +87,20 @@ const basketSlice = createSlice({
         state.fetchings.basketProductCreating = false;
         state.statuses.basketProductCreated = action.payload as string;
       })
-      .addCase(createBasketProduct.pending, (state, action) => {
+      .addCase(createBasketProduct.pending, (state) => {
         state.fetchings.basketProductCreating = true;
+      })
+      .addCase(fetchBasketProducts.pending, (state) => {
+        state.fetchings.basketProductsFetching = true;
+      })
+      .addCase(fetchBasketProducts.rejected, (state, action) => {
+        state.fetchings.basketProductsFetching = false;
+        state.statuses.basketProductsFetched = action.payload as string;
+      })
+      .addCase(fetchBasketProducts.fulfilled, (state, action) => {
+        state.fetchings.basketProductsFetching = false;
+        state.statuses.basketProductsFetched = "success";
+        state.basketProducts = action.payload;
       })
   },
 });

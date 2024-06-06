@@ -186,6 +186,7 @@ export type TFullProduct = TProductCard & {
   descriptionRu: string | null;
   subcategories: TSubcategory[];
   addSubcategoryOptions: TSubcategory[];
+  isInBasket: boolean;
 };
 export type TDescriptionData = {
   en: string;

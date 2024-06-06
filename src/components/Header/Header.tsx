@@ -15,23 +15,31 @@ import { LuCrown } from "react-icons/lu";
 import basketAPI from "api/basketAPI";
 import { useSelector } from "react-redux";
 import { getBasketId } from "utils/selectors/basketSelectors";
+import Dialog from "components/Dialog/Dialog";
+import BasketDialog from "components/Dialog/Basket";
+
+// todo: basket dialog window (without buying)
 
 const Header = () => {
   const { role } = useContext(User);
-  const [basketDialog, setBasketDialog] = useState(false)
-  const basketId = useSelector(getBasketId)
-  const navigate = useNavigate()
+  const [basketDialog, setBasketDialog] = useState(false);
+  const basketId = useSelector(getBasketId);
+  const navigate = useNavigate();
 
   const openCart = () => {
     if (!basketId) {
-      return navigate("/sign-in")
+      return navigate("/sign-in");
     }
-    basketAPI.getBasketProducts(basketId).then((ps) => console.log(ps))
-    setBasketDialog(true)
-  }
+    setBasketDialog(true);
+  };
 
   return (
     <header className={style.header}>
+      {basketDialog && (
+        <Dialog close={() => setBasketDialog(false)}>
+          <BasketDialog />
+        </Dialog>
+      )}
       <div className={style.layout}>
         <MenuBtn />
         <NavLink to="/">

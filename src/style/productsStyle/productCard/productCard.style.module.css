@@ -13,23 +13,23 @@
 }
 
 .productCard .picture img {
-  display: block;
-
-  max-height: 85%;
-  max-width: 95%;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 
   margin: auto;
 
   cursor: pointer;
 }
 .productCard .picture {
-  height: 200px;
+  height: 183px;
   width: 140px;
 
   display: flex;
   align-items: center;
 
   margin: auto;
+  margin-top: 17px;
 }
 
 .liked {

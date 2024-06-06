@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import { TLng } from "types/types";
 import { getSale } from "utils/getSale";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { checkLiked } from "utils/selectors/checkIsLiked";
 import Loader from "components/Loader/Loader";
@@ -32,6 +33,7 @@ import CustomSlider from "components/UI/Slider";
 import StarRating from "components/Product/StarRating";
 import { createBasketProduct } from "reducers/basketReducer";
 import { getBasketFetchings } from "utils/selectors/basketSelectors";
+import classNames from "classnames";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
@@ -134,9 +136,24 @@ const ProductPage: React.FC = () => {
                   <span className={style.currency}> ₴</span>
                 </div>
               </div>
-              <button className={style.buyBtn} onClick={addToBasket} disabled={basketFetchings.basketProductCreating}>
-                <MdOutlineAddShoppingCart size={30} color="#fff" />
-                <div className={style.buyBtnText}>Buy</div>
+              <button
+                className={classNames(style.buyBtn, {
+                  [style.inBasketBtn]: product.isInBasket,
+                })}
+                onClick={addToBasket}
+                disabled={basketFetchings.basketProductCreating}
+              >
+                {product.isInBasket ? (
+                  <MdOutlineShoppingCartCheckout
+                    size={30}
+                    color="var(--pink-bg-color)"
+                  />
+                ) : (
+                  <MdOutlineAddShoppingCart size={30} color="#fff" />
+                )}
+                <div className={style.buyBtnText}>{
+                  product.isInBasket ? "Order" : "Add to basket"
+                }</div>
               </button>
             </div>
             <div className={style.likesBlock}>

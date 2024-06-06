@@ -27,7 +27,7 @@ const basketAPI = {
   },
   getBasketProducts: async (basketId: number) => {
     try {
-      const response = await $authHost.get(`api/basket/${basketId}/products`)
+      const response = await $authHost.get<TBasketProduct[]>(`api/basket/${basketId}/products`)
       return response.data
     } catch (error: any) {
       return Promise.reject(error.response.message)
@@ -39,4 +39,13 @@ export default basketAPI
 export type TBasket = {
   id: number,
   userId: number
+}
+export type TBasketProduct = {
+  en: string;
+  ua: string;
+  ru: string;
+  price: number;
+  sale: number;
+  imgs: string;
+  id: number
 }

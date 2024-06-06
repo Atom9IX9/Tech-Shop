@@ -141,6 +141,8 @@
   justify-content: center;
   gap: 15px;
 
+  color: #fff;
+
   width: 295px;
   height: 76px;
   background: var(--pink-bg-color);
@@ -161,13 +163,21 @@
   -o-transition: all 200ms;
 }
 
+.inBasketBtn {
+  background: #fff;
+  border: 2px solid var(--pink-bg-color);
+  color: var(--pink-bg-color);
+}
+
 .buyBtn:hover {
   background: var(--pink-active-bg-color);
 }
+.inBasketBtn:hover {
+  background: #86037d31;
+}
 
 .buyBtnText {
-  color: #fff;
-  font-size: 30px;
+  font-size: 27px;
 }
 
 .likesBlock {
