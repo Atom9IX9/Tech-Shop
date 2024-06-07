@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { AiOutlineUser } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import AppLogo from "assets/img/logo.svg"
 
 const SidebarHeader = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,9 @@ const SidebarHeader = () => {
     <header className={style.header}>
       <div className={style.close}>
         <NavLink to="/" onClick={closeMenu}>
-          <div className={style.logo}></div>
+          <div className={style.logo}>
+            <img src={AppLogo} alt="Logo" className={style.logoImg} />
+          </div>
         </NavLink>
         <IconBtn onClick={closeMenu}>
           <AiOutlineClose color="#fff" size={15} />

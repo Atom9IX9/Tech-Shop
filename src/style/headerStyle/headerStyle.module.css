@@ -41,7 +41,11 @@
 
 .logo {
   height: 40px;
-  background: #8c52ff;
+}
+
+.logoImg {
+  height: 100%;
+  width: 100%;
 }
 
 .headerLabel {

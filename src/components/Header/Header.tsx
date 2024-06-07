@@ -9,16 +9,14 @@ import style from "style/headerStyle/headerStyle.module.css";
 import { AiOutlineUser, AiFillHeart } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { User } from "components/contexts/UserContext";
 import { LuCrown } from "react-icons/lu";
-import basketAPI from "api/basketAPI";
 import { useSelector } from "react-redux";
 import { getBasketId } from "utils/selectors/basketSelectors";
-import Dialog from "components/Dialog/Dialog";
-import BasketDialog from "components/Dialog/Basket";
 import { useAppDispatch } from "reducers/store";
 import { setDialog } from "reducers/appReducer";
+import LogoLarge from "assets/img/logoLarge.svg"
 
 // todo: basket dialog window (without buying)
 
@@ -40,7 +38,9 @@ const Header = () => {
       <div className={style.layout}>
         <MenuBtn />
         <NavLink to="/">
-          <div className={style.logo}></div>
+          <div className={style.logo}>
+            <img src={LogoLarge} alt="Logo" className={style.logoImg} />
+          </div>
         </NavLink>
         <CatalogBtn />
         <SearchBar />
