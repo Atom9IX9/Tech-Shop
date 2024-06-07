@@ -17,29 +17,26 @@ import { useSelector } from "react-redux";
 import { getBasketId } from "utils/selectors/basketSelectors";
 import Dialog from "components/Dialog/Dialog";
 import BasketDialog from "components/Dialog/Basket";
+import { useAppDispatch } from "reducers/store";
+import { setDialog } from "reducers/appReducer";
 
 // todo: basket dialog window (without buying)
 
 const Header = () => {
   const { role } = useContext(User);
-  const [basketDialog, setBasketDialog] = useState(false);
   const basketId = useSelector(getBasketId);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
 
   const openCart = () => {
     if (!basketId) {
       return navigate("/sign-in");
     }
-    setBasketDialog(true);
+    dispatch(setDialog({name: "basket", value: true}))
   };
 
   return (
     <header className={style.header}>
-      {basketDialog && (
-        <Dialog close={() => setBasketDialog(false)}>
-          <BasketDialog />
-        </Dialog>
-      )}
       <div className={style.layout}>
         <MenuBtn />
         <NavLink to="/">

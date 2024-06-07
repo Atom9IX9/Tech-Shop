@@ -34,6 +34,7 @@ import StarRating from "components/Product/StarRating";
 import { createBasketProduct } from "reducers/basketReducer";
 import { getBasketFetchings } from "utils/selectors/basketSelectors";
 import classNames from "classnames";
+import { setDialog } from "reducers/appReducer";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
@@ -45,7 +46,7 @@ const ProductPage: React.FC = () => {
   const basketFetchings = useSelector(getBasketFetchings);
   const statuses = useSelector(getProductStatuses);
   const user = useContext(User);
-  const [dialog, setDialog] = useState(false);
+  const [dialog, setDescriptionDialog] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const ProductPage: React.FC = () => {
     }
   };
   const closeDialog = () => {
-    setDialog(false);
+    setDescriptionDialog(false);
   };
 
   const handleRate = (rate: number) => {
@@ -87,7 +88,11 @@ const ProductPage: React.FC = () => {
 
   const addToBasket: MouseEventHandler = (e) => {
     if (product) {
-      dispatch(createBasketProduct(product.id));
+      if (!product.isInBasket) {
+        dispatch(createBasketProduct(product.id));
+      } else {
+        dispatch(setDialog({ name: "basket", value: true }))
+      }
     }
   };
 
@@ -151,9 +156,9 @@ const ProductPage: React.FC = () => {
                 ) : (
                   <MdOutlineAddShoppingCart size={30} color="#fff" />
                 )}
-                <div className={style.buyBtnText}>{
-                  product.isInBasket ? "Order" : "Add to basket"
-                }</div>
+                <div className={style.buyBtnText}>
+                  {product.isInBasket ? "Order" : "Add to basket"}
+                </div>
               </button>
             </div>
             <div className={style.likesBlock}>
@@ -184,7 +189,7 @@ const ProductPage: React.FC = () => {
                       There is no product description.{" "}
                       <span
                         className={style.addDescription}
-                        onClick={() => setDialog(true)}
+                        onClick={() => setDescriptionDialog(true)}
                       >
                         ADD DESCRIPTION
                       </span>
