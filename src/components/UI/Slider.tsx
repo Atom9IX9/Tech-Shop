@@ -14,15 +14,21 @@ const CustomSlider: React.FC<{ images: string[] }> = ({ images }) => {
   };
   return (
     <div className="slider-container" style={{ height: "min-content" }}>
-      <Slider {...settings}>
-        {images.map((url) => (
-          <div>
-            <div className={style.imgContainer}>
-              <img className={style.img} src={url} alt="product" />
+      {images.length > 1 ? (
+        <Slider {...settings}>
+          {images.map((url) => (
+            <div>
+              <div className={style.imgContainer}>
+                <img className={style.img} src={url} alt="product" />
+              </div>
             </div>
-          </div>
-        ))}
-      </Slider>
+          ))}
+        </Slider>
+      ) : (
+        <div className={style.imgContainer}>
+          <img className={style.img} src={images[0]} alt="product" />
+        </div>
+      )}
     </div>
   );
 };
