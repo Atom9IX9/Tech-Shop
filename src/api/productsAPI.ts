@@ -12,9 +12,9 @@ const productsAPI = {
     ru,
     category,
   }: TProductCreateData) => {
-    if (!imgs || imgs.length < 2) {
+    if (!imgs || imgs.length === 0) {
       return Promise.reject({
-        message: "images_are_not_2",
+        message: "images_are_empty",
       });
     } else if (!category) {
       return Promise.reject({
