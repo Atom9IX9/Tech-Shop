@@ -133,7 +133,44 @@
   font-size: 18px;
 }
 
+.count {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  height: 65%;
+  left: 62%;
+  top: 35px;
+}
+.countBtn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  background: #00000022;
+  border: 0;
+  cursor: pointer;
+}
+.countNumber {
+  color: #6e6e6e;
+}
+
 @media screen and (max-width: 973px) {
+  .count {
+    flex-direction: row-reverse;
+    height: min-content;
+    width: 100%;
+    left: 0;
+    top: 320px;
+  }
+  .countBtn {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
   .orderButtonContainer {
     position: absolute;
     width: 100%;
@@ -190,8 +227,11 @@
     height: 90%;
   }
   .basketProductLI {
-    height: calc(260px + 50%);
+    height: calc(150px + 50%);
     justify-content: space-between;
     padding: 0;
+  }
+  .count {
+    top: 360px;
   }
 }
