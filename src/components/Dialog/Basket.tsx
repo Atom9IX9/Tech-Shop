@@ -1,6 +1,7 @@
 import BasketProduct from "components/Basket/BasketProduct";
 import Loader from "components/Loader/Loader";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { fetchBasketProducts } from "reducers/basketReducer";
 import { useAppDispatch } from "reducers/store";
@@ -15,13 +16,15 @@ const BasketDialog = () => {
   const dispatch = useAppDispatch();
   const { basketProductsFetching } = useSelector(getBasketFetchings);
 
+  const { t } = useTranslation("product")
+
   useEffect(() => {
     dispatch(fetchBasketProducts());
   }, [dispatch]);
 
   return (
     <div className={style.basketDialog}>
-      <h3 className={style.basketTitle}>Basket</h3>
+      <h3 className={style.basketTitle}>{t("basketTitle")}</h3>
       <ul className={style.basketProductList}>
         {basketProductsFetching ? (
           <Loader />

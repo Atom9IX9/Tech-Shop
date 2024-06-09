@@ -6,7 +6,7 @@ import { TLng } from "types/types";
 import { getSale } from "utils/getSale";
 
 const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
-  const { i18n, t } = useTranslation();
+  const { i18n, t } = useTranslation("product");
 
   return (
     <li className={style.basketProductLI}>
@@ -16,7 +16,7 @@ const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
           src={`${process.env.REACT_APP_SERVER_API_HOST}/public/${
             bp.imgs.split("/")[0]
           }`}
-          alt="Product"
+          alt={t("product") as string}
         />
       </div>
       <div className={style.productInfo}>
@@ -30,7 +30,7 @@ const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
       </div>
       <div className={style.bPId}>#{bp.id}</div>
       <div className={style.orderButtonContainer}>
-        <button className={style.orderButton}>Order</button>
+        <button className={style.orderButton}>{t("order")}</button>
       </div>
     </li>
   );

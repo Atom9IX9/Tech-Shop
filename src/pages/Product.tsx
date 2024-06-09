@@ -48,6 +48,7 @@ const ProductPage: React.FC = () => {
   const user = useContext(User);
   const [dialog, setDescriptionDialog] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation("product")
 
   useEffect(() => {
     dispatch(fetchCurrentProduct({ id: paramsId, userId: user.id || 0 }));
@@ -157,7 +158,7 @@ const ProductPage: React.FC = () => {
                   <MdOutlineAddShoppingCart size={30} color="#fff" />
                 )}
                 <div className={style.buyBtnText}>
-                  {product.isInBasket ? "Order" : "Add to basket"}
+                  {product.isInBasket ? t("order") : t("addToBasket")}
                 </div>
               </button>
             </div>
@@ -186,12 +187,12 @@ const ProductPage: React.FC = () => {
                   !product.descriptionUa &&
                   user.role === "ADMIN" && (
                     <>
-                      There is no product description.{" "}
+                      {t("noDescription") + " "}
                       <span
                         className={style.addDescription}
                         onClick={() => setDescriptionDialog(true)}
                       >
-                        ADD DESCRIPTION
+                        {t("addDescriptionLink")}
                       </span>
                     </>
                   )) || (

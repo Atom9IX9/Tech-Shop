@@ -4,7 +4,6 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
   TODO: 
     * add functional to basket items;
     * fix visual bags in window for creating product description;
-    * add ALL locales;
     * review.
 */
 

@@ -140,7 +140,7 @@ const productsAPI = {
   },
   getAllWithSubcategory: async (subcategoryCode: string) => {
     try {
-      const response = await $host.get<{count: number, rows: TProductCard[]}>(
+      const response = await $host.get<{ count: number; rows: TProductCard[] }>(
         `api/product/subcategory/${subcategoryCode}`
       );
       return response.data;

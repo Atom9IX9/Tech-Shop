@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "reducers/store";
 import { signOutUser } from "reducers/userReducer";
 import { resetLikedProducts } from "reducers/productsReducer";
-import { setActiveMenu } from "reducers/appReducer";
+import { setActiveMenu, setDialog } from "reducers/appReducer";
 
 const HomeCategoriesAsideProfile = () => {
   const { name, surname, email } = useContext(User);
@@ -34,7 +34,12 @@ const HomeCategoriesAsideProfile = () => {
       </div>
       <div className={style.userLinks}>
         <RedLink textStyle="underline">{t("sidebar:myWallet")}</RedLink>
-        <RedLink textStyle="underline">{t("sidebar:basket")}</RedLink>
+        <RedLink
+          textStyle="underline"
+          onClick={() => dispatch(setDialog({ name: "basket", value: true }))}
+        >
+          {t("sidebar:basket")}
+        </RedLink>
         <RedLink textStyle="underline">{t("sidebar:viewed")}</RedLink>
         <RedLink textStyle="underline">{t("sidebar:myReviews")}</RedLink>
         <RedLink onClick={signOut} textStyle="underline">

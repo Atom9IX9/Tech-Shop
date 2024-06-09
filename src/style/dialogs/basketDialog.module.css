@@ -4,6 +4,7 @@
 
   width: 100%;
   max-width: 1200px;
+  min-width: 600px;
   height: 600px;
 
   padding: 38px 50px;
@@ -170,6 +171,9 @@
     overflow-y: auto;
     overflow-x: hidden;
   }
+  .basketDialog {
+    min-width: none;
+  }
 }
 @media screen and (max-width: 768px) {
   .basketDialog {
@@ -180,6 +184,7 @@
     -ms-border-radius: 0;
     -o-border-radius: 0;
     height: 100%;
+    min-width: 0;
   }
   .basketProductList {
     height: 90%;
