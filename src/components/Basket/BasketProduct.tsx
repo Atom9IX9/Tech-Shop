@@ -1,4 +1,4 @@
-import { TBasketProduct } from "api/basketAPI";
+import basketAPI, { TBasketProduct } from "api/basketAPI";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import style from "style/dialogs/basketDialog.module.css";
@@ -7,12 +7,22 @@ import { getSale } from "utils/getSale";
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useCount } from "hooks/useCount";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
   const { i18n, t } = useTranslation("product");
-  const { count, decrement, increment } = useCount(1)
-  const countRef = useRef()
+  const { count, decrement, increment } = useCount(bp.count);
+  let countTimeoutId = useRef<number>(1);
+
+  useEffect(() => {
+    countTimeoutId.current = window.setTimeout(() => {
+      basketAPI.setBasketProductCount(count, bp.id);
+      //todo: reduce in basketReducer.ts
+    }, 1500);
+    return () => {
+      clearTimeout(countTimeoutId.current);
+    };
+  }, [count, bp.id]);
 
   return (
     <li className={style.basketProductLI}>
@@ -20,7 +30,7 @@ const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
         <img
           className={style.productImg}
           src={`${process.env.REACT_APP_SERVER_API_HOST}/public/${
-            bp.imgs.split("/")[0]
+            bp.imgs?.split("/")[0]
           }`}
           alt={t("product") as string}
         />
@@ -35,9 +45,13 @@ const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
         </p>
       </div>
       <div className={style.count}>
-        <button className={style.countBtn} onClick={increment}><MdKeyboardArrowUp size={25} /></button>
+        <button className={style.countBtn} onClick={increment}>
+          <MdKeyboardArrowUp size={25} />
+        </button>
         <div className={style.countNumber}>{count}</div>
-        <button className={style.countBtn} onClick={decrement}><MdKeyboardArrowDown size={25} /></button>
+        <button className={style.countBtn} onClick={decrement}>
+          <MdKeyboardArrowDown size={25} />
+        </button>
       </div>
       <div className={style.bPId}>#{bp.id}</div>
       <div className={style.orderButtonContainer}>
