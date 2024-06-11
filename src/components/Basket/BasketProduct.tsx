@@ -16,6 +16,16 @@ const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
 
   useEffect(() => {
     countTimeoutId.current = window.setTimeout(() => {
+      basketAPI.setBasketProductCount(count, bp.id)
+      //todo: reduce in basketReducer.ts
+    }, 1500)
+    return () => {
+      clearTimeout(countTimeoutId.current)
+    }
+  }, [count, bp.id])
+
+  useEffect(() => {
+    countTimeoutId.current = window.setTimeout(() => {
       basketAPI.setBasketProductCount(count, bp.id);
       //todo: reduce in basketReducer.ts
     }, 1500);
