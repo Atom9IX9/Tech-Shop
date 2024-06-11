@@ -29,7 +29,7 @@ const BasketDialog = () => {
         {basketProductsFetching ? (
           <Loader />
         ) : (
-          basketProducts.map((bp) => <BasketProduct bp={bp} />)
+          basketProducts.map((bp) => <BasketProduct bp={bp} key={bp.id} />)
         )}
       </ul>
     </div>

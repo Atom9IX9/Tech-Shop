@@ -66,6 +66,14 @@ export const fetchBasketProducts = createAsyncThunk<
   }
 });
 
+export const setBasketProductCount = createAsyncThunk(
+  "basket/setCount",
+  async ({ count, productId }: TSetCountData) => {
+    await basketAPI.setBasketProductCount(count, productId);
+    return { count, productId };
+  }
+);
+
 const basketSlice = createSlice({
   name: "basket",
   initialState,
@@ -102,9 +110,20 @@ const basketSlice = createSlice({
         state.statuses.basketProductsFetched = "success";
         state.basketProducts = action.payload;
       })
+      .addCase(setBasketProductCount.fulfilled, (state, action) => {
+        state.basketProducts.forEach(bp => {
+          if (bp.id === action.payload.productId) {
+            bp.count = action.payload.count
+          }
+        })
+      })
   },
 });
 
 export default basketSlice.reducer;
 export const { resetBasketProducts } = basketSlice.actions;
 export type TInitialState = typeof initialState;
+export type TSetCountData = {
+  count: number;
+  productId: number;
+};

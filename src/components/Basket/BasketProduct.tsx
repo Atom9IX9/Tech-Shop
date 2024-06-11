@@ -1,4 +1,4 @@
-import basketAPI, { TBasketProduct } from "api/basketAPI";
+import { TBasketProduct } from "api/basketAPI";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import style from "style/dialogs/basketDialog.module.css";
@@ -8,31 +8,25 @@ import { MdKeyboardArrowUp } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useCount } from "hooks/useCount";
 import { useEffect, useRef } from "react";
+import { useAppDispatch } from "reducers/store";
+import { setBasketProductCount } from "reducers/basketReducer";
 
 const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
   const { i18n, t } = useTranslation("product");
   const { count, decrement, increment } = useCount(bp.count);
   let countTimeoutId = useRef<number>(1);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    countTimeoutId.current = window.setTimeout(() => {
-      basketAPI.setBasketProductCount(count, bp.id)
-      //todo: reduce in basketReducer.ts
-    }, 1500)
-    return () => {
-      clearTimeout(countTimeoutId.current)
+    if (bp.count !== count) {
+      countTimeoutId.current = window.setTimeout(() => {
+        dispatch(setBasketProductCount({ count, productId: bp.id }));
+      }, 1000);
     }
-  }, [count, bp.id])
-
-  useEffect(() => {
-    countTimeoutId.current = window.setTimeout(() => {
-      basketAPI.setBasketProductCount(count, bp.id);
-      //todo: reduce in basketReducer.ts
-    }, 1500);
     return () => {
       clearTimeout(countTimeoutId.current);
     };
-  }, [count, bp.id]);
+  }, [count, bp.id, bp.count, dispatch]);
 
   return (
     <li className={style.basketProductLI}>
