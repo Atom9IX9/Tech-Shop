@@ -2,6 +2,7 @@
   margin: auto;
   margin-top: 20px;
   max-width: 1437px;
+  padding: 20px;
 }
 
 .subcategoriesContainer {
@@ -293,11 +294,38 @@
   .productPageContainer {
     margin-top: 0;
   }
-  
+  .productImages {
+    height: 300px;
+  }
 }
 
 @media screen and (max-width: 1245px) {
   .addBtnContainer {
+    width: 100%;
+  }
+  .productInfContainer {
+    flex-direction: column;
+  }
+  .productImages {
+    width: 100%;
+  }
+  .productInfo {
+    width: 100%;
+  }
+  .productTitle {
+    margin-top: 0;
+  }
+  .toBasketBlock {
+    display: block;
+    width: 100%;
+  }
+  .productDescription {
+    max-width: 100%;
+  }
+  .fullPrice {
+    margin-bottom: 10px;
+  }
+  .buyBtn {
     width: 100%;
   }
 }

@@ -130,7 +130,7 @@ const ProductPage: React.FC = () => {
             <h2 className={style.productTitle}>
               {product[i18n.language as TLng]}
             </h2>
-            <div className={style.toBucketBlock}>
+            <div className={style.toBasketBlock}>
               <div className={style.price}>
                 {product?.sale ? (
                   <div className={style.discountedPrice}>{product.price} ₴</div>
