@@ -25,7 +25,9 @@ const ProductList: React.FC<{ products: TProductCard[] }> = ({ products }) => {
   const fetchings = useSelector(getFetchings);
 
   return (
-    <div className={style.productCardsContainer}>
+    <div className={style.productCardsContainer} style={{
+      height: fetchings.productsFetching ? "90vh" : "min-content"
+    }}>
       {fetchings.productsFetching ? (
         <Loader />
       ) : (

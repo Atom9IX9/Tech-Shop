@@ -1,4 +1,4 @@
-import { fetchProducts } from "reducers/productsReducer";
+import { fetchMoreProducts, fetchProducts } from "reducers/productsReducer";
 import { useAppDispatch } from "reducers/store";
 import { getProducts } from "utils/selectors/productSelectors";
 import style from "style/homeStyle/page.module.css";
@@ -21,6 +21,7 @@ const Home = () => {
       <main className={style.homeContent}>
         <div className={style.productCards}>
           <ProductList products={productCards} />
+          <button onClick={() => dispatch(fetchMoreProducts({category: "all"}))}>more</button>
         </div>
       </main>
     </div>

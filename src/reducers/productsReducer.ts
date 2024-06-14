@@ -1,3 +1,5 @@
+import { RootState } from "./store";
+
 import productsAPI, {
   TDescriptionData,
   TFullProduct,
@@ -40,7 +42,7 @@ export const initialState = {
   },
   categories: [] as TMainCategory[],
   page: 1,
-  pageSize: 20,
+  pageSize: 21,
   likedProducts: [] as number[], // products' id
   currentProduct: undefined as undefined | TFullProduct,
 };
@@ -59,6 +61,28 @@ export const fetchProducts = createAsyncThunk(
         like,
         likeLng
       );
+      return { products, page };
+    } catch (e) {
+      const err = e as { message: string };
+      return rejectWithValue(err.message);
+    }
+  }
+);
+export const fetchMoreProducts = createAsyncThunk<
+  { count: number; rows: TProductCard[] },
+  Omit<TFetchPostsPayload, "page">,
+  { state: RootState }
+>(
+  "products/fetchMoreProducts",
+  async ({ category, like, likeLng }, { rejectWithValue, getState }) => {
+    try {
+      const products = await productsAPI.getAllProducts(
+        category,
+        initialState.pageSize,
+        getState().products.page + 1,
+        like,
+        likeLng
+      );
       return products;
     } catch (e) {
       const err = e as { message: string };
@@ -66,6 +90,7 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
+
 export const fetchProductsWithSubcategory = createAsyncThunk(
   "products/fetchProductsWithSubcategory",
   async (subcategory: string, { rejectWithValue }) => {
@@ -240,13 +265,27 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.productCards = action.payload.rows;
+        state.productCards = action.payload.products.rows;
+        state.fetchings.productsFetching = false;
+        state.page = action.payload.page;
+      })
+      .addCase(fetchMoreProducts.fulfilled, (state, action) => {
+        if (action.payload.rows.length) {
+          state.productCards = [...state.productCards, ...action.payload.rows];
+          state.page = state.page + 1;
+        }
         state.fetchings.productsFetching = false;
       })
       .addCase(fetchProducts.pending, (state, action) => {
         state.fetchings.productsFetching = true;
       })
+      .addCase(fetchMoreProducts.pending, (state, action) => {
+        state.fetchings.productsFetching = true;
+      })
       .addCase(fetchProducts.rejected, (state, action) => {
+        state.fetchings.productsFetching = false;
+      })
+      .addCase(fetchMoreProducts.rejected, (state, action) => {
         state.fetchings.productsFetching = false;
       })
       .addCase(fetchProductsWithSubcategory.fulfilled, (state, action) => {
