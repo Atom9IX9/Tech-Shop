@@ -29,6 +29,7 @@ export const initialState = {
     productDescriptionUpdating: false,
     rating: false,
     productsFetching: false,
+    productsFetchingMore: false,
   },
   statuses: {
     categoryCreate: undefined as undefined | "success" | string,
@@ -274,19 +275,19 @@ const productsSlice = createSlice({
           state.productCards = [...state.productCards, ...action.payload.rows];
           state.page = state.page + 1;
         }
-        state.fetchings.productsFetching = false;
+        state.fetchings.productsFetchingMore = false;
       })
       .addCase(fetchProducts.pending, (state, action) => {
         state.fetchings.productsFetching = true;
       })
       .addCase(fetchMoreProducts.pending, (state, action) => {
-        state.fetchings.productsFetching = true;
+        state.fetchings.productsFetchingMore = true;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.fetchings.productsFetching = false;
       })
       .addCase(fetchMoreProducts.rejected, (state, action) => {
-        state.fetchings.productsFetching = false;
+        state.fetchings.productsFetchingMore = false;
       })
       .addCase(fetchProductsWithSubcategory.fulfilled, (state, action) => {
         state.productCards = action.payload?.rows || [];

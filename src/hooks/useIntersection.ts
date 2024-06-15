@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRef } from "react";
 
 export const useIntersection = (options?: IntersectionObserverInit) => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isIntersection, setIsIntersection] = useState(false);
 
   const callback = (entries: IntersectionObserverEntry[]) => {

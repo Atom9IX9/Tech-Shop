@@ -21,7 +21,7 @@ const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
     if (bp.count !== count) {
       countTimeoutId.current = window.setTimeout(() => {
         dispatch(setBasketProductCount({ count, productId: bp.id }));
-      }, 1000);
+      }, 500);
     }
     return () => {
       clearTimeout(countTimeoutId.current);
