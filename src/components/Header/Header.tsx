@@ -39,7 +39,7 @@ const Header = () => {
         <MenuBtn />
         <NavLink to="/">
           <div className={style.logo}>
-            <img src={LogoLarge} alt="Logo" className={style.logoImg} />
+            <img src={LogoLarge} alt="Tech-Shop logo" className={style.logoImg} />
           </div>
         </NavLink>
         <CatalogBtn />

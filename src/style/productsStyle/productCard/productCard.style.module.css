@@ -86,3 +86,13 @@
   font-size: 15px;
   text-decoration: line-through;
 }
+
+.likeIcon {
+  border: 0;
+  width: min-content;
+  height: min-content;
+  padding: 0;
+  background: transparent;
+
+  cursor: pointer;
+}

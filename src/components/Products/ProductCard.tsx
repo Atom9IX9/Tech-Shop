@@ -13,7 +13,7 @@ import cn from "classnames";
 import { likeProduct } from "reducers/productsReducer";
 import { useTranslation } from "react-i18next";
 import { TLng } from "types/types";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { User } from "components/contexts/UserContext";
 
 const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
@@ -25,9 +25,6 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   const { role } = useContext(User);
 
   const dispatch = useAppDispatch();
-  const goToProduct = () => {
-    navigate(`/product/${product.id}`);
-  };
 
   const like = () => {
     if (!fetchings.like) {
@@ -38,7 +35,7 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
           dispatch(likeProduct({ id: product.id, method: "REMOVE" }));
         }
       } else {
-        navigate("/sign-in")
+        navigate("/sign-in");
       }
     }
   };
@@ -50,32 +47,30 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   return (
     <div className={style.productCard}>
       <div className={style.liked}>
-        <div className={style.likeIcon} onClick={like}>
+        <button className={style.likeIcon} onClick={like}>
           {isLiked ? (
             <AiFillHeart size={25} color="gold" />
           ) : (
             <AiOutlineHeart size={25} color="gold" />
           )}
+        </button>
+      </div>
+      <NavLink to={`/product/${product.id}`}>
+        <div className={style.picture}>
+          <img
+            src={
+              process.env.REACT_APP_SERVER_API_HOST +
+              "/public/" +
+              product.imgs.split("/")[0]
+            }
+            alt={product[i18n.language as TLng]}
+            loading="lazy"
+          />
         </div>
-      </div>
-      <div className={style.picture} onClick={() => goToProduct()}>
-        <img
-          src={
-            process.env.REACT_APP_SERVER_API_HOST +
-            "/public/" +
-            product.imgs.split("/")[0]
-          }
-          alt={product[i18n.language as TLng]}
-          loading="lazy"
-        />
-      </div>
-      <div
-        className={style.title}
-        title={product[i18n.language as TLng]}
-        onClick={() => goToProduct()}
-      >
-        {product[i18n.language as TLng]}
-      </div>
+        <p className={style.title} title={product[i18n.language as TLng]}>
+          {product[i18n.language as TLng]}
+        </p>
+      </NavLink>
       {product.sale ? (
         <span className={style.price}>{product.price} ₴</span>
       ) : (

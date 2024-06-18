@@ -79,8 +79,10 @@
   font-weight: bold;
   font-size: 23px;
   color: #000;
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
+
+  height: 90px;
 }
 
 .bPTitle:hover {
@@ -139,9 +141,8 @@
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  height: 65%;
-  left: 62%;
-  top: 35px;
+  height: 90%;
+  left: 56%;
 }
 .countBtn {
   width: 30px;
@@ -190,6 +191,7 @@
   .productInfo {
     margin-top: 180px;
     height: 130px;
+    width: 80%;
   }
   .orderButton {
     font-size: 20px;
@@ -211,6 +213,14 @@
   .basketDialog {
     min-width: none;
   }
+  .bPTitle {
+    display: inline-block;
+    height: 90px;
+    width: 400px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 @media screen and (max-width: 768px) {
   .basketDialog {
@@ -227,11 +237,14 @@
     height: 90%;
   }
   .basketProductLI {
-    height: calc(150px + 50%);
+    height: 50%;
     justify-content: space-between;
     padding: 0;
   }
   .count {
     top: 360px;
+  }
+  .bPTitle {
+    width: 100%;
   }
 }

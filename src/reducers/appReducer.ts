@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 /* 
   TODO: 
+    * semantic;
     * add functional to basket items;
     * fix visual bags in window for creating product description;
     * review.

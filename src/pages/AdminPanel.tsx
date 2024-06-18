@@ -30,6 +30,7 @@ const AdminPanel = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    // refactor if not ADMIN
     if (isChecked && role !== "ADMIN") {
       nav("/");
     } else if (pathname === "/admin-panel") {

@@ -1,6 +1,6 @@
 import ProductPageNav from "components/Product/ProductNav";
 import { MouseEventHandler, useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import style from "style/productStyle/productPage.module.css";
 import { useSelector } from "react-redux";
 import {
@@ -38,31 +38,35 @@ import { setDialog } from "reducers/appReducer";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
-  const { i18n } = useTranslation();
+  const [dialog, setDescriptionDialog] = useState(false);
+
   const categories = useSelector(getCategories);
   const productLikedIds = useSelector(getLikedProducts);
   const fetchings = useSelector(getFetchings);
   const basketFetchings = useSelector(getBasketFetchings);
   const statuses = useSelector(getProductStatuses);
+  const product = useSelector(getCurrentProduct);
+
   const user = useContext(User);
-  const [dialog, setDescriptionDialog] = useState(false);
-  const navigate = useNavigate();
-  const { t } = useTranslation("product")
+
+  const { t, i18n } = useTranslation("product");
 
   useEffect(() => {
     dispatch(fetchCurrentProduct({ id: paramsId, userId: user.id || 0 }));
   }, [paramsId, dispatch, user.id]);
+
   useEffect(() => {
     if (!productLikedIds.length) dispatch(fetchLikedProductIds());
   }, [productLikedIds.length, dispatch]);
+
   useEffect(() => {
     if (!categories.length) {
       dispatch(fetchCategories());
     }
   }, [categories.length, dispatch]);
-
-  const product = useSelector(getCurrentProduct);
 
   const like = (method: "ADD" | "REMOVE") => {
     if (user.role === "GUEST") {
@@ -92,7 +96,7 @@ const ProductPage: React.FC = () => {
       if (!product.isInBasket) {
         dispatch(createBasketProduct(product.id));
       } else {
-        dispatch(setDialog({ name: "basket", value: true }))
+        dispatch(setDialog({ name: "basket", value: true }));
       }
     }
   };
@@ -127,9 +131,9 @@ const ProductPage: React.FC = () => {
             />
           </div>
           <div className={style.productInfo}>
-            <h2 className={style.productTitle}>
+            <h1 className={style.productTitle}>
               {product[i18n.language as TLng]}
-            </h2>
+            </h1>
             <div className={style.toBasketBlock}>
               <div className={style.price}>
                 {product?.sale ? (
@@ -137,10 +141,10 @@ const ProductPage: React.FC = () => {
                 ) : (
                   ""
                 )}
-                <div className={style.fullPrice}>
+                <p className={style.fullPrice}>
                   {getSale(product.price, product.sale)}
                   <span className={style.currency}> ₴</span>
-                </div>
+                </p>
               </div>
               <button
                 className={classNames(style.buyBtn, {
@@ -157,13 +161,13 @@ const ProductPage: React.FC = () => {
                 ) : (
                   <MdOutlineAddShoppingCart size={30} color="#fff" />
                 )}
-                <div className={style.buyBtnText}>
+                <p className={style.buyBtnText}>
                   {product.isInBasket ? t("order") : t("addToBasket")}
-                </div>
+                </p>
               </button>
             </div>
             <div className={style.likesBlock}>
-              <div className={style.likeIcon}>
+              <button className={style.likeIcon}>
                 {checkLiked(product.id, productLikedIds) ? (
                   <AiFillHeart
                     size={35}
@@ -177,7 +181,7 @@ const ProductPage: React.FC = () => {
                     onClick={() => like("ADD")}
                   />
                 )}
-              </div>
+              </button>
               <div className={style.likesCount}>{product.likesCount}</div>
             </div>
             <div className={style.productDescription}>
@@ -186,7 +190,7 @@ const ProductPage: React.FC = () => {
                   !product.descriptionRu &&
                   !product.descriptionUa &&
                   user.role === "ADMIN" && (
-                    <>
+                    <p>
                       {t("noDescription") + " "}
                       <span
                         className={style.addDescription}
@@ -194,19 +198,21 @@ const ProductPage: React.FC = () => {
                       >
                         {t("addDescriptionLink")}
                       </span>
-                    </>
+                    </p>
                   )) || (
-                  <>
+                  <p>
                     {(i18n.language as TLng) === "en"
                       ? product.descriptionEn
                       : (i18n.language as TLng) === "ua"
                       ? product.descriptionUa
                       : product.descriptionRu}
-                  </>
+                  </p>
                 )}
               </div>
               <footer className={style.pDescriptionFooter}>
-                <span className={style.shopName}>Tech-Shop</span>
+                <NavLink to="/" className={style.shopName}>
+                  Tech-Shop
+                </NavLink>
                 <StarRating
                   averageRating={product.rating.average}
                   userRating={product.rating.user}

@@ -30,13 +30,13 @@ const Home = () => {
     <div className={style.homePage}>
       <HomeCategories />
       <main className={style.homeContent}>
-        <div className={style.productCards}>
+        <section className={style.productCards}>
           <ProductList products={productCards} />
           <div className={style.intersectionLoader} >
             { fetchings.productsFetchingMore && <Loader /> }
           </div>
           <div ref={intersectionRef as RefObject<HTMLDivElement>}></div>
-        </div>
+        </section>
       </main>
     </div>
   );

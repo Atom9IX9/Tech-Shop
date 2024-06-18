@@ -49,19 +49,19 @@ const App = () => {
     <div className="app">
       <AppDialogs />
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="sign-up" element={<SignUp />} />
-          <Route path="sign-in" element={<SignIn />} />
-          <Route path="about" element={<About />} />
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="all-categories" element={<Catalog />} />
-          <Route path="liked-products" element={<LikedProducts />} />
-          <Route path="admin-panel/*" element={<AdminPanel />} />
+        <Route path="/" element={<Layout />}> 
+          <Route index element={<Home />} /> 
+          <Route path="sign-up" element={<SignUp />} /> 
+          <Route path="sign-in" element={<SignIn />} /> 
+          <Route path="about" element={<About />} /> {/* todo */}
+          <Route path="contacts" element={<Contacts />} /> {/* todo */}
+          <Route path="all-categories" element={<Catalog />} /> {/* todo */}
+          <Route path="liked-products" element={<LikedProducts />} /> 
+          <Route path="admin-panel/*" element={<AdminPanel />} /> 
           <Route
             path=":category/:subcategory?"
             element={<PageWithCategory />}
-          />
+          /> 
           <Route path="product/:id" element={<Product />} />
         </Route>
       </Routes>

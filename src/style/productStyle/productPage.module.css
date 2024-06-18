@@ -108,7 +108,7 @@
   align-items: center;
 }
 
-.toBucketBlock {
+.toBasketBlock {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -193,12 +193,17 @@
 }
 
 .likeIcon {
-  height: min-content;
+  height: 35px;
+  width: min-content;
+  background: transparent;
+  border: 0;
+  padding: 0;
+
   cursor: pointer;
 }
 
 .likesCount {
-  height: 35px;
+  height: min-content;
 }
 
 .productDescription {

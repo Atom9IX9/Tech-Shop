@@ -3,12 +3,16 @@ import ProductList from "components/Products/ProductList";
 import { useEffect, useState } from "react";
 
 const LikedProducts = () => {
-  const [products, setProducts] = useState<TProductCard[]>([])
+  const [products, setProducts] = useState<TProductCard[]>([]);
   useEffect(() => {
-    productsAPI.getLikedProducts().then((p) => setProducts(p || []))
-  }, [])
+    productsAPI.getLikedProducts().then((p) => setProducts(p || []));
+  }, []);
 
-  return <div><ProductList products={products}/></div>;
+  return (
+    <section>
+      <ProductList products={products} />
+    </section>
+  );
 };
 
 export default LikedProducts;
