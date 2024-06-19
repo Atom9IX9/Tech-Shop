@@ -262,6 +262,11 @@ const productsSlice = createSlice({
       state.statuses.subcategoryCreate = undefined;
       state.statuses.subcategoryFetched = undefined;
     },
+    setIsInBasket: (state, action: PayloadAction<boolean>) => {
+      if (state.currentProduct) {
+        state.currentProduct.isInBasket = action.payload
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -460,7 +465,7 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const { resetLikedProducts, resetCreateStatuses } =
+export const { resetLikedProducts, resetCreateStatuses, setIsInBasket } =
   productsSlice.actions;
 
 export type TInitialState = typeof initialState;

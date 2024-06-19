@@ -17,6 +17,7 @@ import {
   fetchCurrentProduct,
   fetchLikedProductIds,
   likeProduct,
+  setIsInBasket,
 } from "reducers/productsReducer";
 import { useTranslation } from "react-i18next";
 import { TLng } from "types/types";
@@ -95,6 +96,7 @@ const ProductPage: React.FC = () => {
     if (product) {
       if (!product.isInBasket) {
         dispatch(createBasketProduct(product.id));
+        dispatch(setIsInBasket(true))
       } else {
         dispatch(setDialog({ name: "basket", value: true }));
       }
