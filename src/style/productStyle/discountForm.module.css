@@ -1,0 +1,72 @@
+.discountForm {
+  position: absolute;
+  bottom: 80px;
+  border: 1px solid #b3b3b3;
+
+  width: 320px;
+  height: 50px;
+  background: #fff;
+  padding: 10px;
+  padding-bottom: 20px;
+}
+.discountForm::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+
+  border: 10px solid transparent;
+  border-top-color: #b3b3b3;
+
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+}
+
+.discountFormFields {
+  display: grid;
+  grid-template-columns: 50% 20%;
+  gap: 90px;
+}
+
+.inpWrap {
+  display: flex;
+  gap: 5px;
+}
+
+.discountFormFields input {
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid var(--violet-bg-color);
+  outline: none;
+}
+.discountFormFields input:focus {
+  border-bottom: 1px solid var(--violet-bg-color);
+}
+
+.fieldIcon {
+  color: var(--pink-bg-color);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.formBtn {
+  width: min-content;
+  height: min-content;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btnsBlock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 70px;
+
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+}

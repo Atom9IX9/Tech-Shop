@@ -59,6 +59,7 @@ export type TBasketProduct = {
   ua: string;
   ru: string;
   price: number;
+  priceWithDiscount: number | null
   sale: number;
   imgs: string;
   id: number;

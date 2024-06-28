@@ -45,7 +45,8 @@ const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
         </NavLink>
         {!!bp.sale && <p className={style.fullPriceForDiscount}>{bp.price}₴</p>}
         <p className={style.finalPrice}>
-          {getSale(bp.price, bp.sale)} <span className={style.uah}>₴</span>
+          {bp.priceWithDiscount || bp.price}{" "}
+          <span className={style.uah}>₴</span>
         </p>
       </div>
       <div className={style.count}>

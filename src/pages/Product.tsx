@@ -17,11 +17,11 @@ import {
   fetchCurrentProduct,
   fetchLikedProductIds,
   likeProduct,
+  setDiscount,
   setIsInBasket,
 } from "reducers/productsReducer";
 import { useTranslation } from "react-i18next";
 import { TLng } from "types/types";
-import { getSale } from "utils/getSale";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -36,6 +36,8 @@ import { createBasketProduct } from "reducers/basketReducer";
 import { getBasketFetchings } from "utils/selectors/basketSelectors";
 import classNames from "classnames";
 import { setDialog } from "reducers/appReducer";
+import { TbDiscount, TbDiscountOff } from "react-icons/tb";
+import DiscountForm from "components/Product/DiscountForm";
 
 const ProductPage: React.FC = () => {
   const paramsId = Number(useParams().id);
@@ -43,6 +45,7 @@ const ProductPage: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const [dialog, setDescriptionDialog] = useState(false);
+  const [discountUpdating, setDiscountUpdating] = useState(false);
 
   const categories = useSelector(getCategories);
   const productLikedIds = useSelector(getLikedProducts);
@@ -92,11 +95,25 @@ const ProductPage: React.FC = () => {
     }
   };
 
+  const discountClick = () => {
+    if (product?.sale) {
+      dispatch(
+        setDiscount({
+          productId: product.id,
+          discountPercent: 0,
+          dropTo: undefined,
+        })
+      );
+    } else {
+      setDiscountUpdating(true);
+    }
+  };
+
   const addToBasket: MouseEventHandler = (e) => {
     if (product) {
       if (!product.isInBasket) {
         dispatch(createBasketProduct(product.id));
-        dispatch(setIsInBasket(true))
+        dispatch(setIsInBasket(true));
       } else {
         dispatch(setDialog({ name: "basket", value: true }));
       }
@@ -138,15 +155,49 @@ const ProductPage: React.FC = () => {
             </h1>
             <div className={style.toBasketBlock}>
               <div className={style.price}>
-                {product?.sale ? (
-                  <div className={style.discountedPrice}>{product.price} ₴</div>
-                ) : (
-                  ""
+                <div>
+                  {product?.sale ? (
+                    <div className={style.discountedPrice}>
+                      {product.price} ₴
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  <p className={style.fullPrice}>
+                    {product.priceWithDiscount || product.price}
+                    <span className={style.currency}> ₴</span>
+                  </p>
+                </div>
+                {user.role === "ADMIN" && (
+                  <>
+                    {discountUpdating && (
+                      <DiscountForm
+                        close={() => setDiscountUpdating(false)}
+                        onSubmit={(data) => {
+                          dispatch(
+                            setDiscount({
+                              productId: product.id,
+                              discountPercent:
+                                data.discountPercent || undefined,
+                              dropTo: data.dropTo || undefined,
+                            })
+                          );
+                          setDiscountUpdating(false)
+                        }}
+                      />
+                    )}
+                    <button
+                      className={style.discountBtn}
+                      onClick={discountClick}
+                    >
+                      {!product.sale ? (
+                        <TbDiscount size={40} color="var(--red-bg-color)" />
+                      ) : (
+                        <TbDiscountOff size={40} color="var(--red-bg-color)" />
+                      )}
+                    </button>
+                  </>
                 )}
-                <p className={style.fullPrice}>
-                  {getSale(product.price, product.sale)}
-                  <span className={style.currency}> ₴</span>
-                </p>
               </div>
               <button
                 className={classNames(style.buyBtn, {

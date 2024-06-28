@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 /* 
   TODO: 
     * payment page
+    * discounts;
     * review.
 */
 

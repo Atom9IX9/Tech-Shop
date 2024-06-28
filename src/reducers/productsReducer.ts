@@ -30,6 +30,7 @@ export const initialState = {
     rating: false,
     productsFetching: false,
     productsFetchingMore: false,
+    updatingDiscount: false,
   },
   statuses: {
     categoryCreate: undefined as undefined | "success" | string,
@@ -40,6 +41,7 @@ export const initialState = {
     productFetchingById: undefined as undefined | "success" | string,
     productDescriptionUpdating: undefined as undefined | "success" | string,
     productsFetched: undefined as undefined | "success" | string,
+    discountUpdated: undefined as undefined | "success" | string,
   },
   categories: [] as TMainCategory[],
   page: 1,
@@ -69,6 +71,7 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
+
 export const fetchMoreProducts = createAsyncThunk<
   { count: number; rows: TProductCard[] },
   Omit<TFetchPostsPayload, "page">,
@@ -116,6 +119,7 @@ export const fetchCurrentProduct = createAsyncThunk(
     }
   }
 );
+
 export const fetchSubcategories = createAsyncThunk(
   "product/fetchSubcategories",
   async (categoryCode: string, { rejectWithValue }) => {
@@ -234,6 +238,25 @@ export const deleteCategory = createAsyncThunk(
   }
 );
 
+export const setDiscount = createAsyncThunk(
+  "product/setDiscount",
+  async (
+    { productId, discountPercent, dropTo }: TSetDiscountData,
+    { rejectWithValue }
+  ) => {
+    try {
+      const data = await productsAPI.setDiscount(
+        productId,
+        discountPercent,
+        dropTo
+      );
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const createProductSubcategory = createAsyncThunk(
   "product/createProductSubcategory~",
   async (payload: TCreateProductSubcategoryPayload, { rejectWithValue }) => {
@@ -264,9 +287,11 @@ const productsSlice = createSlice({
     },
     setIsInBasket: (state, action: PayloadAction<boolean>) => {
       if (state.currentProduct) {
-        state.currentProduct.isInBasket = action.payload
+        state.currentProduct.isInBasket = action.payload;
       }
-    }
+    },
+    resetDiscountStatus: (state) =>
+      (state.statuses.discountUpdated = undefined),
   },
   extraReducers: (builder) => {
     builder
@@ -460,13 +485,36 @@ const productsSlice = createSlice({
               (sc) => sc.code !== action.payload.code
             );
         }
+      })
+      .addCase(setDiscount.fulfilled, (state, action) => {
+        if (state.currentProduct) {
+          state.currentProduct.sale = action.payload.discount;
+          state.currentProduct.priceWithDiscount = Number(action.payload.priceWithDiscount) || null;
+          if (action.payload.discount === 0) {
+            state.statuses.discountUpdated = undefined;
+          } else {
+            state.statuses.discountUpdated = "success";
+          }
+        }
+        state.fetchings.updatingDiscount = false;
+      })
+      .addCase(setDiscount.pending, (state) => {
+        state.fetchings.updatingDiscount = true;
+      })
+      .addCase(setDiscount.rejected, (state, action) => {
+        state.fetchings.updatingDiscount = false;
+        state.statuses.discountUpdated = action.payload as string;
       });
   },
 });
 
 export default productsSlice.reducer;
-export const { resetLikedProducts, resetCreateStatuses, setIsInBasket } =
-  productsSlice.actions;
+export const {
+  resetLikedProducts,
+  resetCreateStatuses,
+  setIsInBasket,
+  resetDiscountStatus,
+} = productsSlice.actions;
 
 export type TInitialState = typeof initialState;
 
@@ -499,4 +547,9 @@ type TAddRatingData = {
 type TCreateProductSubcategoryPayload = {
   subcategory: TSubcategory;
   productId: number;
+};
+export type TSetDiscountData = {
+  productId: number;
+  dropTo?: number;
+  discountPercent?: number;
 };

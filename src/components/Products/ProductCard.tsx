@@ -1,7 +1,6 @@
 import { TProductCard } from "api/productsAPI";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import style from "style/productsStyle/productCard/productCard.style.module.css";
-import { getSale } from "utils/getSale";
 import { useAppDispatch } from "reducers/store";
 import { useSelector } from "react-redux";
 import {
@@ -71,14 +70,14 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
           {product[i18n.language as TLng]}
         </p>
       </NavLink>
-      {product.sale ? (
+      {product.priceWithDiscount ? (
         <span className={style.price}>{product.price} ₴</span>
       ) : (
         ""
       )}
-      <div className={cn(style.sale, { [style.withoutSale]: !product.sale })}>
+      <div className={cn(style.sale, { [style.withoutSale]: !product.priceWithDiscount })}>
         <span className={style.priceNumber}>
-          {getSale(product.price, product.sale)}
+          {product.priceWithDiscount || product.price}
         </span>
         ₴
       </div>

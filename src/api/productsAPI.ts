@@ -108,7 +108,7 @@ const productsAPI = {
   },
   updateDescription: async (data: TDescriptionData, productId: number) => {
     try {
-      const response = await $authHost.put<TFullProduct>(
+      await $authHost.put<TFullProduct>(
         `api/product/${productId}/description`,
         data
       );
@@ -148,6 +148,20 @@ const productsAPI = {
       Promise.reject(error.response.data);
     }
   },
+  setDiscount: async (
+    productId: number,
+    discountPercent?: number,
+    dropTo?: number
+  ) => {
+    try {
+      const discount = await $authHost.put<{ discount: number, priceWithDiscount: string | null }>(
+        `api/product/discount/${productId}`, { dropTo, discountPercent }
+      );
+      return discount.data
+    } catch (error: any) {
+      return Promise.reject(error.response.data);
+    }
+  },
 };
 
 export default productsAPI;
@@ -157,6 +171,7 @@ export type TProductCard = {
   ua: string;
   ru: string;
   price: number; // integer
+  priceWithDiscount: number | null;
   sale: number; // 0-100% ==> 0.00-1.00
   categoryCode: string;
   imgs: string; // url ~example("img1.jpg/img2.jpg/img3.jpg") ==> to arr: img.split("/")
@@ -196,5 +211,5 @@ export type TDescriptionData = {
 export type TRateData = {
   rate: number; // 0-5
   productId: number;
-  averageRating: number; // (0-5).toFixed(1) as 0.0-5.0
+  averageRating: number; // 0.0-5.0
 };

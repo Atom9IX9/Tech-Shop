@@ -7,4 +7,6 @@ export type TAboutProduct = {
   pictures: Array<string>; // url
   grade: number;
 };
+export type TValidationFn = (fieldValue: string) => string | boolean;
+
 
