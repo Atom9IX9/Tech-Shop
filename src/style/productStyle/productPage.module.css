@@ -22,7 +22,7 @@
 .addSubcategoryButton {
   position: relative;
   bottom: 5px;
-  
+
   cursor: pointer;
 }
 
@@ -151,16 +151,20 @@
 }
 
 .buyBtn {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 15px;
 
+  background: var(--pink-bg-color);
+  overflow: hidden;
+
   color: #fff;
 
   width: 295px;
   height: 76px;
-  background: var(--pink-bg-color);
 
   border: 0;
   border-radius: 10px;
@@ -184,11 +188,50 @@
   color: var(--pink-bg-color);
 }
 
-.buyBtn:hover {
-  background: var(--pink-active-bg-color);
+.buyBtn:hover ::before {
+  content: "";
+  width: 125%;
+  height: 200px;
+  top: -50px;
+  left: -50px;
+  border-radius: 50%;
+  position: absolute;
+  background: #fff;
+  opacity: 0.3;
+  animation: byBtnHover 0.5s linear;
+  -webkit-animation: byBtnHover 0.5s linear;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
-.inBasketBtn:hover {
-  background: #86037d31;
+.inBasketBtn:hover ::before {
+  background: #95158c74;
+}
+
+@keyframes byBtnHover {
+  0% {
+    top: -50px;
+    left: -50px;
+    width: 50px;
+    height: 50px;
+    opacity: 0.5;
+  }
+  25% {
+    width: 175px;
+    height: 175px;
+  }
+  50% {
+    width: 300px;
+    height: 300px;
+  }
+  75% {
+    width: 120%;
+    height: 200px;
+  }
+  100% {
+    opacity: 0.3;
+  }
 }
 
 .buyBtnText {
@@ -306,8 +349,6 @@
   right: 0;
   bottom: 0;
 }
-
-
 
 @media screen and (max-width: 768px) {
   .productPageContainer {

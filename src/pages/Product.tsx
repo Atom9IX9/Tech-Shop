@@ -209,6 +209,7 @@ const ProductPage: React.FC = () => {
                 className={classNames(style.buyBtn, {
                   [style.inBasketBtn]: product.isInBasket,
                 })}
+                
                 onClick={addToBasket}
                 disabled={basketFetchings.basketProductCreating}
               >

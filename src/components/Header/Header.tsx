@@ -75,9 +75,9 @@ const Header = () => {
             ) as JSX.Element)
           )}
         </div>
-        <div className={style.cartBtn}>
+        <div className={style.cartBtn} onClick={() => openCart()}>
           {!!productsInBasketCount && <div className={style.cartBtnProductsCount}>{productsInBasketCount}</div>}
-          <IconBtn onClick={() => openCart()}>
+          <IconBtn>
             <BsCart4 size={30} color="#fff" />
           </IconBtn>
         </div>

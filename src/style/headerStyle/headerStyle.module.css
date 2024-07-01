@@ -219,6 +219,7 @@
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
+  pointer-events: none;
 }
 
 @media screen and (min-width: 1280px) {
