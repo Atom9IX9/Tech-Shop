@@ -13,10 +13,10 @@ import { useContext } from "react";
 import { User } from "components/contexts/UserContext";
 import { LuCrown } from "react-icons/lu";
 import { useSelector } from "react-redux";
-import { getBasketId } from "utils/selectors/basketSelectors";
+import { getBasketId, getProductsInBasketCount } from "utils/selectors/basketSelectors";
 import { useAppDispatch } from "reducers/store";
 import { setDialog } from "reducers/appReducer";
-import LogoLarge from "assets/img/logoLarge.svg"
+import LogoLarge from "assets/img/logoLarge.svg";
 
 // todo: basket dialog window (without buying)
 
@@ -24,13 +24,15 @@ const Header = () => {
   const { role } = useContext(User);
   const basketId = useSelector(getBasketId);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+
+  const productsInBasketCount = useSelector(getProductsInBasketCount)
 
   const openCart = () => {
     if (!basketId) {
       return navigate("/sign-in");
     }
-    dispatch(setDialog({name: "basket", value: true}))
+    dispatch(setDialog({ name: "basket", value: true }));
   };
 
   return (
@@ -39,7 +41,11 @@ const Header = () => {
         <MenuBtn />
         <NavLink to="/">
           <div className={style.logo}>
-            <img src={LogoLarge} alt="Tech-Shop logo" className={style.logoImg} />
+            <img
+              src={LogoLarge}
+              alt="Tech-Shop logo"
+              className={style.logoImg}
+            />
           </div>
         </NavLink>
         <CatalogBtn />
@@ -69,9 +75,12 @@ const Header = () => {
             ) as JSX.Element)
           )}
         </div>
-        <IconBtn onClick={() => openCart()}>
-          <BsCart4 size={30} color="#fff" />
-        </IconBtn>
+        <div className={style.cartBtn}>
+          {!!productsInBasketCount && <div className={style.cartBtnProductsCount}>{productsInBasketCount}</div>}
+          <IconBtn onClick={() => openCart()}>
+            <BsCart4 size={30} color="#fff" />
+          </IconBtn>
+        </div>
       </div>
     </header>
   );

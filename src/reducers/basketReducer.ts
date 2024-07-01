@@ -6,6 +6,7 @@ import basketAPI, { TBasket, TBasketProduct } from "api/basketAPI";
 const initialState = {
   basketId: null as null | number,
   basketProducts: [] as TBasketProduct[],
+  basketProductsCount: 0,
   statuses: {
     basketProductCreated: undefined as undefined | string,
     basketProductsFetched: undefined as undefined | string,
@@ -86,10 +87,12 @@ const basketSlice = createSlice({
     builder
       .addCase(setBasket.fulfilled, (state, action) => {
         state.basketId = action.payload?.id || null;
+        state.basketProductsCount = action.payload?.productsInBasket || 0
       })
       .addCase(createBasketProduct.fulfilled, (state) => {
         state.fetchings.basketProductCreating = false;
         state.statuses.basketProductCreated = "success";
+        state.basketProductsCount += 1;
       })
       .addCase(createBasketProduct.rejected, (state, action) => {
         state.fetchings.basketProductCreating = false;

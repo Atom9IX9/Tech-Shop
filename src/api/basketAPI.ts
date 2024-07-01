@@ -53,6 +53,7 @@ export default basketAPI;
 export type TBasket = {
   id: number;
   userId: number;
+  productsInBasket: number;
 };
 export type TBasketProduct = {
   en: string;

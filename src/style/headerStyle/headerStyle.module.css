@@ -196,6 +196,31 @@
   cursor: pointer;
 }
 
+.cartBtn {
+  position: relative;
+}
+.cartBtnProductsCount {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 10px;
+  font-weight: bold;
+  color: #fff;
+  background-color: var(--pink-bg-color);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  animation: showCount 1s ease;
+  -webkit-animation: showCount 1s ease;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
 @media screen and (min-width: 1280px) {
   .logo {
     width: 240px;
@@ -231,5 +256,23 @@
 @media screen and (max-width: 1024px) {
   .logo {
     display: none;
+  }
+}
+
+@keyframes showCount {
+  0% {
+    scale: 1;
+  }
+  25% {
+    scale: 1.75;
+  }
+  50% {
+    scale: 1;
+  }
+  75% {
+    scale: 1.25;
+  }
+  100% {
+    scale: 1;
   }
 }

@@ -33,7 +33,7 @@ import DescriptionForm from "components/Product/DescriptionForm";
 import CustomSlider from "components/UI/Slider";
 import StarRating from "components/Product/StarRating";
 import { createBasketProduct } from "reducers/basketReducer";
-import { getBasketFetchings } from "utils/selectors/basketSelectors";
+import { getBasketFetchings, getBasketStatuses } from "utils/selectors/basketSelectors";
 import classNames from "classnames";
 import { setDialog } from "reducers/appReducer";
 import { TbDiscount, TbDiscountOff } from "react-icons/tb";
@@ -52,6 +52,7 @@ const ProductPage: React.FC = () => {
   const fetchings = useSelector(getFetchings);
   const basketFetchings = useSelector(getBasketFetchings);
   const statuses = useSelector(getProductStatuses);
+  const basketStatuses = useSelector(getBasketStatuses);
   const product = useSelector(getCurrentProduct);
 
   const user = useContext(User);
@@ -71,6 +72,12 @@ const ProductPage: React.FC = () => {
       dispatch(fetchCategories());
     }
   }, [categories.length, dispatch]);
+
+  useEffect(() => {
+    if (basketStatuses.basketProductCreated === "success") {
+      dispatch(setIsInBasket(true));
+    }
+  }, [basketStatuses.basketProductCreated, dispatch])
 
   const like = (method: "ADD" | "REMOVE") => {
     if (user.role === "GUEST") {
@@ -113,7 +120,6 @@ const ProductPage: React.FC = () => {
     if (product) {
       if (!product.isInBasket) {
         dispatch(createBasketProduct(product.id));
-        dispatch(setIsInBasket(true));
       } else {
         dispatch(setDialog({ name: "basket", value: true }));
       }
