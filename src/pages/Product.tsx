@@ -33,7 +33,10 @@ import DescriptionForm from "components/Product/DescriptionForm";
 import CustomSlider from "components/UI/Slider";
 import StarRating from "components/Product/StarRating";
 import { createBasketProduct } from "reducers/basketReducer";
-import { getBasketFetchings, getBasketStatuses } from "utils/selectors/basketSelectors";
+import {
+  getBasketFetchings,
+  getBasketStatuses,
+} from "utils/selectors/basketSelectors";
 import classNames from "classnames";
 import { setDialog } from "reducers/appReducer";
 import { TbDiscount, TbDiscountOff } from "react-icons/tb";
@@ -77,7 +80,7 @@ const ProductPage: React.FC = () => {
     if (basketStatuses.basketProductCreated === "success") {
       dispatch(setIsInBasket(true));
     }
-  }, [basketStatuses.basketProductCreated, dispatch])
+  }, [basketStatuses.basketProductCreated, dispatch]);
 
   const like = (method: "ADD" | "REMOVE") => {
     if (user.role === "GUEST") {
@@ -174,6 +177,11 @@ const ProductPage: React.FC = () => {
                     <span className={style.currency}> ₴</span>
                   </p>
                 </div>
+                {!!product.sale && (
+                  <div className={style.discountPercent}>
+                    -{Math.round(product.sale * 100)}%
+                  </div>
+                )}
                 {user.role === "ADMIN" && (
                   <>
                     {discountUpdating && (
@@ -188,7 +196,7 @@ const ProductPage: React.FC = () => {
                               dropTo: data.dropTo || undefined,
                             })
                           );
-                          setDiscountUpdating(false)
+                          setDiscountUpdating(false);
                         }}
                       />
                     )}
@@ -209,7 +217,6 @@ const ProductPage: React.FC = () => {
                 className={classNames(style.buyBtn, {
                   [style.inBasketBtn]: product.isInBasket,
                 })}
-                
                 onClick={addToBasket}
                 disabled={basketFetchings.basketProductCreating}
               >

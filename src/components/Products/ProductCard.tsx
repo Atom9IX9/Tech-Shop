@@ -7,7 +7,7 @@ import {
   getFetchings,
   getLikedProducts,
 } from "utils/selectors/productSelectors";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, MouseEventHandler } from "react";
 import cn from "classnames";
 import { likeProduct } from "reducers/productsReducer";
 import { useTranslation } from "react-i18next";
@@ -25,7 +25,8 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
 
   const dispatch = useAppDispatch();
 
-  const like = () => {
+  const like: MouseEventHandler = (e) => {
+    e.preventDefault()
     if (!fetchings.like) {
       if (role !== "GUEST") {
         if (!isLiked) {
@@ -44,7 +45,7 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
   }, [likedProducts, product.id]);
 
   return (
-    <div className={style.productCard}>
+    <NavLink className={style.productCard} to={`/product/${product.id}`}>
       <div className={style.liked}>
         <button className={style.likeIcon} onClick={like}>
           {isLiked ? (
@@ -54,8 +55,12 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
           )}
         </button>
       </div>
-      <NavLink to={`/product/${product.id}`}>
         <div className={style.picture}>
+          {!!product.sale && (
+            <div className={style.discountPercent}>
+              -{Math.round(product.sale * 100)}%
+            </div>
+          )}
           <img
             src={
               process.env.REACT_APP_SERVER_API_HOST +
@@ -69,19 +74,22 @@ const ProductCard: React.FC<TProps> = React.memo(({ product }) => {
         <p className={style.title} title={product[i18n.language as TLng]}>
           {product[i18n.language as TLng]}
         </p>
-      </NavLink>
       {product.priceWithDiscount ? (
         <span className={style.price}>{product.price} ₴</span>
       ) : (
         ""
       )}
-      <div className={cn(style.sale, { [style.withoutSale]: !product.priceWithDiscount })}>
+      <div
+        className={cn(style.sale, {
+          [style.withoutSale]: !product.priceWithDiscount,
+        })}
+      >
         <span className={style.priceNumber}>
           {product.priceWithDiscount || product.price}
         </span>
         ₴
       </div>
-    </div>
+    </NavLink>
   );
 });
 
