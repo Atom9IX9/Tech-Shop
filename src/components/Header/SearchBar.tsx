@@ -7,14 +7,13 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { FormEventHandler, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "reducers/store";
-import { fetchProducts } from "reducers/productsReducer";
-import { TLng } from "types/types";
+import { useSearchParams } from "react-router-dom";
 
 const SearchBar = () => {
   const [value, setValue] = useState("");
   const { t, i18n } = useTranslation("header");
-  const dispatch = useAppDispatch();
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { transcript, listening, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
@@ -28,16 +27,21 @@ const SearchBar = () => {
     setValue(transcript);
   }, [transcript]);
 
+  useEffect(() => {
+    const paramsValue = searchParams.get("query") || ""
+    if (!paramsValue) {
+      setSearchParams({});
+    }
+    setValue(paramsValue);
+  }, [searchParams, setSearchParams]);
+
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    dispatch(
-      fetchProducts({
-        category: "all",
-        page: 1,
-        like: value,
-        likeLng: i18n.language as TLng,
-      })
-    );
+    if (!value) {
+      setSearchParams({});
+    } else {
+      setSearchParams({ query: value });
+    }
   };
 
   return (

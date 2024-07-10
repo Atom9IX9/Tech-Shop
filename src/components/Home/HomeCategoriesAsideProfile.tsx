@@ -33,7 +33,6 @@ const HomeCategoriesAsideProfile = () => {
         </div>
       </div>
       <div className={style.userLinks}>
-        <RedLink textStyle="underline">{t("sidebar:myWallet")}</RedLink>
         <RedLink
           textStyle="underline"
           onClick={() => dispatch(setDialog({ name: "basket", value: true }))}

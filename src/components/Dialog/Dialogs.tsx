@@ -1,3 +1,5 @@
+import Catalogue from "./Catalogue";
+
 import { useSelector } from "react-redux";
 import { getDialogs } from "utils/selectors/appGlobalSelectors";
 import Dialog from "components/Dialog/Dialog";
@@ -8,14 +10,19 @@ import { useAppDispatch } from "reducers/store";
 
 const AppDialogs = () => {
   const dialogs = useSelector(getDialogs);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   let [activeDialog, setActiveDialog] = useState<TDialogsName | null>(null);
   useEffect(() => {
+    let isActiveDialog = false;
     Object.keys(dialogs).forEach((dName) => {
       if (dialogs[dName as TDialogsName]) {
         setActiveDialog(dName as TDialogsName);
+        isActiveDialog = true;
       }
     });
+    if (!isActiveDialog) {
+      setActiveDialog(null);
+    }
   }, [dialogs]);
 
   return (
@@ -23,15 +30,30 @@ const AppDialogs = () => {
       {activeDialog && (
         <Dialog
           close={() => {
-            dispatch(setDialog({ name: activeDialog as TDialogsName, value: false }));
-            setActiveDialog(null)
+            dispatch(
+              setDialog({ name: activeDialog as TDialogsName, value: false })
+            );
+            setActiveDialog(null);
           }}
         >
-          {activeDialog === "basket" ? (
+          {(() => {
+            switch (activeDialog) {
+              case "basket":
+                return <BasketDialog />;
+              case "catalogue":
+                return <Catalogue />;
+              default:
+                return <></>;
+            }
+          })()}
+
+          {/* {activeDialog === "basket" ? (
             <BasketDialog />
-          ) : 
+          ) : activeDialog === "catalogue" ? (
+            <Catalogue />
+          ) : (
             ""
-          }
+          )} */}
         </Dialog>
       )}
     </>

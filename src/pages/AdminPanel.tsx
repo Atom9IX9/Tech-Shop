@@ -8,9 +8,7 @@ import { User } from "components/contexts/UserContext";
 const APCategories = withSuspense(
   React.lazy(() => import("components/Admin/APCategories"))
 );
-const APPeoples = withSuspense(
-  React.lazy(() => import("components/Admin/APPeoples"))
-);
+
 const APProducts = withSuspense(
   React.lazy(() => import("components/Admin/APProducts"))
 );
@@ -20,9 +18,7 @@ const APAdmins = withSuspense(
 const APReports = withSuspense(
   React.lazy(() => import("components/Admin/APReports"))
 );
-const APInformation = withSuspense(
-  React.lazy(() => import("components/Admin/APInformation"))
-);
+
 
 const AdminPanel = () => {
   const nav = useNavigate();
@@ -45,8 +41,6 @@ const AdminPanel = () => {
         <Route path="categories" element={<APCategories />} />
         <Route path="products" element={<APProducts />} />
         <Route path="admins" element={<APAdmins />} />
-        <Route path="people" element={<APPeoples />} />
-        <Route path="information" element={<APInformation />} />
         <Route path="reports" element={<APReports />} />
       </Routes>
     </div>

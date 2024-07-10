@@ -19,6 +19,7 @@ const SidebarMainBtns = () => {
       <SbBtn
         icon={<TbCategory2 color="var(--dark-bg-color)" size={27} />}
         title={t("productCatalogue")}
+        onClick={() => dispatch(setDialog({ name: "catalogue", value: true }))}
       />
       <hr />
       <SbBtn

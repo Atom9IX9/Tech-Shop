@@ -34,6 +34,7 @@ input[type="number"]:focus {
 :root {
   --dark-bg-color: #2c2c2c;
   --violet-bg-color: #8c52ff;
+  --violet-active-bg-color: #501aba;
   --pink-bg-color: #FF00B8;
   --pink-active-bg-color: #ff3fb5;
   --dark-active-bg-color: #4c4c4c;

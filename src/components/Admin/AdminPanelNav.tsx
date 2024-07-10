@@ -14,20 +14,6 @@ const AdminPanelNav = () => {
   return (
     <nav className={classNames(style.adminNav, style.APElement)}>
       <NavButton
-      to="information"
-        icon={<MdDashboard size={18} color="gray" />}
-        activeIcon={<MdDashboard size={18} color={"#2F80ED"} />}
-      >
-        {t("information")}
-      </NavButton>
-      <NavButton
-      to="people"
-        icon={<IoPeopleSharp size={18} color="gray" />}
-        activeIcon={<IoPeopleSharp size={18} color="#2F80ED" />}
-      >
-        {t("people")}
-      </NavButton>
-      <NavButton
       to="admins"
         icon={<RiAdminFill size={18} color="gray" />}
         activeIcon={<RiAdminFill size={18} color="#2F80ED" />}

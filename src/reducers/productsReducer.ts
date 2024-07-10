@@ -48,6 +48,7 @@ export const initialState = {
   pageSize: 21,
   likedProducts: [] as number[], // products' id
   currentProduct: undefined as undefined | TFullProduct,
+  isAllLoaded: false
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -299,6 +300,11 @@ const productsSlice = createSlice({
         state.productCards = action.payload.products.rows;
         state.fetchings.productsFetching = false;
         state.page = action.payload.page;
+        if (state.productCards.length === action.payload.products.count) {
+          state.isAllLoaded = true
+        } else {
+          state.isAllLoaded = false
+        }
       })
       .addCase(fetchMoreProducts.fulfilled, (state, action) => {
         if (action.payload.rows.length) {
@@ -306,6 +312,11 @@ const productsSlice = createSlice({
           state.page = state.page + 1;
         }
         state.fetchings.productsFetchingMore = false;
+        if (state.productCards.length === action.payload.count) {
+          state.isAllLoaded = true
+        } else {
+          state.isAllLoaded = false
+        }
       })
       .addCase(fetchProducts.pending, (state, action) => {
         state.fetchings.productsFetching = true;

@@ -11,7 +11,7 @@ export const initialState = {
   isActiveMenu: false,
   dialogs: {
     basket: false,
-    adminCategory: false
+    catalogue: false,
   }
 };
 
@@ -31,4 +31,4 @@ const appSlice = createSlice({
 export default appSlice.reducer;
 export const { setActiveMenu, setDialog } = appSlice.actions;
 export type TInitialState = typeof initialState;
-export type TDialogsName = "basket";
+export type TDialogsName = "basket" | "catalogue";
