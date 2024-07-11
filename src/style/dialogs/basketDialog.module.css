@@ -4,7 +4,7 @@
 
   width: 100%;
   max-width: 1200px;
-  min-width: 600px;
+  min-width: 920px;
   height: 600px;
 
   padding: 38px 50px;
@@ -142,7 +142,7 @@
   align-items: center;
   position: absolute;
   height: 90%;
-  left: 56%;
+  left: 57.5%;
 }
 .countBtn {
   width: 30px;
@@ -155,6 +155,28 @@
 }
 .countNumber {
   color: #6e6e6e;
+}
+
+.deleteBtn {
+  position: absolute;
+  right: 0;
+  border: 0;
+  background: transparent;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.deleteBtn:hover {
+  background-color: #ff00001d;
 }
 
 @media screen and (max-width: 973px) {
@@ -173,7 +195,7 @@
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
-}
+  }
   .orderButtonContainer {
     position: absolute;
     width: 100%;
@@ -213,7 +235,7 @@
     overflow-x: hidden;
   }
   .basketDialog {
-    min-width: none;
+    min-width: 600px;
   }
   .bPTitle {
     display: inline-block;

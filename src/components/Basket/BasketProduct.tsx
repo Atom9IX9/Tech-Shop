@@ -3,19 +3,33 @@ import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import style from "style/dialogs/basketDialog.module.css";
 import { TLng } from "types/types";
-import { getSale } from "utils/getSale";
-import { MdKeyboardArrowUp } from "react-icons/md";
+import { MdKeyboardArrowUp, MdOutlineDelete } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useCount } from "hooks/useCount";
 import { useEffect, useRef } from "react";
 import { useAppDispatch } from "reducers/store";
-import { setBasketProductCount } from "reducers/basketReducer";
+import {
+  deleteBasketProduct,
+  setBasketProductCount,
+} from "reducers/basketReducer";
+import { setIsInBasket } from "reducers/productsReducer";
+import { useSelector } from "react-redux";
+import { getCurrentProductId } from "utils/selectors/productSelectors";
 
 const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
   const { i18n, t } = useTranslation("product");
   const { count, decrement, increment } = useCount(bp.count);
+
+  const currentProductId = useSelector(getCurrentProductId);
   let countTimeoutId = useRef<number>(1);
   const dispatch = useAppDispatch();
+
+  const removeFromBasket = () => {
+    dispatch(deleteBasketProduct(bp.id));
+    if (bp.id === currentProductId) {
+      dispatch(setIsInBasket(false));
+    }
+  };
 
   useEffect(() => {
     if (bp.count !== count) {
@@ -62,6 +76,9 @@ const BasketProduct: React.FC<{ bp: TBasketProduct }> = ({ bp }) => {
       <div className={style.orderButtonContainer}>
         <button className={style.orderButton}>{t("order")}</button>
       </div>
+      <button onClick={removeFromBasket} className={style.deleteBtn}>
+        <MdOutlineDelete size={20} color="#00000050" />
+      </button>
     </li>
   );
 };

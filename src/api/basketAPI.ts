@@ -47,6 +47,14 @@ const basketAPI = {
       return response.data
     } catch (error) {}
   },
+  deleteBasketProduct: async (productId: number) => {
+    try {
+      const deleted = await $authHost.delete<{productId: number}>(`api/basket/product/${productId}`)
+      return deleted.data.productId
+    } catch (error: any) {
+      return Promise.reject(error.response.data)
+    }
+  }
 };
 
 export default basketAPI;

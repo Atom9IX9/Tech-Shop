@@ -32,7 +32,7 @@ import Dialog from "components/Dialog/Dialog";
 import DescriptionForm from "components/Product/DescriptionForm";
 import CustomSlider from "components/UI/Slider";
 import StarRating from "components/Product/StarRating";
-import { createBasketProduct } from "reducers/basketReducer";
+import { createBasketProduct, resetCreatedStatus } from "reducers/basketReducer";
 import {
   getBasketFetchings,
   getBasketStatuses,
@@ -79,6 +79,10 @@ const ProductPage: React.FC = () => {
   useEffect(() => {
     if (basketStatuses.basketProductCreated === "success") {
       dispatch(setIsInBasket(true));
+    }
+
+    return () => {
+      dispatch(resetCreatedStatus())
     }
   }, [basketStatuses.basketProductCreated, dispatch]);
 

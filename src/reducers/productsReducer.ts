@@ -285,6 +285,7 @@ const productsSlice = createSlice({
       state.statuses.categoryCreate = undefined;
       state.statuses.subcategoryCreate = undefined;
       state.statuses.subcategoryFetched = undefined;
+      state.statuses.subcategoryFetched = undefined;
     },
     setIsInBasket: (state, action: PayloadAction<boolean>) => {
       if (state.currentProduct) {

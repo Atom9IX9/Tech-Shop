@@ -75,6 +75,18 @@ export const setBasketProductCount = createAsyncThunk(
   }
 );
 
+export const deleteBasketProduct = createAsyncThunk(
+  "basket/deleteProduct",
+  async (productId: number, { rejectWithValue }) => {
+    try {
+      const basketProductId = await basketAPI.deleteBasketProduct(productId);
+      return basketProductId;
+    } catch (error: any) {
+      rejectWithValue(error.message);
+    }
+  }
+);
+
 const basketSlice = createSlice({
   name: "basket",
   initialState,
@@ -82,12 +94,15 @@ const basketSlice = createSlice({
     resetBasketProducts: (state) => {
       state.basketProducts = [];
     },
+    resetCreatedStatus: (state) => {
+      state.statuses.basketProductCreated = undefined;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(setBasket.fulfilled, (state, action) => {
         state.basketId = action.payload?.id || null;
-        state.basketProductsCount = action.payload?.productsInBasket || 0
+        state.basketProductsCount = action.payload?.productsInBasket || 0;
       })
       .addCase(createBasketProduct.fulfilled, (state) => {
         state.fetchings.basketProductCreating = false;
@@ -114,17 +129,23 @@ const basketSlice = createSlice({
         state.basketProducts = action.payload;
       })
       .addCase(setBasketProductCount.fulfilled, (state, action) => {
-        state.basketProducts.forEach(bp => {
+        state.basketProducts.forEach((bp) => {
           if (bp.id === action.payload.productId) {
-            bp.count = action.payload.count
+            bp.count = action.payload.count;
           }
-        })
+        });
       })
+      .addCase(deleteBasketProduct.fulfilled, (state, action) => {
+        state.basketProducts = state.basketProducts.filter(
+          (bp) => bp.id !== action.payload
+        );
+        state.basketProductsCount -= 1;
+      });
   },
 });
 
 export default basketSlice.reducer;
-export const { resetBasketProducts } = basketSlice.actions;
+export const { resetBasketProducts, resetCreatedStatus } = basketSlice.actions;
 export type TInitialState = typeof initialState;
 export type TSetCountData = {
   count: number;
