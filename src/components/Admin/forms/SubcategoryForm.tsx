@@ -41,9 +41,9 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
   useEffect(() => {
     if (onSuccess && statuses.subcategoryCreate === "success") {
       onSuccess({ ...getValues() });
-      return () => {
-        dispatch(resetCreateStatuses());
-      };
+    }
+    return () => {
+      dispatch(resetCreateStatuses());
     }
   }, [onSuccess, statuses.subcategoryCreate, dispatch, getValues]);
 

@@ -95,6 +95,7 @@ const ProductPage: React.FC = () => {
       dispatch(likeProduct({ id: product?.id || 0, method }));
     }
   };
+  
   const closeDialog = () => {
     setDescriptionDialog(false);
   };

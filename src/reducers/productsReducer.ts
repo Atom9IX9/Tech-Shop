@@ -498,6 +498,9 @@ const productsSlice = createSlice({
             );
         }
       })
+      .addCase(createProductSubcategory.rejected, (state, action) => {
+        state.statuses.subcategoryCreate = action.payload as string
+      })
       .addCase(setDiscount.fulfilled, (state, action) => {
         if (state.currentProduct) {
           state.currentProduct.sale = action.payload.discount;
