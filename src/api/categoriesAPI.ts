@@ -57,30 +57,44 @@ const categoriesAPI = {
   createSubcategory: async (data: TSubcategoryCreateData) => {
     try {
       if (!data.categoryCode) {
-        return Promise.reject({message: "err/categoryIsNull"})
+        return Promise.reject({ message: "err/categoryIsNull" });
       }
-      const response = await $authHost.post<TSubcategory>("api/category/subcategory", data);
-      return response.data
+      const response = await $authHost.post<TSubcategory>(
+        "api/category/subcategory",
+        data
+      );
+      return response.data;
     } catch (error: any) {
-      return Promise.reject(error.response.data)
+      return Promise.reject(error.response.data);
     }
   },
-  getSubcategoriesWithCategory: async (categoryCode: string) => {
+  getSubcategoriesWithCategory: async (
+    categoryCode: string,
+    order?: number
+  ) => {
     try {
-      const response = await $host.get<TSubcategory[]>(`api/category/${categoryCode}`)
-      return response.data || []
+      const response = await $host.get<TSubcategory[]>(
+        `api/category/${categoryCode}/${order || 1}`
+      );
+      return response.data || [];
     } catch (error: any) {
-      return Promise.reject(error.response.data)
+      return Promise.reject(error.response.data);
     }
   },
-  createProductSubcategory: async (subcategoryCode: string, productId: number) => {
+  createProductSubcategory: async (
+    subcategoryCode: string,
+    productId: number
+  ) => {
     try {
-      const response = await $authHost.post<any>(`api/category/productSubcategory`, { productId, subcategoryCode })
-      return response.data
+      const response = await $authHost.post<any>(
+        `api/category/productSubcategory`,
+        { productId, subcategoryCode }
+      );
+      return response.data;
     } catch (error: any) {
-      return Promise.reject(error.response.data)
+      return Promise.reject(error.response.data);
     }
-  }
+  },
 };
 
 export default categoriesAPI;
@@ -91,6 +105,7 @@ export type TSubcategory = {
   ua: string;
   ru: string;
   categoryCode: string;
+  order: number;
 };
 export type TCategoryTranslates = {
   en: string;
@@ -103,4 +118,4 @@ export type TMainCategory = {
     icon: string;
   };
 export type CategoryCreateData = TCategoryTranslates & { icon?: File };
-export type TSubcategoryCreateData = Omit<TSubcategory, "code">
+export type TSubcategoryCreateData = Omit<TSubcategory, "code">;

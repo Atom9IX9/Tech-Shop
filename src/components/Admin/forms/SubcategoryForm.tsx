@@ -22,6 +22,7 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
   defaultSelectValue,
   defaultSelectInpValue,
   onSuccess,
+  order,
 }) => {
   const {
     register,
@@ -30,7 +31,11 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
     resetField,
     setValue,
     getValues,
-  } = useForm<TSubcategoryCreateData>();
+  } = useForm<TSubcategoryCreateData>({
+    defaultValues: {
+      order: order || 1,
+    },
+  });
   const dispatch = useAppDispatch();
   const submitHandler = (data: TSubcategoryCreateData) => {
     dispatch(createSubcategory(data));
@@ -44,8 +49,12 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
     }
     return () => {
       dispatch(resetCreateStatuses());
-    }
+    };
   }, [onSuccess, statuses.subcategoryCreate, dispatch, getValues]);
+
+  useEffect(() => {
+    setValue("order", order || 1)
+  }, [order, setValue])
 
   const { t, i18n } = useTranslation("admin");
 
@@ -108,7 +117,19 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
             />
           </li>
         </ol>
-
+        {!!order && (
+          <div className={style.order}>
+            <APInput<TSubcategoryCreateData>
+              errors={errors}
+              name="order"
+              register={register}
+              required={false}
+              type="number"
+              placeholder="order"
+              reset={resetField}
+            />
+          </div>
+        )}
         <div className={style.createBtnContainer}>
           <SubmitBtn>{t("create") as string}</SubmitBtn>
         </div>
@@ -126,7 +147,7 @@ const SubcategoryForm: React.FC<TSubcategoryFormProps> = ({
   );
 };
 
-export const SubmitBtn: React.FC<{children: TChildren}> = ({children}) => {
+export const SubmitBtn: React.FC<{ children: TChildren }> = ({ children }) => {
   return (
     <button type="submit" className={style.createBtn}>
       {children}
@@ -141,4 +162,5 @@ type TSubcategoryFormProps = {
   defaultSelectValue?: string;
   defaultSelectInpValue?: string;
   onSuccess?: (values: TSubcategoryCreateData) => void;
+  order?: number;
 };

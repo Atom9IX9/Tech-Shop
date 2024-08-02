@@ -48,7 +48,7 @@ export const initialState = {
   pageSize: 21,
   likedProducts: [] as number[], // products' id
   currentProduct: undefined as undefined | TFullProduct,
-  isAllLoaded: false
+  isAllLoaded: false,
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -72,6 +72,8 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
+
+// TODO: adding subcategory with {ORDER: NUMBER}
 
 export const fetchMoreProducts = createAsyncThunk<
   { count: number; rows: TProductCard[] },
@@ -123,10 +125,14 @@ export const fetchCurrentProduct = createAsyncThunk(
 
 export const fetchSubcategories = createAsyncThunk(
   "product/fetchSubcategories",
-  async (categoryCode: string, { rejectWithValue }) => {
+  async (
+    { categoryCode, order }: TFetchSubcategoriesThunkData,
+    { rejectWithValue }
+  ) => {
     try {
       const subcategories = await categoriesAPI.getSubcategoriesWithCategory(
-        categoryCode
+        categoryCode,
+        order
       );
       return subcategories;
     } catch (error: any) {
@@ -266,7 +272,7 @@ export const createProductSubcategory = createAsyncThunk(
         payload.subcategory.code,
         payload.productId
       );
-      return payload.subcategory;
+      return {...payload.subcategory, order: payload.order};
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -302,9 +308,9 @@ const productsSlice = createSlice({
         state.fetchings.productsFetching = false;
         state.page = action.payload.page;
         if (state.productCards.length === action.payload.products.count) {
-          state.isAllLoaded = true
+          state.isAllLoaded = true;
         } else {
-          state.isAllLoaded = false
+          state.isAllLoaded = false;
         }
       })
       .addCase(fetchMoreProducts.fulfilled, (state, action) => {
@@ -314,9 +320,9 @@ const productsSlice = createSlice({
         }
         state.fetchings.productsFetchingMore = false;
         if (state.productCards.length === action.payload.count) {
-          state.isAllLoaded = true
+          state.isAllLoaded = true;
         } else {
-          state.isAllLoaded = false
+          state.isAllLoaded = false;
         }
       })
       .addCase(fetchProducts.pending, (state, action) => {
@@ -471,11 +477,6 @@ const productsSlice = createSlice({
         state.statuses.subcategoryFetched = "success";
         let subcategoriesForAdding: TSubcategory[] = action.payload;
         if (state.currentProduct) {
-          state.currentProduct.subcategories.forEach((csc) => {
-            subcategoriesForAdding = subcategoriesForAdding.filter(
-              (scfa) => scfa.code !== csc.code
-            );
-          });
           state.currentProduct.addSubcategoryOptions = subcategoriesForAdding;
         }
       })
@@ -492,19 +493,17 @@ const productsSlice = createSlice({
             ...state.currentProduct.subcategories,
             action.payload,
           ];
-          state.currentProduct.addSubcategoryOptions =
-            state.currentProduct.addSubcategoryOptions.filter(
-              (sc) => sc.code !== action.payload.code
-            );
         }
+        debugger
       })
       .addCase(createProductSubcategory.rejected, (state, action) => {
-        state.statuses.subcategoryCreate = action.payload as string
+        state.statuses.subcategoryCreate = action.payload as string;
       })
       .addCase(setDiscount.fulfilled, (state, action) => {
         if (state.currentProduct) {
           state.currentProduct.sale = action.payload.discount;
-          state.currentProduct.priceWithDiscount = Number(action.payload.priceWithDiscount) || null;
+          state.currentProduct.priceWithDiscount =
+            Number(action.payload.priceWithDiscount) || null;
           if (action.payload.discount === 0) {
             state.statuses.discountUpdated = undefined;
           } else {
@@ -562,9 +561,11 @@ type TAddRatingData = {
 type TCreateProductSubcategoryPayload = {
   subcategory: TSubcategory;
   productId: number;
+  order: number
 };
 export type TSetDiscountData = {
   productId: number;
   dropTo?: number;
   discountPercent?: number;
 };
+export type TFetchSubcategoriesThunkData = { categoryCode: string; order?: number }

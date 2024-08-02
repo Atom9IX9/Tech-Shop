@@ -10,7 +10,7 @@ import style from "style/productStyle/productPage.module.css";
 import { getCategoryTranslate } from "utils/getCategoryTranslateWithCode";
 import { useTranslation } from "react-i18next";
 import { TLng } from "types/types";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAppDispatch } from "reducers/store";
 import {
   createProductSubcategory,
@@ -18,7 +18,9 @@ import {
 } from "reducers/productsReducer";
 import { User } from "components/contexts/UserContext";
 import Dialog from "components/Dialog/Dialog";
-import SubcategoryForm, { SubmitBtn } from "components/Admin/forms/SubcategoryForm";
+import SubcategoryForm, {
+  SubmitBtn,
+} from "components/Admin/forms/SubcategoryForm";
 import { APSelect } from "components/Admin/APInput";
 import { useForm } from "react-hook-form";
 import { getEnCode } from "utils/getCategoryCode";
@@ -35,9 +37,21 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
   const { role } = useContext(User);
 
   const [dialog, setDialog] = useState(false);
+  const [currentSubcategoryOrder, setCurrentSubcategoryOrder] = useState(
+    subcategories.length ? subcategories[subcategories.length - 1].order + 1 : 1
+  );
+
+  useEffect(() => {
+    dispatch(
+      fetchSubcategories({
+        categoryCode: category,
+        order: currentSubcategoryOrder,
+      })
+    );
+  }, [subcategories, category, dispatch, currentSubcategoryOrder]);
+
   const addSubcategory = () => {
     setDialog(true);
-    dispatch(fetchSubcategories(category));
   };
   const { setValue, handleSubmit } = useForm<{
     subcategoryCode: string;
@@ -48,16 +62,22 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
       createProductSubcategory({
         productId,
         subcategory: { ...data, code: getEnCode(data.en) },
+        order: currentSubcategoryOrder,
       })
     );
+    setCurrentSubcategoryOrder(currentSubcategoryOrder + 1)
   };
   const onSubmit = ({ subcategoryCode }: { subcategoryCode: string }) => {
     dispatch(
       createProductSubcategory({
         productId,
-        subcategory: subcategoriesForAdding.filter(sc => sc.code === subcategoryCode)[0]
+        subcategory: subcategoriesForAdding.filter(
+          (sc) => sc.code === subcategoryCode
+        )[0],
+        order: currentSubcategoryOrder
       })
-    )
+    );
+    setCurrentSubcategoryOrder(currentSubcategoryOrder + 1)
   };
 
   return (
@@ -65,7 +85,10 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
       {dialog && (
         <Dialog close={() => setDialog(false)}>
           <div className={style.dialogWindow}>
-            <form onSubmit={handleSubmit(onSubmit)} className={style.dialogWindowForm}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className={style.dialogWindowForm}
+            >
               <APSelect
                 name="subcategoryCode"
                 options={subcategoriesForAdding?.map((sc) => ({
@@ -84,7 +107,7 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
               disableSelect={true}
               defaultSelectValue={category}
               defaultSelectInpValue={getCategoryTranslate(categories, category)}
-              //todo: creating productSubcategory on success creating
+              order={currentSubcategoryOrder}
               onSuccess={successHandler}
             />
           </div>

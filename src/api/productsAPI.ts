@@ -68,12 +68,15 @@ const productsAPI = {
     try {
       const response = await Promise.all([
         $host.get<TFullProduct | undefined>(`api/product/${id}/user/${userId}`),
-        $host.get<TSubcategory[]>(`api/category/productsubcategory/${id}`),
+        $host.get<TSubcategory[]>(`api/category/productSubcategory/${id}`),
       ]);
       if (!response[0].data) {
         return Promise.reject({ message: "err/product_is_null" });
       }
-      return { ...response[0].data, subcategories: response[1].data };
+      return {
+        ...response[0].data,
+        subcategories: response[1].data.sort((a, b) => a.order - b.order),
+      };
     } catch (err: any) {
       return Promise.reject(err.response.data);
     }
@@ -154,10 +157,11 @@ const productsAPI = {
     dropTo?: number
   ) => {
     try {
-      const discount = await $authHost.put<{ discount: number, priceWithDiscount: string | null }>(
-        `api/product/discount/${productId}`, { dropTo, discountPercent }
-      );
-      return discount.data
+      const discount = await $authHost.put<{
+        discount: number;
+        priceWithDiscount: string | null;
+      }>(`api/product/discount/${productId}`, { dropTo, discountPercent });
+      return discount.data;
     } catch (error: any) {
       return Promise.reject(error.response.data);
     }

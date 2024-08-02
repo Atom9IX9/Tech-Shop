@@ -231,6 +231,17 @@
   height: min-content;
 }
 
+.order {
+  display: flex;
+  width: 100%;
+}
+.order input {
+  width: 100px;
+}
+.order button {
+  display: none;
+}
+
 @keyframes successAnim {
   0% {
     outline: 2px solid #00800000;
