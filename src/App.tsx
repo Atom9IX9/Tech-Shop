@@ -15,7 +15,6 @@ import AppDialogs from "components/Dialog/Dialogs";
 const SignIn = withSuspense(React.lazy(() => import("pages/SignIn")));
 const SignUp = withSuspense(React.lazy(() => import("pages/SignUp")));
 const About = withSuspense(React.lazy(() => import("pages/About")));
-const Catalog = withSuspense(React.lazy(() => import("pages/Catalog")));
 const Contacts = withSuspense(React.lazy(() => import("pages/Contacts")));
 const PageWithCategory = withSuspense(
   React.lazy(() => import("pages/Category"))
@@ -55,7 +54,6 @@ const App = () => {
           <Route path="sign-in" element={<SignIn />} /> 
           <Route path="about" element={<About />} /> {/* todo */}
           <Route path="contacts" element={<Contacts />} /> {/* todo */}
-          <Route path="all-categories" element={<Catalog />} /> {/* todo */}
           <Route path="liked-products" element={<LikedProducts />} /> 
           <Route path="admin-panel/*" element={<AdminPanel />} /> 
           <Route

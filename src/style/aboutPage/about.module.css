@@ -1,0 +1,82 @@
+.pageContainer {
+  width: 65%;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.pageContainer h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 35px;
+  color: var(--violet-bg-color);
+}
+
+.pageContainer h4 {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  color: #000;
+}
+
+.infoSection {
+  margin-top: 50px;
+}
+
+.technologies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 150px);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.technology {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  border: 1px solid;
+
+  width: 150px;
+  height: 150px;
+
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+
+  cursor: pointer;
+
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  -ms-transition: all 200ms;
+  -o-transition: all 200ms;
+}
+
+.technology .technologyTitle {
+  position: absolute;
+  bottom: 15px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+  .pageContainer {
+    width: 100%;
+    padding: 20px 10px;
+  }
+  .technologies {
+    justify-content: center;
+  }
+  h3 {
+    text-align: center;
+  }
+  h4 {
+    text-align: center;
+  }
+}
