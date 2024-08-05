@@ -9,10 +9,12 @@ import { BsCart4 } from "react-icons/bs";
 import style from "style/sidebarStyle/sidebarStyle.module.css";
 import { useAppDispatch } from "reducers/store";
 import { setDialog } from "reducers/appReducer";
+import { useNavigate } from "react-router-dom";
 
 const SidebarMainBtns = () => {
-  const { t } = useTranslation("sidebar");
+  const { t } = useTranslation(["sidebar", "common"]);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
   return (
     <div className={style.btns}>
@@ -24,7 +26,8 @@ const SidebarMainBtns = () => {
       <hr />
       <SbBtn
         icon={<BsQuestionCircle color="var(--dark-bg-color)" size={27} />}
-        title={t("helpCenter")}
+        title={t("common:about")}
+        onClick={() => navigate("/about")}
       />
       <SbBtn
         icon={<FaTelegramPlane color="var(--dark-bg-color)" size={27} />}

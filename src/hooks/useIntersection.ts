@@ -12,11 +12,16 @@ export const useIntersection = (options?: IntersectionObserverInit) => {
   };
 
   useEffect(() => {
+    let observerRefValue: HTMLDivElement | null = null;
     const observer = new IntersectionObserver(callback);
-    if (containerRef.current) observer.observe(containerRef.current)
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+      observerRefValue = containerRef.current; 
+    }
 
     return () => {
-      if(containerRef.current) observer.unobserve(containerRef.current)
+      if (observerRefValue) observer.unobserve(observerRefValue);
     }
   }, [containerRef, options]);
 

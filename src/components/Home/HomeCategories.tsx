@@ -15,7 +15,7 @@ import { fetchCategories } from "reducers/productsReducer";
 import { User } from "components/contexts/UserContext";
 
 const HomeCategories = () => {
-  const { t } = useTranslation(["sidebar"]);
+  const { t } = useTranslation(["sidebar", "common"]);
   const dispatch = useAppDispatch()
   const { role } = useContext(User)
 
@@ -37,9 +37,9 @@ const HomeCategories = () => {
         ))}
       </ul>
       <nav className={style.categoriesNav}>
-        <NavLink to="/" className={style.categoriesNavElement}>
+        <NavLink to="/about" className={style.categoriesNavElement}>
           <RedLink icon={<BsQuestionCircle size={25} color="#00000050" />}>
-            {t("helpCenter")}
+            {t("common:about")}
           </RedLink>
         </NavLink>
         <NavLink to="/" className={style.categoriesNavElement}>

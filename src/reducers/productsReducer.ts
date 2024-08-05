@@ -494,7 +494,6 @@ const productsSlice = createSlice({
             action.payload,
           ];
         }
-        debugger
       })
       .addCase(createProductSubcategory.rejected, (state, action) => {
         state.statuses.subcategoryCreate = action.payload as string;

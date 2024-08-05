@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { IoPeopleSharp } from "react-icons/io5";
-import { MdDashboard, MdCategory, MdReportProblem } from "react-icons/md";
+import { MdCategory, MdReportProblem } from "react-icons/md";
 import { FaShoppingBag } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 import classNames from "classnames";
