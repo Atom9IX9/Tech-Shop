@@ -36,7 +36,7 @@ const userAPI = {
   },
   checkAuth: async () => {
     try {
-      const response: AxiosResponse<TCheckAuthData> = await $authHost.get("api/user/auth");
+      const response: AxiosResponse<TUserData> = await $authHost.get("api/user/auth");
       localStorage.setItem("userToken", response.data.token)
       return response.data.user;
     } catch (err: any) {
@@ -46,7 +46,7 @@ const userAPI = {
 };
 
 export default userAPI;
-type TAddress = {
+export type TAddress = {
   address: {
     city?: string;
     town?: string;
@@ -68,14 +68,10 @@ export type TUserData = {
   token: string;
   user: TUser;
 };
-type TUser = {
+export type TUser = {
   id: number;
   email: string;
   role: "ADMIN" | "USER";
   name: string;
   surname: string;
-}
-type TCheckAuthData = {
-  user: TUser;
-  token: string;
 }

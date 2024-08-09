@@ -14,7 +14,6 @@ export const initialState: TUserAuth = {
   error: undefined,
   isChecked: false
 };
-// console.warn("~default 'ADMIN'")
 
 export const fetchUserLocationByCoords = createAsyncThunk(
   "user/fetchAddress",
