@@ -50,14 +50,14 @@ export const createBasketProduct = createAsyncThunk<
 
 export const fetchBasketProducts = createAsyncThunk<
   TBasketProduct[],
-  void,
+  number | undefined,
   { state: RootState; rejectedValue: string }
->("basket/getProducts", async (_, { rejectWithValue, getState }) => {
+>("basket/getProducts", async (basketId, { rejectWithValue, getState }) => {
   try {
-    const basketId = getState().basket.basketId;
+    const currentBasketId = basketId || getState().basket.basketId;
     let products = [];
-    if (basketId) {
-      products = await basketAPI.getBasketProducts(basketId);
+    if (currentBasketId) {
+      products = await basketAPI.getBasketProducts(currentBasketId);
       return products;
     } else {
       return rejectWithValue("basketId_is_null");
@@ -93,6 +93,7 @@ const basketSlice = createSlice({
   reducers: {
     resetBasketProducts: (state) => {
       state.basketProducts = [];
+      state.basketProductsCount = 0;
     },
     resetCreatedStatus: (state) => {
       state.statuses.basketProductCreated = undefined;
