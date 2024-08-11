@@ -42,7 +42,7 @@ describe("basketSlice", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-
+  //actions
   test("resetBasketProducts", () => {
     const newState = reducer(initialState, resetBasketProducts());
     expect(newState.basketProducts.length).toBe(0);
@@ -52,6 +52,7 @@ describe("basketSlice", () => {
     const newState = reducer(initialState, resetCreatedStatus());
     expect(newState.statuses.basketProductCreated).toBe(undefined);
   });
+  //thunks
   test("setBasket", async () => {
     const dispatch = jest.fn();
     const getState = jest.fn();

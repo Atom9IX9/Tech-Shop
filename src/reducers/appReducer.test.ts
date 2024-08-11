@@ -13,6 +13,7 @@ const initialState: TInitialState = {
 };
 
 describe("appSlice", () => {
+  //actions
   test("setActiveMenu", () => {
     const { isActiveMenu } = appReducer(initialState, setActiveMenu(true));
     expect(isActiveMenu).toBe(true);

@@ -73,8 +73,6 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
-// TODO: adding subcategory with {ORDER: NUMBER}
-
 export const fetchMoreProducts = createAsyncThunk<
   { count: number; rows: TProductCard[] },
   Omit<TFetchPostsPayload, "page">,
@@ -124,7 +122,7 @@ export const fetchCurrentProduct = createAsyncThunk(
 );
 
 export const fetchSubcategories = createAsyncThunk(
-  "product/fetchSubcategories",
+  "products/fetchSubcategories",
   async (
     { categoryCode, order }: TFetchSubcategoriesThunkData,
     { rejectWithValue }
@@ -140,6 +138,7 @@ export const fetchSubcategories = createAsyncThunk(
     }
   }
 );
+
 export const fetchCategories = createAsyncThunk(
   "products/fetchCategories",
   async (_, { rejectWithValue }) => {
@@ -164,6 +163,7 @@ export const createCategory = createAsyncThunk(
     }
   }
 );
+
 export const createSubcategory = createAsyncThunk(
   "products/createSubcategory",
   async (createData: TSubcategoryCreateData, thunk) => {
@@ -188,7 +188,7 @@ export const createProduct = createAsyncThunk(
 );
 
 export const updateProductDescription = createAsyncThunk(
-  "product/updateDescription",
+  "products/updateDescription",
   async (
     { productId, data }: TUpdateProductDescriptionThunkData,
     { rejectWithValue }
@@ -203,7 +203,7 @@ export const updateProductDescription = createAsyncThunk(
 );
 
 export const likeProduct = createAsyncThunk(
-  "products/like",
+  "products/likeProduct",
   async ({ id, method }: TLikeProductPayload) => {
     const likedProduct = (await productsAPI.like(
       id,
@@ -212,11 +212,12 @@ export const likeProduct = createAsyncThunk(
     return { likedProduct, method };
   }
 );
+
 export const addRating = createAsyncThunk(
-  "product/addRating",
+  "products/addRating",
   async ({ rate, productId }: TAddRatingData, { rejectWithValue }) => {
     try {
-      const data = productsAPI.addRate(productId, rate);
+      const data = await productsAPI.addRate(productId, rate);
       return data;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -225,7 +226,7 @@ export const addRating = createAsyncThunk(
 );
 
 export const fetchLikedProductIds = createAsyncThunk(
-  "products/fetchLiked",
+  "products/fetchLikedProductIds",
   async () => {
     const likedProductIds = await productsAPI.getLikedProductIds();
     return likedProductIds.likedProductIds;
@@ -233,7 +234,7 @@ export const fetchLikedProductIds = createAsyncThunk(
 );
 
 export const deleteCategory = createAsyncThunk(
-  "product/deleteCategory",
+  "products/deleteCategory",
   async (categoryCode: string, { rejectWithValue }) => {
     try {
       await categoriesAPI.deleteCategory(categoryCode);
@@ -246,7 +247,7 @@ export const deleteCategory = createAsyncThunk(
 );
 
 export const setDiscount = createAsyncThunk(
-  "product/setDiscount",
+  "products/setDiscount",
   async (
     { productId, discountPercent, dropTo }: TSetDiscountData,
     { rejectWithValue }
@@ -265,7 +266,7 @@ export const setDiscount = createAsyncThunk(
 );
 
 export const createProductSubcategory = createAsyncThunk(
-  "product/createProductSubcategory~",
+  "products/createProductSubcategory",
   async (payload: TCreateProductSubcategoryPayload, { rejectWithValue }) => {
     try {
       await categoriesAPI.createProductSubcategory(
@@ -291,7 +292,7 @@ const productsSlice = createSlice({
       state.statuses.categoryCreate = undefined;
       state.statuses.subcategoryCreate = undefined;
       state.statuses.subcategoryFetched = undefined;
-      state.statuses.subcategoryFetched = undefined;
+      state.statuses.categoryFetched = undefined;
     },
     setIsInBasket: (state, action: PayloadAction<boolean>) => {
       if (state.currentProduct) {
@@ -535,29 +536,29 @@ export type TProductCharacteristics = {
   categories: string[];
   characteristics?: { [key: string]: string };
 };
-type TFetchPostsPayload = {
+export type TFetchPostsPayload = {
   category: string;
   page: number;
   like?: string;
   likeLng?: TLng;
 };
-type TLikeProductPayload = {
+export type TLikeProductPayload = {
   id: number;
   method: "ADD" | "REMOVE";
 };
-type TUpdateProductDescriptionThunkData = {
+export type TUpdateProductDescriptionThunkData = {
   productId: number;
   data: TDescriptionData;
 };
-type FetchProductData = {
+export type FetchProductData = {
   id: number;
   userId: number;
 };
-type TAddRatingData = {
+export type TAddRatingData = {
   rate: number;
   productId: number;
 };
-type TCreateProductSubcategoryPayload = {
+export type TCreateProductSubcategoryPayload = {
   subcategory: TSubcategory;
   productId: number;
   order: number

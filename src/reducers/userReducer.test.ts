@@ -30,7 +30,7 @@ describe("userSlice", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-
+  //actions
   test("signOutUser", () => {
     const newState = reducer(initialState, signOutUser());
     expect(newState.role).toBe("GUEST");
@@ -39,6 +39,7 @@ describe("userSlice", () => {
     expect(newState.email).toBe(null);
     expect(newState.id).toBe(null);
   });
+  //thunks
   test("fetchUserLocationByCoords", async () => {
     const dispatch = jest.fn();
     const getState = jest.fn();
