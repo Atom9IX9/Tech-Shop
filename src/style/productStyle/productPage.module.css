@@ -326,6 +326,8 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  max-width: 512px;
+  max-height: 669px;
 }
 
 .dialogWindowForm {

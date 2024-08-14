@@ -22,6 +22,9 @@ const PageWithCategory = withSuspense(
 const LikedProducts = withSuspense(
   React.lazy(() => import("pages/LikedProducts"))
 );
+const ViewedProducts = withSuspense(
+  React.lazy(() => import("pages/ViewedProducts"))
+);
 const AdminPanel = withSuspense(React.lazy(() => import("pages/AdminPanel")));
 const Product = withSuspense(React.lazy(() => import("pages/Product")));
 
@@ -48,18 +51,19 @@ const App = () => {
     <div className="app">
       <AppDialogs />
       <Routes>
-        <Route path="/" element={<Layout />}> 
-          <Route index element={<Home />} /> 
-          <Route path="sign-up" element={<SignUp />} /> 
-          <Route path="sign-in" element={<SignIn />} /> 
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="sign-up" element={<SignUp />} />
+          <Route path="sign-in" element={<SignIn />} />
           <Route path="about" element={<About />} /> {/* todo */}
           <Route path="contacts" element={<Contacts />} /> {/* todo */}
-          <Route path="liked-products" element={<LikedProducts />} /> 
-          <Route path="admin-panel/*" element={<AdminPanel />} /> 
+          <Route path="liked-products" element={<LikedProducts />} />
+          <Route path="viewed-products" element={<ViewedProducts />} />
+          <Route path="admin-panel/*" element={<AdminPanel />} />
           <Route
             path=":category/:subcategory?"
             element={<PageWithCategory />}
-          /> 
+          />
           <Route path="product/:id" element={<Product />} />
         </Route>
       </Routes>

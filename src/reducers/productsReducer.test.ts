@@ -13,6 +13,7 @@ import reducer, {
   fetchProducts,
   fetchProductsWithSubcategory,
   fetchSubcategories,
+  fetchViewedProducts,
   likeProduct,
   resetCreateStatuses,
   resetDiscountStatus,
@@ -143,6 +144,7 @@ const initialState: TInitialState = {
     ua: "ua",
   },
   isAllLoaded: false,
+  viewedProducts: [],
 };
 
 describe("productsSlice", () => {
@@ -723,11 +725,13 @@ describe("productsSlice", () => {
         en: "en",
         order: 1,
         ru: "ru",
-        ua: "ua"
-      }
+        ua: "ua",
+      },
     };
 
-    (categoriesAPI.createProductSubcategory as jest.Mock).mockResolvedValue(mockResponse);
+    (categoriesAPI.createProductSubcategory as jest.Mock).mockResolvedValue(
+      mockResponse
+    );
 
     const thunk = createProductSubcategory(mockPayload);
     await thunk(dispatch, getState, undefined);
@@ -740,7 +744,45 @@ describe("productsSlice", () => {
       (call) => call[0]
     );
     expect(startAction.type).toBe("products/createProductSubcategory/pending");
-    expect(successAction.type).toBe("products/createProductSubcategory/fulfilled");
-    expect(successAction.payload).toEqual({...mockPayload.subcategory, order: mockPayload.order});
-  })
+    expect(successAction.type).toBe(
+      "products/createProductSubcategory/fulfilled"
+    );
+    expect(successAction.payload).toEqual({
+      ...mockPayload.subcategory,
+      order: mockPayload.order,
+    });
+  });
+  test("fetchViewedProducts", async () => {
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+    const mockResponse: TProductCard[] = [
+      {
+        categoryCode: "cat1",
+        en: "en",
+        ua: "ua",
+        ru: "ru",
+        price: 100,
+        id: 1,
+        imgs: "ing.jpg",
+        priceWithDiscount: 100,
+        sale: 0,
+      },
+    ];
+
+    (productsAPI.getViewedProducts as jest.Mock).mockResolvedValue(
+      mockResponse
+    );
+
+    const thunk = fetchViewedProducts();
+    await thunk(dispatch, getState, undefined);
+    
+    const [startAction, successAction] = dispatch.mock.calls.map(
+      (call) => call[0]
+    );
+    expect(startAction.type).toBe("products/fetchViewedProducts/pending");
+    expect(successAction.type).toBe(
+      "products/fetchViewedProducts/fulfilled"
+    );
+    expect(successAction.payload).toEqual(mockResponse);
+  });
 });

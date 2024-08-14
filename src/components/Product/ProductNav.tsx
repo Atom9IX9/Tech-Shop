@@ -65,7 +65,7 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
         order: currentSubcategoryOrder,
       })
     );
-    setCurrentSubcategoryOrder(currentSubcategoryOrder + 1)
+    setCurrentSubcategoryOrder(currentSubcategoryOrder + 1);
   };
   const onSubmit = ({ subcategoryCode }: { subcategoryCode: string }) => {
     dispatch(
@@ -74,10 +74,10 @@ const ProductPageNav: React.FC<TProductPageNav> = ({
         subcategory: subcategoriesForAdding.filter(
           (sc) => sc.code === subcategoryCode
         )[0],
-        order: currentSubcategoryOrder
+        order: currentSubcategoryOrder,
       })
     );
-    setCurrentSubcategoryOrder(currentSubcategoryOrder + 1)
+    setCurrentSubcategoryOrder(currentSubcategoryOrder + 1);
   };
 
   return (

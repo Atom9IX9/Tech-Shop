@@ -166,6 +166,22 @@ const productsAPI = {
       return Promise.reject(error.response.data);
     }
   },
+  viewProduct: async (productId: number) => {
+    try {
+      const response = await $authHost.post<TWatchedProductData>(`api/product/watched/${productId}`)
+      return response.data
+    } catch (error: any) {
+      return Promise.reject(error.response.data);
+    }
+  },
+  getViewedProducts: async () => {
+    try {
+      const response = await $authHost.get<TProductCard[]>("api/product/watched")
+      return response.data
+    } catch (error: any) {
+      return Promise.reject(error.response.data);
+    }
+  }
 };
 
 export default productsAPI;
@@ -217,3 +233,8 @@ export type TRateData = {
   productId: number;
   averageRating: number; // 0.0-5.0
 };
+export type TWatchedProductData = {
+  id: number;
+  userId: number;
+  productId: number;
+}
