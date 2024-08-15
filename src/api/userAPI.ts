@@ -14,7 +14,7 @@ const userAPI = {
     try {
       const response: AxiosResponse<TUserData> = await $host.post(
         "api/user/sign-up",
-        signUpData
+        { ...signUpData, password: signUpData.passwordReg }
       );
       localStorage.setItem("userToken", response.data.token);
       return response.data;
@@ -36,8 +36,10 @@ const userAPI = {
   },
   checkAuth: async () => {
     try {
-      const response: AxiosResponse<TUserData> = await $authHost.get("api/user/auth");
-      localStorage.setItem("userToken", response.data.token)
+      const response: AxiosResponse<TUserData> = await $authHost.get(
+        "api/user/auth"
+      );
+      localStorage.setItem("userToken", response.data.token);
       return response.data.user;
     } catch (err: any) {
       return Promise.reject(err.response.data);
@@ -54,7 +56,7 @@ export type TAddress = {
 };
 export type TSignUpData = {
   email: string;
-  password: string;
+  passwordReg: string;
   name: string;
   surname: string;
   phoneNumber: string;
@@ -74,4 +76,4 @@ export type TUser = {
   role: "ADMIN" | "USER";
   name: string;
   surname: string;
-}
+};

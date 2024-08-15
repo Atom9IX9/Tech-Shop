@@ -34,7 +34,7 @@ const SignInForm = () => {
 
   useEffect(() => {
     if (!error && role !== "GUEST") {
-      navigate(-1);
+      navigate(-2);
     } else if (error?.message !== "pending" && error && error.message) {
       setError("root", { message: "err/" + error.message });
     }
@@ -50,6 +50,7 @@ const SignInForm = () => {
         touched={touchedFields.email}
         isDirty={dirtyFields.email}
         validate={{ isValidEmail }}
+        autoComplete="on"
       />
       <Input<TSignInData>
         name="password"
@@ -59,6 +60,7 @@ const SignInForm = () => {
         type="password"
         touched={touchedFields.password}
         isDirty={dirtyFields.password}
+        autoComplete="on"
       />
       <div className={style.rootErr}>
         {t(`auth:${errors.root?.message || ""}`)}

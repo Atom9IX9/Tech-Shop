@@ -77,7 +77,7 @@ describe("userSlice", () => {
     const mockSignUpData: TSignUpData = {
       email: "userEmail@gmail.com",
       name: "UserName1",
-      password: "123456",
+      passwordReg: "123456",
       phoneNumber: "00000000000",
       surname: "UserSurname1",
     };

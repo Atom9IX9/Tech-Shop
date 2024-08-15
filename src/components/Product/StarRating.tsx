@@ -42,6 +42,7 @@ const StarRating: React.FC<TStarRatingProps> = ({
         onMouseEnter={(e) => setHoverIndex(i)}
         onMouseLeave={(e) => setHoverIndex(null)}
         onClick={() => rateHandler(i + 1)}
+        key={i}
       />
     );
   }

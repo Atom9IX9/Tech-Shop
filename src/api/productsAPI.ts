@@ -171,7 +171,10 @@ const productsAPI = {
       const response = await $authHost.post<TWatchedProductData>(`api/product/watched/${productId}`)
       return response.data
     } catch (error: any) {
-      return Promise.reject(error.response.data);
+      if (error.response.data.message !== "without_authorization") {
+        return Promise.reject(error.response.data);
+      }
+      
     }
   },
   getViewedProducts: async () => {

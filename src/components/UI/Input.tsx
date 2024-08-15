@@ -9,6 +9,9 @@ import {
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
 import { CgDanger } from "react-icons/cg";
+import { RiEyeLine } from "react-icons/ri";
+import { useState } from "react";
+import { RiEyeOffLine } from "react-icons/ri";
 
 function Input<F extends FieldValues>({
   type,
@@ -19,9 +22,11 @@ function Input<F extends FieldValues>({
   errors,
   touched = false,
   isDirty = false,
-  autoComplete = "off",
+  autoComplete = "new",
+  maxLength = 0,
 }: TProps<F>) {
   const { t } = useTranslation("auth");
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
   return (
     <div
@@ -34,13 +39,39 @@ function Input<F extends FieldValues>({
           <>
             <div className={style.label}>{t(`fields/${name}`)}</div>
             <div className={style.inputBody}>
+              {type === "number" && (
+                <div className={style.countryPhone}>+38</div>
+              )}
               <input
-                type={type}
+                type={
+                  type !== "password" ? type : isPasswordHidden ? type : "text"
+                }
                 {...register(name, { required, validate })}
                 className={style.input}
                 autoComplete={autoComplete}
                 autoSave={autoComplete}
+                onInput={(e) => {
+                  if (maxLength) {
+                    const value = e.currentTarget.value;
+                    if (value.length > maxLength) {
+                      e.currentTarget.value = value.slice(0, maxLength);
+                    }
+                  }
+                }}
               />
+              {type === "password" && (
+                <button
+                  type="button"
+                  onClick={() => setIsPasswordHidden(!isPasswordHidden)}
+                  className={style.showPassword}
+                >
+                  {isPasswordHidden ? (
+                    <RiEyeLine size={20} color="#666666" />
+                  ) : (
+                    <RiEyeOffLine size={20} color="#666666" />
+                  )}
+                </button>
+              )}
               {(errors[name] || errors.root) && (
                 <CgDanger color="red" size={20} />
               )}
@@ -82,5 +113,6 @@ type TProps<T extends FieldValues> = {
   errors: FieldErrors<T>;
   touched?: boolean;
   isDirty?: boolean;
-  autoComplete?: "on" | "off";
+  autoComplete?: "on" | "off" | "new";
+  maxLength?: number;
 };

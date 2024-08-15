@@ -34,7 +34,7 @@ const SignUpForm = () => {
 
   useEffect(() => {
     if (!error && role !== "GUEST") {
-      navigate(-1);
+      navigate(-2);
     } else if (error?.message !== "pending" && error && error.message) {
       setError(error?.info?.field, { message: "err/" + error.message });
     }
@@ -68,6 +68,7 @@ const SignUpForm = () => {
         required
         type="number"
         isDirty={dirtyFields.phoneNumber}
+        maxLength={10}
       />
       <Input<TSignUpData>
         touched={touchedFields.email}
@@ -81,7 +82,7 @@ const SignUpForm = () => {
       />
       <Input<TSignUpData>
         errors={errors}
-        name="password"
+        name="passwordReg"
         register={register}
         type="password"
         required
