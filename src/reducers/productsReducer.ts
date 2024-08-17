@@ -49,7 +49,8 @@ export const initialState = {
   likedProducts: [] as number[], // products' id
   currentProduct: undefined as undefined | TFullProduct,
   isAllLoaded: false,
-  viewedProducts: [] as TProductCard[]
+  viewedProducts: [] as TProductCard[],
+  ratedProducts: [] as TProductCard[],
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -114,7 +115,7 @@ export const fetchCurrentProduct = createAsyncThunk(
   async ({ id, userId }: FetchProductData, { rejectWithValue }) => {
     try {
       const product = await productsAPI.getProduct(id, userId);
-      productsAPI.viewProduct(id)
+      productsAPI.viewProduct(id);
       return product;
     } catch (e) {
       const err = e as { message: string };
@@ -275,7 +276,7 @@ export const createProductSubcategory = createAsyncThunk(
         payload.subcategory.code,
         payload.productId
       );
-      return {...payload.subcategory, order: payload.order};
+      return { ...payload.subcategory, order: payload.order };
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -286,13 +287,25 @@ export const fetchViewedProducts = createAsyncThunk(
   "products/fetchViewedProducts",
   async (_, { rejectWithValue }) => {
     try {
-      const products = await productsAPI.getViewedProducts()
+      const products = await productsAPI.getViewedProducts();
+      return products;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchRatedProducts = createAsyncThunk(
+  "products/fetchRatedProducts",
+  async (_, { rejectWithValue }) => {
+    try {
+      const products = await productsAPI.getRatedProducts()
       return products
     } catch (error: any) {
       return rejectWithValue(error.message)
     }
   }
-)
+);
 
 const productsSlice = createSlice({
   name: "products",
@@ -534,14 +547,26 @@ const productsSlice = createSlice({
         state.statuses.discountUpdated = action.payload as string;
       })
       .addCase(fetchViewedProducts.fulfilled, (state, action) => {
-        state.viewedProducts = action.payload
-        state.fetchings.productsFetching = false
-        state.statuses.productsFetched = "success"
+        state.viewedProducts = action.payload;
+        state.fetchings.productsFetching = false;
+        state.statuses.productsFetched = "success";
       })
       .addCase(fetchViewedProducts.pending, (state) => {
-        state.fetchings.productsFetching = true
+        state.fetchings.productsFetching = true;
       })
       .addCase(fetchViewedProducts.rejected, (state, action) => {
+        state.fetchings.productsFetching = false;
+        state.statuses.productsFetched = action.payload as string;
+      })
+      .addCase(fetchRatedProducts.fulfilled, (state, action) => {
+        state.ratedProducts = action.payload
+        state.statuses.productsFetched = "success"
+        state.fetchings.productsFetching = false
+      })
+      .addCase(fetchRatedProducts.pending, (state) => {
+        state.fetchings.productsFetching = true
+      })
+      .addCase(fetchRatedProducts.rejected, (state, action) => {
         state.fetchings.productsFetching = false
         state.statuses.productsFetched = action.payload as string
       })
@@ -587,11 +612,14 @@ export type TAddRatingData = {
 export type TCreateProductSubcategoryPayload = {
   subcategory: TSubcategory;
   productId: number;
-  order: number
+  order: number;
 };
 export type TSetDiscountData = {
   productId: number;
   dropTo?: number;
   discountPercent?: number;
 };
-export type TFetchSubcategoriesThunkData = { categoryCode: string; order?: number }
+export type TFetchSubcategoriesThunkData = {
+  categoryCode: string;
+  order?: number;
+};

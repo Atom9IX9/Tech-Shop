@@ -40,7 +40,7 @@ const HomeCategoriesAsideProfile = () => {
           {t("sidebar:basket")}
         </RedLink>
         <RedLink onClick={() => navigate("/viewed-products")} textStyle="underline">{t("sidebar:viewed")}</RedLink>
-        <RedLink textStyle="underline">{t("sidebar:myReviews")}</RedLink>
+        <RedLink onClick={() => navigate("/rated-products")} textStyle="underline">{t("sidebar:myReviews")}</RedLink>
         <RedLink onClick={signOut} textStyle="underline">
           {t("common:signOut")}
         </RedLink>

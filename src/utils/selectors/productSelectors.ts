@@ -13,3 +13,5 @@ export const getCurrentProductId = (state: RootState) =>
 export const getIsAllLoaded = (state: RootState) => state.products.isAllLoaded;
 export const getViewedProducts = (state: RootState) =>
   state.products.viewedProducts;
+export const getRatedProducts = (state: RootState) =>
+  state.products.ratedProducts;

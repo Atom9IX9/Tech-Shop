@@ -25,6 +25,9 @@ const LikedProducts = withSuspense(
 const ViewedProducts = withSuspense(
   React.lazy(() => import("pages/ViewedProducts"))
 );
+const RatedProducts = withSuspense(
+  React.lazy(() => import("pages/RatedProducts"))
+);
 const AdminPanel = withSuspense(React.lazy(() => import("pages/AdminPanel")));
 const Product = withSuspense(React.lazy(() => import("pages/Product")));
 
@@ -59,6 +62,7 @@ const App = () => {
           <Route path="contacts" element={<Contacts />} /> {/* todo */}
           <Route path="liked-products" element={<LikedProducts />} />
           <Route path="viewed-products" element={<ViewedProducts />} />
+          <Route path="rated-products" element={<RatedProducts />} />
           <Route path="admin-panel/*" element={<AdminPanel />} />
           <Route
             path=":category/:subcategory?"

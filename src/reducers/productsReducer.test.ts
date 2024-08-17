@@ -145,6 +145,7 @@ const initialState: TInitialState = {
   },
   isAllLoaded: false,
   viewedProducts: [],
+  ratedProducts: []
 };
 
 describe("productsSlice", () => {

@@ -16,7 +16,14 @@
   -o-transition: scale 400ms;
 
   cursor: pointer;
+
+  overflow: hidden;
 }
+
+.productCard.rated {
+  height: 370px;
+}
+
 .productCard:hover {
   scale: 1.025;
   box-shadow: -3px 3px 20px rgba(0, 0, 0, 0.562);

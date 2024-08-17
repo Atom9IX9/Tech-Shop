@@ -184,6 +184,14 @@ const productsAPI = {
     } catch (error: any) {
       return Promise.reject(error.response.data);
     }
+  },
+  getRatedProducts: async () => {
+    try {
+      const response = await $authHost.get<TProductCard[]>("api/product/rated")
+      return response.data
+    } catch (error: any) {
+      return Promise.reject(error.response.data)
+    }
   }
 };
 
@@ -198,6 +206,7 @@ export type TProductCard = {
   sale: number; // 0-100% ==> 0.00-1.00
   categoryCode: string;
   imgs: string; // url ~example("img1.jpg/img2.jpg/img3.jpg") ==> to arr: img.split("/")
+  userRate?: number // 0-5
 };
 export type TProductCreateData = {
   en: string;
