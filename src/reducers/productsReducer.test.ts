@@ -12,6 +12,7 @@ import reducer, {
   FetchProductData,
   fetchProducts,
   fetchProductsWithSubcategory,
+  fetchRatedProducts,
   fetchSubcategories,
   fetchViewedProducts,
   likeProduct,
@@ -21,6 +22,7 @@ import reducer, {
   setDiscount,
   setIsInBasket,
   TAddRatingData,
+  TCreateProductPayload,
   TCreateProductSubcategoryPayload,
   TFetchPostsPayload,
   TFetchSubcategoriesThunkData,
@@ -145,7 +147,7 @@ const initialState: TInitialState = {
   },
   isAllLoaded: false,
   viewedProducts: [],
-  ratedProducts: []
+  ratedProducts: [],
 };
 
 describe("productsSlice", () => {
@@ -516,16 +518,18 @@ describe("productsSlice", () => {
   test("createProduct", async () => {
     const dispatch = jest.fn();
     const getState = jest.fn();
-    const mockPayload: TProductCreateData = {
-      category: "cat1",
-      en: "en",
-      ua: "ua",
-      ru: "ru",
-      price: "200",
-      imgs: undefined,
+    const mockPayload: TCreateProductPayload = {
+      data: {
+        category: "cat1",
+        en: "en",
+        ua: "ua",
+        ru: "ru",
+        price: "200",
+        imgs: undefined,
+      },
     };
     const mockResponse: TProductCard = {
-      categoryCode: mockPayload.category,
+      categoryCode: mockPayload.data.category,
       en: "en",
       ua: "ua",
       ru: "ru",
@@ -540,7 +544,7 @@ describe("productsSlice", () => {
 
     const thunk = createProduct(mockPayload);
     await thunk(dispatch, getState, undefined);
-    expect(productsAPI.createProduct).toHaveBeenCalledWith(mockPayload);
+    expect(productsAPI.createProduct).toHaveBeenCalledWith(mockPayload.data);
 
     const [startAction, successAction] = dispatch.mock.calls.map(
       (call) => call[0]
@@ -776,14 +780,39 @@ describe("productsSlice", () => {
 
     const thunk = fetchViewedProducts();
     await thunk(dispatch, getState, undefined);
-    
+
     const [startAction, successAction] = dispatch.mock.calls.map(
       (call) => call[0]
     );
     expect(startAction.type).toBe("products/fetchViewedProducts/pending");
-    expect(successAction.type).toBe(
-      "products/fetchViewedProducts/fulfilled"
-    );
+    expect(successAction.type).toBe("products/fetchViewedProducts/fulfilled");
     expect(successAction.payload).toEqual(mockResponse);
   });
+  test("fetchRatedProducts", async () => {
+    const dispatch = jest.fn()
+    const getState = jest.fn()
+    const mockResponse: TProductCard[] = [
+      {
+        categoryCode: "cat2",
+        en: "en1",
+        ua: "ua1",
+        id: 2,
+        imgs: "imgs.jpg1",
+        price: 2200,
+        priceWithDiscount: 2200,
+        ru: "ru1",
+        sale: 0,
+      }
+    ];
+
+    (productsAPI.getRatedProducts as jest.Mock).mockResolvedValue(mockResponse);
+
+    const thunk = fetchRatedProducts()
+    await thunk(dispatch, getState, undefined)
+
+    const [startAction, successAction] = dispatch.mock.calls.map(call => call[0]);
+    expect(startAction.type).toBe("products/fetchRatedProducts/pending");
+    expect(successAction.type).toBe("products/fetchRatedProducts/fulfilled");
+    expect(successAction.payload).toBe(mockResponse);
+  })
 });

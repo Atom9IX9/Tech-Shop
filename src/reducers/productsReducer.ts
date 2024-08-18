@@ -180,9 +180,12 @@ export const createSubcategory = createAsyncThunk(
 );
 export const createProduct = createAsyncThunk(
   "products/createProduct",
-  async (createData: TProductCreateData, thunk) => {
+  async ({ afterCreate, data }: TCreateProductPayload, thunk) => {
     try {
-      const product = await productsAPI.createProduct(createData);
+      const product = await productsAPI.createProduct(data);
+      if (afterCreate) {
+        afterCreate(product)
+      }
       return product;
     } catch (error: any) {
       return thunk.rejectWithValue(error.message);
@@ -623,3 +626,7 @@ export type TFetchSubcategoriesThunkData = {
   categoryCode: string;
   order?: number;
 };
+export type TCreateProductPayload = {
+  data: TProductCreateData,
+  afterCreate?: (product: TProductCard) => void
+}

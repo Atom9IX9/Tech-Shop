@@ -20,6 +20,7 @@ import { ChangeEvent, DragEventHandler, useEffect, useState } from "react";
 import style_g from "style/admin/adminStyle.module.css";
 import { useTranslation } from "react-i18next";
 import { TLng } from "types/types";
+import { useNavigate } from "react-router-dom";
 
 const APProducts = () => {
   const {
@@ -39,8 +40,16 @@ const APProducts = () => {
   });
   const statuses = useSelector(getProductStatuses);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
   const onSubmit = (data: TProductCreateData) => {
-    dispatch(createProduct({ ...data, imgs: images }));
+    dispatch(
+      createProduct({
+        data: { ...data, imgs: images },
+        afterCreate: (product) => {
+          navigate(`/product/${product.id}`)
+        },
+      })
+    );
   };
 
   const [isDrag, setIsDrag] = useState(false);
@@ -172,7 +181,9 @@ const APProducts = () => {
                     if (index > 3) return <></>;
                     return <div>{i.name}</div>;
                   })}
-                  {(images && images?.length > 4) && <div>and {images?.length - 4} else</div>}
+                  {images && images?.length > 4 && (
+                    <div>and {images?.length - 4} else</div>
+                  )}
                 </div>
               </div>
             </div>
