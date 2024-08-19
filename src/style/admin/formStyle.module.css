@@ -242,6 +242,16 @@
   display: none;
 }
 
+.imageName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.deleteImg {
+  cursor: pointer;
+}
+
 @keyframes successAnim {
   0% {
     outline: 2px solid #00800000;

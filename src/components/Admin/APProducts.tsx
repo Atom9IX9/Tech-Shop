@@ -21,6 +21,7 @@ import style_g from "style/admin/adminStyle.module.css";
 import { useTranslation } from "react-i18next";
 import { TLng } from "types/types";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const APProducts = () => {
   const {
@@ -40,13 +41,13 @@ const APProducts = () => {
   });
   const statuses = useSelector(getProductStatuses);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onSubmit = (data: TProductCreateData) => {
     dispatch(
       createProduct({
         data: { ...data, imgs: images },
         afterCreate: (product) => {
-          navigate(`/product/${product.id}`)
+          navigate(`/product/${product.id}`);
         },
       })
     );
@@ -55,7 +56,7 @@ const APProducts = () => {
   const [isDrag, setIsDrag] = useState(false);
   const dragStartHandler: DragEventHandler = (e) => {
     e.preventDefault();
-    if (!images) setIsDrag(true);
+    setIsDrag(true);
   };
   const dragLeaveHandler: DragEventHandler = (e) => {
     e.preventDefault();
@@ -179,7 +180,21 @@ const APProducts = () => {
                 <div className={classNames(fStyle.iconNames, "unselectable")}>
                   {Array.from(images || [])?.map((i, index) => {
                     if (index > 3) return <></>;
-                    return <div>{i.name}</div>;
+                    return (
+                      <div className={fStyle.imageName}>
+                        {i.name}{" "}
+                        <AiOutlineCloseCircle
+                          size={18}
+                          color="var(--red-bg-color)"
+                          className={fStyle.deleteImg}
+                          onClick={() => {
+                            setImages(
+                              images?.filter((image) => image.name !== i.name)
+                            );
+                          }}
+                        />
+                      </div>
+                    );
                   })}
                   {images && images?.length > 4 && (
                     <div>and {images?.length - 4} else</div>
